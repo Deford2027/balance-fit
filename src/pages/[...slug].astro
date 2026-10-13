@@ -50,6 +50,7 @@ const target = page.redirect?.startsWith('/') ? base + page.redirect : page.redi
     <html {...page.htmlAttrs}>
       <head>
         <meta name="robots" content="noindex, nofollow" />
+        <script is:inline src={`${base}/no-leads.js`}></script>
         <Fragment set:html={rebase(page.head!)} />
       </head>
       <body {...page.bodyAttrs}>
