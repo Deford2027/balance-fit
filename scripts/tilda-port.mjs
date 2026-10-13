@@ -65,12 +65,16 @@ async function fetchPage(path) {
 
 /** Путь страницы сайта из ссылки или null, если ссылка не на страницу сайта */
 function sitePath(href) {
-  const m = href.trim().match(/^(?:https?:\/\/(?:www\.)?balance-fit\.ru)?(\/[^?#"']*)?([?#].*)?$/);
-  if (!m || (!m[1] && !/^https?:/.test(href.trim()))) return null;
-  const p = (m[1] || '/').replace(/^\/+|\/+$/g, '');
-  if (/\.[a-z0-9]{2,4}$/i.test(p)) return null; // файлы
-  return p;
+  const h = href.trim();
+  if (h.startsWith('//')) return null; // адрес без протокола – чужой хост
+  const m = h.match(/^(?:https?:\/\/(?:www\.)?balance-fit\.ru)?(\/[^?#"']*)?([?#].*)?$/);
+  if (!m || (!m[1] && !/^https?:/.test(h))) return null;
+  return (m[1] || '/').replace(/^\/+|\/+$/g, '');
 }
+
+const isFile = (p) => /\.[a-z0-9]{2,4}$/i.test(p);
+/* блок Тильды T303 – переадресация скриптом location.replace(адрес) */
+const T303 = /data-record-type="305"[\s\S]*?location\.replace\(\\?"([^"\\]+)\\?"/;
 
 /* ---------- обход ---------- */
 
@@ -98,10 +102,17 @@ while (queue.length) {
         return;
       }
       if (r.status !== 200) return void missing.push(`${p} – ${r.status}`);
+      const t303 = r.html.match(T303);
+      if (t303) {
+        const to = sitePath(t303[1]);
+        pages.set(p, { redirect: to });
+        if (to !== null) queue.push(to);
+        return;
+      }
       pages.set(p, { html: r.html });
       for (const m of r.html.matchAll(/href=["']([^"']*)["']/g)) {
         const q = sitePath(m[1]);
-        if (q !== null && !seen.has(q)) queue.push(q);
+        if (q !== null && !isFile(q) && !seen.has(q)) queue.push(q);
       }
     }),
   );
@@ -134,6 +145,7 @@ function mapLinks(s) {
   return s.replace(/(\shref=)(["'])([^"']*)\2/g, (full, a, q, href) => {
     const p = sitePath(href);
     if (p === null) return full;
+    if (isFile(p)) return `${a}${q}${SITE}/${p}${href.match(/[?#].*$/)?.[0] || ''}${q}`;
     const tail = href.match(/[?#].*$/)?.[0] || '';
     return ported.has(p) ? `${a}${q}/${p}${tail}${q}` : `${a}${q}${SITE}/${p}${tail}${q}`;
   });
@@ -147,7 +159,10 @@ const dropped = new Set();
 for (const [path, pg] of pages) {
   const file = join(OUT, fileOf(path) + '.json');
   if ('redirect' in pg) {
-    const to = pg.redirect === null ? SITE : ported.has(pg.redirect) ? `/${pg.redirect}` : `${SITE}/${pg.redirect}`;
+    /* цепочки (cards → borodinskaya/cards → imperial/cards) сразу в конечную страницу */
+    let end = pg.redirect;
+    for (let k = 0; k < 5 && end !== null && pages.get(end) && 'redirect' in pages.get(end); k++) end = pages.get(end).redirect;
+    const to = end === null ? SITE : ported.has(end) && !('redirect' in pages.get(end)) ? `/${end}` : `${SITE}/${end}`;
     writeFileSync(file, JSON.stringify({ path, redirect: to }));
     continue;
   }

@@ -1,11 +1,11 @@
 /* Копия сайта не принимает заявки (решение владельца 13.10.2026).
    1. Отправка формы и клик по кнопке «Отправить» ловятся на window в фазе
       захвата – раньше обработчиков Тильды, Zero-форм и плагинов Nolim.
-   2. Запасной рубеж: запросы на приёмники заявок Тильды и Calltouch
+   2. Запасной рубеж: запросы на приёмники заявок Тильды, Calltouch и загрузку файлов
       (XHR, fetch, sendBeacon, form.submit) не уходят.
    Вместо отправки – строка внизу экрана. */
 (function () {
-  var LEAD = /forms\d?\.tilda(cdn|api)\.|tildaapi\.[a-z]+\/procces|calltouch/i;
+  var LEAD = /forms\d?\.tilda(cdn|api)\.|tildaapi\.[a-z]+\/procces|calltouch|upwidget\.tilda|uploadcare/i;
   var SUBMIT = '.t-submit, .tn-form__submit, button[type="submit"], input[type="submit"]';
 
   function notice() {
