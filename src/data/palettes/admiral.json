@@ -1,0 +1,20 @@
+{
+  "note": "Упрощённая палитра /admiral: чёрный фон, тёмно-синие карточки, один красный акцент. Без зелёного, розового, ярко-синего и лаймовых звёзд. Кнопка «Программа лояльности» – белая, «Хочу в Balance» – красная.",
+  "colors": {
+    "#28348a": "#00244b",
+    "#283489": "#00244b",
+    "#001f4a": "#00244b",
+    "#0a2348": "#00244b",
+    "#004e8d": "#00244b",
+    "#5d8b16": "#00244b",
+    "#286c1c": "#00244b",
+    "#3b6b29": "#00244b",
+    "#678a2e": "#00244b",
+    "#4e8d00": "#00244b",
+    "#eb9f9c": "#00244b",
+    "#fa1924": "#ff3f49",
+    "#d20003": "#ff3f49",
+    "#eb0f0f": "#ff3f49"
+  },
+  "css": "img[src*=\"logo-star\"],img[data-original*=\"logo-star\"]{visibility:hidden!important}.tn-elem[data-elem-id=\"1706692006215\"] .tn-atom{background-color:#ff3f49!important}.tn-elem:has(a[href=\"#popup:infoblock\"]) .tn-atom{background-color:#ffffff!important;color:#000000!important}"
+}

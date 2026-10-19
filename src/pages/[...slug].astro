@@ -13,12 +13,20 @@ type Page = {
   body?: string;
 };
 
+/** Своя палитра страницы (src/data/palettes/<путь>.json): замена цветов в разметке
+    и стилях после порта и доп. CSS. Данные порта не трогаем – перепорт её не сотрёт. */
+type Palette = { colors?: Record<string, string>; css?: string };
+
 export function getStaticPaths() {
   const files = import.meta.glob<Page>('../data/pages/*.json', { eager: true, import: 'default' });
-  return Object.values(files).map((page) => ({ params: { slug: page.path || undefined }, props: { page } }));
+  const palettes = import.meta.glob<Palette>('../data/palettes/*.json', { eager: true, import: 'default' });
+  return Object.values(files).map((page) => ({
+    params: { slug: page.path || undefined },
+    props: { page, palette: palettes[`../data/palettes/${page.path || 'index'}.json`] },
+  }));
 }
 
-const { page } = Astro.props as { page: Page };
+const { page, palette } = Astro.props as { page: Page; palette?: Palette };
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 function rebase(s: string) {
@@ -28,6 +36,13 @@ function rebase(s: string) {
     .replace(/(\shref=)(["'])\/(?!\/|_t\/)/g, `$1$2${base}/`)
     .replace(/(^|[^\w/.\\-])\/_t\//g, `$1${base}/_t/`)
     .replace(/\\\/_t\\\//g, `${base.replace(/\//g, '\\/')}\\/_t\\/`);
+}
+
+function recolor(s: string) {
+  if (!palette?.colors) return s;
+  const map = Object.fromEntries(Object.entries(palette.colors).map(([k, v]) => [k.toLowerCase(), v]));
+  const re = new RegExp(`(${Object.keys(map).join('|')})(?![0-9a-f])`, 'gi');
+  return s.replace(re, (m) => map[m.toLowerCase()]);
 }
 
 const target = page.redirect?.startsWith('/') ? base + page.redirect : page.redirect;
@@ -51,10 +66,11 @@ const target = page.redirect?.startsWith('/') ? base + page.redirect : page.redi
       <head>
         <meta name="robots" content="noindex, nofollow" />
         <script is:inline src={`${base}/no-leads.js`}></script>
-        <Fragment set:html={rebase(page.head!)} />
+        <Fragment set:html={recolor(rebase(page.head!))} />
+        {palette?.css && <style is:inline set:html={palette.css} />}
       </head>
       <body {...page.bodyAttrs}>
-        <Fragment set:html={rebase(page.body!)} />
+        <Fragment set:html={recolor(rebase(page.body!))} />
       </body>
     </html>
   )
