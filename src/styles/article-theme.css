@@ -1,0 +1,185 @@
+/* Тема статей balance-fit.ru (custom.css клиента, блок «tema statey Balance»),
+   перенесённая для страниц клубов: та же палитра, сетка «текст + оглавление»,
+   плашки фактов, карточки и подвал. Префикс .bal-page – чтобы не задеть Тильду. */
+:root{
+  --bg:#000000; --surface:#101010; --text:#ffffff; --muted:rgba(255,255,255,.62); --line:rgba(255,255,255,.14);
+  --accent:#c4e805; --accent-text:#000000; --action:#ff3f49;
+  --navy:#00244b; --blue:#28348a; --olive:#678a2e;
+  --r-lg:40px; --r-md:24px; --r-pill:100px; --w:1240px;
+}
+html{scroll-behavior:smooth;background:var(--bg)}
+.bal-page *{box-sizing:border-box}
+.bal-page{margin:0;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;
+  font-family:'TildaSans',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-size:19px;line-height:1.5;font-weight:400;-webkit-font-smoothing:antialiased}
+.bal-page img{max-width:100%;height:auto;display:block}
+.bal-page a{color:inherit}
+.bal-page .shell{max-width:var(--w);margin:0 auto;padding:0 24px}
+
+/* ── шапка ── */
+.bal-page .top{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.82);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bal-page .top__in{display:flex;align-items:center;gap:28px;height:76px}
+.bal-page .top__logo img{height:30px;width:auto}
+.bal-page .top__nav{display:flex;gap:26px;margin-left:auto;font-size:16px;color:var(--muted)}
+.bal-page .top__nav a{text-decoration:none}
+.bal-page .top__nav a:hover{color:var(--text)}
+.bal-page .top__tel{font-size:16px;text-decoration:none;white-space:nowrap}
+
+.bal-page .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 26px;border-radius:var(--r-pill);text-decoration:none;font:inherit;font-size:16px;
+  border:0;cursor:pointer;transition:transform .15s ease,opacity .15s ease;white-space:nowrap}
+.bal-page .btn:hover{transform:translateY(-1px);opacity:.92}
+.bal-page .btn--lime{background:var(--accent);color:var(--accent-text);font-weight:600}
+.bal-page .btn--action{background:var(--action);color:#fff;font-size:18px;padding:16px 32px}
+.bal-page .btn--ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+
+.bal-page .crumbs{font-size:14px;color:var(--muted);padding-top:22px}
+.bal-page .crumbs a{text-decoration:none}
+.bal-page .crumbs a:hover{color:var(--text)}
+.bal-page .crumbs span{margin:0 8px;opacity:.6}
+
+/* ── герой ── */
+.bal-page .hero{padding:40px 0 20px}
+.bal-page .hero__grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:56px;align-items:stretch}
+.bal-page .hero__text{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.bal-page .eyebrow{font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:18px}
+.bal-page h1{font-size:clamp(32px,3.2vw,56px);line-height:1.08;font-weight:400;
+  margin:0 0 20px;letter-spacing:-.015em;text-wrap:balance}
+.bal-page .hero__lead{font-size:19px;line-height:1.55;color:rgba(255,255,255,.78);
+  max-width:46ch;margin:0 0 24px}
+.bal-page .hero__meta{display:flex;gap:22px;flex-wrap:wrap;font-size:15px;color:var(--muted);margin-bottom:30px}
+.bal-page .hero__actions{display:flex;gap:14px;flex-wrap:wrap}
+.bal-page .hero__media{position:relative;min-width:0}
+.bal-page .hero__cover{border-radius:var(--r-lg);overflow:hidden;width:100%;height:100%;
+  min-height:clamp(340px,40vw,500px)}
+.bal-page .hero__cover img{width:100%;height:100%;object-fit:cover}
+.bal-page .hero__badge{position:absolute;left:-22px;bottom:28px;background:var(--accent);
+  color:var(--accent-text);border-radius:var(--r-md);padding:20px 24px;max-width:260px;
+  box-shadow:0 18px 48px rgba(0,0,0,.45)}
+.bal-page .hero__badge-num{display:block;font-size:34px;line-height:1.05;margin-bottom:6px}
+.bal-page .hero__badge-txt{display:block;font-size:15px;line-height:1.35;opacity:.82}
+
+/* ── плашки фактов ── */
+.bal-page .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:44px 0 8px}
+.bal-page .fact{padding:28px;border-radius:var(--r-md);min-height:172px;display:flex;
+  flex-direction:column;gap:10px}
+.bal-page .fact--1{background:var(--navy)}
+.bal-page .fact--2{background:var(--olive)}
+.bal-page .fact--3{background:var(--blue)}
+.bal-page .fact__k{font-size:24px;line-height:1.22}
+.bal-page .fact__v{font-size:16px;line-height:1.45;color:rgba(255,255,255,.78)}
+
+/* ── сетка со стороной ── */
+.bal-page .grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;
+  align-items:start;padding:20px 0 40px}
+.bal-page .side{position:sticky;top:96px;max-height:calc(100vh - 112px);
+  display:flex;flex-direction:column;gap:14px}
+.bal-page .side__card{background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:20px 18px 20px 20px;display:flex;flex-direction:column;min-height:0}
+.bal-page .side__title{font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:18px}
+.bal-page .side__nav{list-style:none;margin:0;padding:0 8px 0 0;counter-reset:toc;
+  overflow-y:auto;min-height:0;overscroll-behavior:contain}
+.bal-page .side__nav li{counter-increment:toc}
+.bal-page .side__nav a{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:baseline;
+  font-size:14.5px;line-height:1.32;color:rgba(255,255,255,.66);text-decoration:none;
+  padding:8px 10px;border-radius:12px;transition:background .15s ease,color .15s ease}
+.bal-page .side__nav a::before{content:counter(toc,decimal-leading-zero);font-size:12px;
+  color:rgba(255,255,255,.34)}
+.bal-page .side__nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.bal-page .side__nav a.is-active{color:var(--accent-text);background:var(--accent);font-weight:500}
+.bal-page .side__nav a.is-active::before{color:rgba(0,0,0,.5)}
+.bal-page .side__cta{background:var(--action);border-radius:var(--r-md);padding:24px;flex:none}
+.bal-page .side__cta p{margin:0 0 16px;font-size:16px;line-height:1.4}
+.bal-page .side__cta .btn{width:100%;background:#fff;color:#000;font-weight:600}
+
+/* ── разделы ── */
+.bal-page .sec,.bal-page .cta{scroll-margin-top:96px}
+.bal-page .sec{padding:38px 0;border-top:1px solid var(--line)}
+.bal-page .sec--intro{border-top:0;padding-top:8px}
+.bal-page .sec--intro p:first-child{font-size:20px;color:rgba(255,255,255,.9)}
+.bal-page .sec h2{font-size:40px;line-height:1.2;font-weight:400;margin:0 0 22px;
+  letter-spacing:-.01em;color:var(--accent)}
+.bal-page .sec p{margin:0 0 18px;color:rgba(255,255,255,.86)}
+.bal-page .sec ul{margin:0 0 20px;padding-left:22px}
+.bal-page .sec li{margin-bottom:10px;color:rgba(255,255,255,.86)}
+.bal-page .sec strong{color:#fff;font-weight:600}
+.bal-page .sec a{color:var(--accent)}
+.bal-page .art-fig{margin:6px 0 26px}
+.bal-page .art-fig img{width:100%;border-radius:var(--r-md);aspect-ratio:16/9;object-fit:cover}
+.bal-page .art-fig figcaption{margin-top:12px;font-size:14px;color:var(--muted)}
+
+/* ── карточки (клубные карты) ── */
+.bal-page .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:6px 0 24px}
+.bal-page .card{padding:24px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);
+  display:flex;flex-direction:column;gap:10px}
+.bal-page .card__name{font-size:22px;line-height:1.25;color:var(--text)}
+.bal-page .card__text{font-size:16px;line-height:1.45;color:rgba(255,255,255,.78)}
+.bal-page .card__hours{margin-top:auto;font-size:14px;color:var(--muted)}
+
+/* ── галерея ── */
+.bal-page .gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:6px 0 10px}
+.bal-page .gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+
+/* ── финальный призыв с формой ── */
+.bal-page .cta{background:var(--olive);border-radius:var(--r-lg);padding:60px;margin:10px 0 40px;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.bal-page .cta h2{font-size:40px;line-height:1.15;font-weight:400;margin:0 0 18px}
+.bal-page .cta p{font-size:18px;color:rgba(255,255,255,.9);margin:0}
+.bal-page .form{display:flex;flex-direction:column;gap:12px}
+.bal-page .form input[type=text],.bal-page .form input[type=tel],.bal-page .form input[type=email]{
+  font:inherit;font-size:17px;color:#fff;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.28);
+  border-radius:16px;padding:15px 18px;outline:none}
+.bal-page .form input::placeholder{color:rgba(255,255,255,.6)}
+.bal-page .form input:focus{border-color:#fff}
+.bal-page .form label{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.4;color:rgba(255,255,255,.82)}
+.bal-page .form label input{margin-top:2px;accent-color:var(--accent)}
+.bal-page .form .btn{align-self:flex-start;font-size:18px;padding:17px 34px}
+
+/* ── подвал ── */
+.bal-page .foot{border-top:1px solid var(--line);padding:44px 0;color:var(--muted);font-size:15px}
+.bal-page .foot__clubs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:32px}
+.bal-page .foot__club{padding:22px;border:1px solid var(--line);border-radius:var(--r-md);line-height:1.6}
+.bal-page .foot__club b{display:block;font-weight:400;font-size:18px;color:var(--text);margin-bottom:6px}
+.bal-page .foot__club a{color:var(--accent);text-decoration:none}
+.bal-page .foot__club--current{border-color:var(--accent)}
+.bal-page .foot__links{display:flex;gap:10px 18px;flex-wrap:wrap}
+.bal-page .foot a{text-decoration:none}
+.bal-page .foot__links a:hover{color:var(--text)}
+
+@media (max-width:1060px){
+  .bal-page .grid{grid-template-columns:minmax(0,1fr);gap:0}
+  /* без колонки оглавление и красная плашка оказались бы под текстом, прямо над формой */
+  .bal-page .side{display:none}
+  .bal-page .cta{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:1024px){
+  .bal-page .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bal-page .top__nav{display:none}
+  .bal-page .top__tel{margin-left:auto}
+}
+@media (max-width:960px){
+  .bal-page .hero__grid{grid-template-columns:1fr;gap:30px}
+  .bal-page .hero__media{order:-1}
+  .bal-page .hero__cover{aspect-ratio:16/10;min-height:0}
+  .bal-page .hero__badge{left:auto;right:16px;bottom:-18px;padding:16px 20px}
+}
+@media (max-width:720px){
+  .bal-page{font-size:17px}
+  .bal-page .shell{padding:0 16px}
+  .bal-page .top__in{gap:14px;height:64px}
+  .bal-page .top__logo img{height:24px}
+  .bal-page .top__tel{display:none}
+  .bal-page .top .btn{margin-left:auto;padding:11px 18px;font-size:15px}
+  .bal-page h1{font-size:34px}
+  .bal-page .hero{padding:24px 0 20px}
+  .bal-page .hero__lead{font-size:18px}
+  .bal-page .sec h2,.bal-page .cta h2{font-size:26px}
+  .bal-page .facts,.bal-page .cards,.bal-page .foot__clubs{grid-template-columns:1fr}
+  .bal-page .fact{min-height:0}
+  .bal-page .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bal-page .cta{padding:30px 22px;border-radius:var(--r-md)}
+}

@@ -21,7 +21,8 @@ export function getStaticPaths() {
   const files = import.meta.glob<Page>('../data/pages/*.json', { eager: true, import: 'default' });
   const palettes = import.meta.glob<Palette>('../data/palettes/*.json', { eager: true, import: 'default' });
   return Object.values(files).map((page) => ({
-    params: { slug: page.path || undefined },
+    /* /admiral свёрстана заново (src/pages/admiral.astro), версия Тильды – рядом для сравнения */
+    params: { slug: page.path === 'admiral' ? 'admiral-tilda' : page.path || undefined },
     props: { page, palette: palettes[`../data/palettes/${page.path || 'index'}.json`] },
   }));
 }
