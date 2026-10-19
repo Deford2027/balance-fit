@@ -11,7 +11,7 @@
   качает ресурсы в `public/_t/` (`scripts/tilda-assets.mjs`). Кэш скачанного – `node_modules/.cache/tilda-port`.
 - Маршрут `src/pages/[...slug].astro` собирает страницу из JSON; редиректы Тильды – meta refresh.
 - Подпапка Pages (`/balance-fit`) задаётся `PUBLIC_BASE` при сборке, пути в данных корневые.
-- Публикация: push в main → Actions → https://tema-mail.github.io/balance-fit/ (закрыто от индексации).
+- Публикация: push в main → Actions → https://deford2027.github.io/balance-fit/ (закрыто от индексации).
 
 ## Правила работы
 - Тире только короткое «–».

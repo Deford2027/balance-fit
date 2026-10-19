@@ -24,7 +24,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # сайт живёт в подпапке tema-mail.github.io/balance-fit/
+      # сайт живёт в подпапке deford2027.github.io/balance-fit/
       - run: npm run build
         env:
           PUBLIC_BASE: /balance-fit
