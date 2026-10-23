@@ -1,281 +1,41 @@
 ---
-/** Страница клуба Адмирал в стилистике статей balance-fit.ru (блог «Адмирал»):
-    своя вёрстка вместо Zero-блоков Тильды, тексты и фото – с прежней /admiral
-    (она осталась на /admiral-tilda). Заявки, как и везде на копии, не уходят. */
-import '../styles/article-theme.css';
+/** Главная клуба Адмирал по макету Figma «Balance Адмирал – Главная – Desktop 1440».
+    Разметка – тот же блок, что вставляется в Тильду (src/admiral/admiral-tilda.html):
+    здесь картинки берутся из локальной копии, а попапы Тильды заменены ссылками,
+    потому что на этой странице рантайма Тильды нет. Прошлая версия – /admiral-v1. */
+import block from '../admiral/admiral-tilda.html?raw';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const u = (p: string) => base + p;
-const img = (id: string, name: string) => u(`/_t/static/${id}/${name}`);
 
-const zones = [
-  {
-    id: 'gym', title: 'Тренажёрный зал',
-    photo: img('tild3838-3439-4464-a233-643439366531', '-Balance--02262026_1.jpg'),
-    text: ['Наш тренажёрный зал оснащён современными тренажёрами Nautilus и Star Trac, которые помогут тренироваться максимально эффективно. Четыре зоны для разных активностей в одном пространстве:'],
-    list: [
-      ['Блочные тренажёры', 'для силовых тренировок: укрепляем и увеличиваем мышечную массу, создаём рельеф.'],
-      ['Рычажные тренажёры', '– ещё одна «станция» силовых тренировок.'],
-      ['Свободные веса', 'для детальной проработки конкретных групп мышц.'],
-      ['Зона стретчинга', '– удобная зона растяжки с зеркалами и фитнес-аксессуарами.'],
-    ],
-  },
-  {
-    id: 'cardio', title: 'Кардиозона',
-    photo: img('tild6433-3835-4866-a533-653039313563', 'image.png'),
-    text: [
-      'Мультифункциональное пространство, где можно просто размяться, а можно провести полноценную тренировку.',
-      'Премиальное оборудование Life Fitness: беговые дорожки, эллиптические кросс-тренажёры, тренажёры подъёма по ступеням и велотренажёры.',
-    ],
-  },
-  {
-    id: 'functional', title: 'Зона функционального тренинга',
-    photo: img('tild6539-6638-4763-a234-396630663634', 'image.png'),
-    text: [
-      'Развивает все основные физические качества: ловкость, координацию, гибкость, общую и силовую выносливость.',
-      'Эффект от занятий – больше силы и выносливости, спортивное подтянутое тело, интенсивное жиросжигание, лучше физическая форма и самочувствие.',
-    ],
-  },
-  {
-    id: 'aqua', title: 'Акватермальный комплекс',
-    photo: img('tild3631-6564-4333-b037-383561633332', '20250920_180150.jpg'),
-    text: ['Свобода выбора в Balance: спорт или отдых в панорамном 25-метровом бассейне на 4 дорожки.'],
-    list: [
-      ['Аквааэробика?', 'Да.'],
-      ['Личный рекорд брассом?', 'Да.'],
-      ['Отдохнуть на шезлонге у воды?', 'Да.'],
-      ['Погреться в саунах или хаммаме?', 'Да.'],
-    ],
-  },
-  {
-    id: 'spa', title: 'Банный комплекс и зона отдыха',
-    photo: img('tild3461-3465-4139-a461-303936346134', '-Balance--02262026_1.jpg'),
-    text: ['После тренировки или вместо неё:'],
-    list: [
-      ['Финская сауна и хаммам', '– попариться и прогреться.'],
-      ['Соляная комната', '– провести время с пользой для здоровья.'],
-      ['Шезлонги и массаж', '– отдохнуть в наушниках или с книгой.'],
-    ],
-  },
-  {
-    id: 'group', title: 'Групповые тренировки',
-    photo: img('tild6565-3837-4931-b666-336230323537', '-Balance--02262026_1.jpg'),
-    text: [
-      'Больше 50 программ по расписанию: аэробика, силовые и функциональные программы, танцы, боевые искусства, практика «Разум и тело», Cycle-студия.',
-      'На групповых занятиях складываются настоящие сообщества: здесь делятся энергией, мотивируют и вдохновляют друг друга.',
-    ],
-  },
-  {
-    id: 'fight', title: 'Зона единоборств',
-    photo: img('tild3362-3065-4639-a138-383862306131', 'image.png'),
-    text: [
-      'Персональные и групповые тренировки для детей и взрослых по разным направлениям единоборств: боевые искусства, удары и приёмы самозащиты.',
-      'В клубах Balance регулярно проходят чемпионаты по единоборствам.',
-    ],
-  },
-  {
-    id: 'kids', title: 'Детский клуб Balance',
-    photo: img('tild6131-3437-4464-b139-656261396435', '-Balance--02262026_1.jpg'),
-    text: ['Развиваться в разных направлениях: залы для групповых занятий, спортзал с татами для гимнастики, единоборств и ЛФК, школа плавания, фитнес-няня и продлёнка.'],
-    list: [['Праздники и мероприятия', '– творческие, образовательные и спортивные события для детей и родителей, тематические вечеринки и дни рождения.']],
-  },
-];
+const popups: Record<string, string> = {
+  '#popup:callback-form-adm': '#bla-guest',
+  '#popup:card-form-adm': '#bla-guest',
+  '#popup:myform-adm': '#bla-guest',
+  '#popup:card-1-adm': '/cards_admiral',
+  '#popup:card-2-adm': '/cards_admiral',
+  '#popup:card-3-adm': '/cards_admiral',
+  '#popup:card-4-adm': '/cards_admiral',
+};
 
-const cards = [
-  { name: 'Balance', text: 'Безлимитная карта на 12 месяцев. Свобода выбора: любое направление и в любой день.', hours: 'Будни 7:00–23:00, выходные 8:00–23:00' },
-  { name: 'Дневная карта', text: 'Карта на 12 месяцев: все зоны, залы и занятия до 16:00 по очень привлекательной стоимости.', hours: 'Будни 7:00–16:00, выходные 8:00–23:00' },
-  { name: 'Корпоративный Balance', text: 'Безлимитные карты на 12 месяцев для вас и ваших коллег по выгодной цене.', hours: 'Будни 7:00–23:00, выходные 8:00–23:00' },
-  { name: 'Balance дети', text: 'Безлимитная карта на 12 месяцев. Спорт, творчество, образование, развлечения.', hours: 'Ежедневно 9:00–21:00' },
-];
-
-const gallery = [
-  img('tild3136-3330-4765-b730-316266303133', '-Balance--Photo-19.jpg'),
-  img('tild3262-6666-4939-b863-343435313335', '-Balance--02242026_1.jpg'),
-  img('tild3238-6463-4034-b337-663764643362', '-Balance--02262026_1.jpg'),
-  img('tild3239-6634-4433-b162-666537366665', '-Balance--02262026_1.jpg'),
-  img('tild6563-3263-4335-b430-633230306265', '-Balance--Photo-37.jpg'),
-  img('tild3237-6332-4736-a535-393832326339', '-Balance--Photo-6.jpg'),
-];
-
-const toc = [
-  ['about', 'Что есть в клубе'],
-  ...zones.map((z) => [z.id, z.title]),
-  ['cards', 'Клубные карты'],
-  ['gallery', 'Галерея'],
-  ['contacts', 'Как найти Balance Адмирал'],
-];
+let html = block
+  .replaceAll('https://static.tildacdn.com/', '/_t/static/')
+  .replace(/href="(#popup:[\w-]+)"/g, (_, hook) => `href="${popups[hook] ?? '#bla-guest'}"`)
+  .replace(/(href|src|data-bg)="\/(?!\/)/g, `$1="${base}/`)
+  .replace(/url\('\/_t\//g, `url('${base}/_t/`);
 ---
-
+<!doctype html>
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Фитнес-клуб Balance Адмирал в Туапсе</title>
-    <meta name="description" content="Фитнес-клуб Balance Адмирал в Туапсе: бассейн 25 м, тренажёрный зал Nautilus и Star Trac, более 50 групповых программ, баня и детский клуб." />
-    <link rel="stylesheet" href={u('/_t/static/css/fonts-tildasans.css')} />
-    <script is:inline src={u('/no-leads.js')}></script>
+    <meta name="description" content="Фитнес-клуб Balance Адмирал в Туапсе: фитнес с бассейном – год за 39 000 ₽, тренажёрный зал Nautilus и Star Trac, более 50 групповых программ." />
+    <link rel="icon" href={`${base}/_t/static/tild3539-3835-4330-a130-613337626539/favicon.ico`} />
+    <script is:inline src={`${base}/no-leads.js`}></script>
+    <style is:inline>body{margin:0;background:#000}</style>
   </head>
-  <body class="bal-page">
-    <header class="top">
-      <div class="shell top__in">
-        <a class="top__logo" href={u('/')}><img src={img('tild3432-3930-4135-a561-396333363439', 'Balnce_logo.svg')} alt="Balance" width="120" height="30" /></a>
-        <nav class="top__nav">
-          <a href={u('/table_admiral')}>Расписание</a>
-          <a href={u('/services_admiral')}>Услуги</a>
-          <a href={u('/sale_admiral')}>Акции</a>
-          <a href={u('/cards_admiral')}>Клубные карты</a>
-          <a href={u('/contacts_admiral')}>Контакты</a>
-        </nav>
-        <a class="top__tel" href="tel:+78612051818">+7 861 205 18 18</a>
-        <a class="btn btn--lime" href="#guest">Гостевой визит</a>
-      </div>
-    </header>
-
-    <main class="shell">
-      <div class="crumbs"><a href={u('/')}>Главная</a><span>/</span>Balance Адмирал</div>
-
-      <section class="hero">
-        <div class="hero__grid">
-          <div class="hero__text">
-            <div class="eyebrow">Туапсе · ЖК «Форт Адмирал»</div>
-            <h1>Фитнес-клуб Balance Адмирал: свобода заниматься собой</h1>
-            <p class="hero__lead">Для тех, кто хочет быть в отличной форме, получать удовольствие от тренировок, быть частью сильного сообщества и сохранять баланс между работой и отдыхом.</p>
-            <div class="hero__meta"><span>Пн–пт 7:00–23:00</span><span>Сб–вс 8:00–23:00</span><span>ул. Портовиков, 39, лит. 5</span></div>
-            <div class="hero__actions">
-              <a class="btn btn--action" href="#guest">Хочу в Balance</a>
-              <a class="btn btn--ghost" href="#cards">Клубные карты</a>
-            </div>
-          </div>
-          <div class="hero__media">
-            <div class="hero__cover"><img src={img('tild6566-6132-4266-b134-386237313839', '20250920_180220.jpg')} alt="Бассейн клуба Balance Адмирал" width="1680" height="945" /></div>
-            <div class="hero__badge">
-              <span class="hero__badge-num">39 000 ₽</span>
-              <span class="hero__badge-txt">год фитнеса с бассейном: 9 месяцев + 3 месяца заморозки</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="facts">
-          <div class="fact fact--1"><div class="fact__k">Бассейн 25 м</div><div class="fact__v">4 дорожки, финская и соляная сауны, хаммам</div></div>
-          <div class="fact fact--2"><div class="fact__k">50+ групповых программ</div><div class="fact__v">От пилатеса до кардио и кроссфита, Cycle-студия</div></div>
-          <div class="fact fact--3"><div class="fact__k">Nautilus и Star Trac</div><div class="fact__v">Тренажёры премиум-брендов и персональный тренинг</div></div>
-        </div>
-      </section>
-
-      <div class="grid">
-        <article>
-          <section class="sec sec--intro" id="about">
-            <p>В Balance Адмирал есть всё, чтобы тренироваться и отдыхать в одном месте: от тренажёрного зала до бассейна, бани и детского клуба.</p>
-            <ul>
-              <li><strong>Акватермальный комплекс.</strong> Бассейн 25 м на 4 дорожки, сауны (финская, солевая), хаммам.</li>
-              <li><strong>Тренажёры премиум-брендов.</strong> Nautilus и Star Trac.</li>
-              <li><strong>Кардиозона.</strong> Велотренажёры, беговые дорожки, эллипсы.</li>
-              <li><strong>Персональный тренинг.</strong> Для эффективных и безопасных тренировок.</li>
-              <li><strong>Групповые тренировки.</strong> Более 50 программ – от пилатеса до кардио и кроссфита.</li>
-              <li><strong>Cycle-студия.</strong> Мощная тренировка на велобайках: за 45 минут можно сжечь до 700 ккал.</li>
-              <li><strong>Фитнес-диагностика ScanMe.</strong> Тщательная диагностика физического состояния.</li>
-              <li><strong>Детский клуб.</strong> Фитнес-няня, продлёнка, мастер-классы, праздники, школа плавания.</li>
-            </ul>
-          </section>
-
-          {zones.map((z) => (
-            <section class="sec" id={z.id}>
-              <h2>{z.title}</h2>
-              <figure class="art-fig"><img src={z.photo} alt={z.title} loading="lazy" width="1680" height="945" /><figcaption>{z.title}, клуб «Адмирал», Туапсе</figcaption></figure>
-              {z.text.map((t) => <p>{t}</p>)}
-              {z.list && <ul>{z.list.map(([b, t]) => <li><strong>{b}</strong> {t}</li>)}</ul>}
-            </section>
-          ))}
-
-          <section class="sec" id="cards">
-            <h2>Клубные карты</h2>
-            <p>Выбирайте свою клубную карту. Точные условия и стоимость подскажет отдел продаж или менеджер на гостевом визите.</p>
-            <div class="cards">
-              {cards.map((c) => (
-                <div class="card"><div class="card__name">{c.name}</div><div class="card__text">{c.text}</div><div class="card__hours">{c.hours}</div></div>
-              ))}
-            </div>
-            <p><a href={u('/cards_admiral')}>Все клубные карты Адмирала</a></p>
-          </section>
-
-          <section class="sec" id="gallery">
-            <h2>Галерея</h2>
-            <div class="gallery">{gallery.map((g) => <img src={g} alt="Клуб Balance Адмирал" loading="lazy" width="1680" height="944" />)}</div>
-          </section>
-
-          <section class="sec" id="contacts">
-            <h2>Как найти Balance Адмирал</h2>
-            <ul>
-              <li><strong>Адрес:</strong> Туапсе, ул. Портовиков, 39, лит. 5 (ЖК «Форт Адмирал»)</li>
-              <li><strong>Часы работы:</strong> пн–пт 7:00–23:00, сб–вс 8:00–23:00</li>
-              <li><strong>Телефон:</strong> <a href="tel:+78612051818">+7 861 205 18 18</a></li>
-              <li><strong>E-mail:</strong> <a href="mailto:opadmiral@balancefit.ru">opadmiral@balancefit.ru</a></li>
-            </ul>
-            <p>Хотите работать в Balance? <a href="https://krasnodar.hh.ru/employer/4335874">Смотрите вакансии на hh.ru</a>.</p>
-          </section>
-        </article>
-
-        <aside class="side">
-          <div class="side__card">
-            <div class="side__title">Содержание</div>
-            <ol class="side__nav">{toc.map(([id, t]) => <li><a href={`#${id}`}>{t}</a></li>)}</ol>
-          </div>
-          <div class="side__cta">
-            <p>Гостевой визит – знакомство с клубом и специальное предложение на клубную карту.</p>
-            <a class="btn" href="#guest">Гостевой визит</a>
-          </div>
-        </aside>
-      </div>
-
-      <section class="cta" id="guest">
-        <div>
-          <h2>Запишитесь на гостевой визит</h2>
-          <p>И получите специальное предложение на клубную карту. Заполните форму – мы вам перезвоним.</p>
-        </div>
-        <form class="form">
-          <input type="text" name="name" placeholder="Ваше имя" autocomplete="name" />
-          <input type="tel" name="phone" placeholder="Телефон" autocomplete="tel" required />
-          <input type="email" name="email" placeholder="E-mail" autocomplete="email" />
-          <label><input type="checkbox" required /> <span>Я ознакомлен(-а) с <a href={u('/security_admiral')}>Политикой обработки персональных данных</a> и даю согласие на обработку персональных данных.</span></label>
-          <button class="btn btn--lime" type="submit">Оставить заявку</button>
-        </form>
-      </section>
-    </main>
-
-    <footer class="foot">
-      <div class="shell">
-        <div class="foot__clubs">
-          <div class="foot__club"><b><a class="foot__club-name" href={u('/imperial')} style="color:#fff">Balance Империал</a></b>Краснодар, ул. Бородинская, 137, корп. 2<br /><a href="tel:+78612072737">+7 861 207 27 37</a></div>
-          <div class="foot__club"><b><a class="foot__club-name" href={u('/abricosovo')} style="color:#fff">Balance Абрикосово</a></b>Краснодар, ул. Героя Бочарникова, 4, стр. Б<br /><a href="tel:+78612072717">+7 861 207 27 17</a></div>
-          <div class="foot__club foot__club--current"><b>Balance Адмирал</b>Туапсе, ул. Портовиков, 39, лит. 5<br /><a href="tel:+78612051818">+7 861 205 18 18</a></div>
-        </div>
-        <div class="foot__links">
-          <a href={u('/dogovor_admiral')}>Договор</a>
-          <a href={u('/pravila_admiral')}>Правила клуба</a>
-          <a href={u('/security_admiral')}>Политика конфиденциальности</a>
-          <a href={u('/position')}>Положение об акции</a>
-          <a href="https://disk.yandex.ru/d/YmvqFI2Gc9oaAQ">Прайс Адмирал</a>
-          <a href={u('/rekvizit_admiral')}>Реквизиты</a>
-          <a href={u('/oplata_admiral')}>Способы оплаты</a>
-        </div>
-      </div>
-    </footer>
-
-    <script is:inline>
-      /* Подсветка текущего раздела в оглавлении и заглушка формы (заявки с копии не уходят). */
-      (function () {
-        var links = [].slice.call(document.querySelectorAll('.side__nav a'));
-        var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
-        function sync() {
-          var cur = 0;
-          secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < 140) cur = i; });
-          links.forEach(function (a, i) { a.classList.toggle('is-active', i === cur); });
-        }
-        addEventListener('scroll', sync, { passive: true }); sync();
-        var f = document.querySelector('.form');
-        f.addEventListener('submit', function (e) { e.preventDefault(); f.querySelector('button').textContent = 'Это демо-копия: заявка не отправлена'; });
-      })();
-    </script>
+  <body>
+    <Fragment set:html={html} />
   </body>
 </html>

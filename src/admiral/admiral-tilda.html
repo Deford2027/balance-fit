@@ -1,0 +1,640 @@
+<!--
+  Balance Адмирал — главная в новом стиле.
+  Вставляется целиком в один блок Tilda «HTML-код» (T123).
+  Ссылки и попапы взяты со старой страницы /admiral (попапы старой страницы не удаляйте).
+  Инструкция – в файле ИНСТРУКЦИЯ.md рядом.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+.bla{--green:#C4E805;--red:#FF3F49;--blue:#28348A;--deep:#00244B;--olive:#678A2E;--card:#101010;--line:rgba(255,255,255,.14);
+  --t86:rgba(255,255,255,.86);--t78:rgba(255,255,255,.78);--t62:rgba(255,255,255,.62);
+  background:#000;color:#fff;font-family:'Jost',Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;overflow:hidden}
+.bla *,.bla *::before,.bla *::after{box-sizing:border-box}
+.bla a{color:inherit;text-decoration:none}
+.bla img{display:block;max-width:100%}
+:where(.bla) :where(h1,h2,h3,p,ul){margin:0;padding:0;font-weight:400}
+.bla-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.bla-sec{padding-top:96px}
+.bla-h2{color:var(--green);font-size:40px;line-height:1.2}
+.bla-sub{color:var(--t86);font-size:19px;line-height:1.5;margin-top:12px}
+.bla-card{background:var(--card);border:1px solid var(--line);border-radius:24px}
+.bla-cover{background:#151515 center/cover no-repeat;border-radius:24px}
+
+/* Кнопки */
+.bla-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:100px;padding:14px 28px;font-size:16px;line-height:24px;white-space:nowrap;cursor:pointer;border:0;font-family:inherit;transition:transform .2s,opacity .2s}
+.bla-btn:hover{transform:translateY(-1px);opacity:.92}
+.bla-btn--green{background:var(--green);color:#000!important;font-weight:600}
+.bla-btn--red{background:var(--red);color:#fff!important;padding:16px 32px;font-size:18px;line-height:27px}
+.bla-btn--ghost{border:1px solid var(--line);color:#fff!important}
+.bla-btn--white{background:#fff;color:#000!important}
+.bla .bla-link{text-decoration:underline;text-underline-offset:4px;font-size:17px;line-height:1.5}
+
+/* Шапка */
+.bla-head{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bla-head__in{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px}
+.bla-logo img{width:150px;height:auto}
+.bla-nav{display:flex;gap:32px;font-size:15px;line-height:22px;color:var(--t78)}
+.bla-nav a:hover{color:#fff}
+.bla-head__act{display:flex;align-items:center;gap:20px}
+.bla-burger{width:28px;height:20px;position:relative;background:none;border:0;padding:0;cursor:pointer}
+.bla-burger span{position:absolute;left:0;width:100%;height:2px;background:#fff;transition:.25s}
+.bla-burger span:nth-child(1){top:0}.bla-burger span:nth-child(2){top:9px}.bla-burger span:nth-child(3){top:18px}
+.bla.menu-open .bla-burger span:nth-child(1){top:9px;transform:rotate(45deg)}
+.bla.menu-open .bla-burger span:nth-child(2){opacity:0}
+.bla.menu-open .bla-burger span:nth-child(3){top:9px;transform:rotate(-45deg)}
+.bla-drawer{display:none;border-top:1px solid var(--line);padding:24px 0 32px}
+.bla.menu-open .bla-drawer{display:block}
+.bla-drawer__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 32px;font-size:18px;line-height:1.6}
+.bla-drawer__grid a:hover{color:var(--green)}
+.bla-drawer__extra{display:none}
+
+/* Первый экран */
+.bla-hero{display:grid;grid-template-columns:613fr 545fr;gap:34px;padding-top:26px;align-items:start}
+.bla-hero__text{padding-top:29px}
+.bla-eyebrow{color:var(--green);font-size:14px;line-height:21px;text-transform:uppercase;letter-spacing:.02em}
+.bla-h1{font-size:46px;line-height:1.08;margin-top:18px}
+.bla-lead{color:var(--t78);font-size:19px;line-height:1.55;max-width:510px;margin-top:21px}
+.bla-meta{color:var(--t62);font-size:15px;line-height:22px;margin-top:23px;display:flex;flex-wrap:wrap;gap:6px 28px}
+.bla-hero__btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.bla-hero__btns .bla-btn--red{font-size:16px;line-height:24px;padding:16px 32px}
+.bla-hero__media{position:relative;padding-left:22px;padding-bottom:9px}
+.bla-hero__img{aspect-ratio:523/520;border-radius:40px}
+.bla-badge{position:absolute;left:0;bottom:9px;background:var(--green);color:#000;border-radius:24px;padding:20px 24px;max-width:269px}
+.bla-badge b{display:block;font-weight:400;font-size:34px;line-height:1.05}
+.bla-badge span{display:block;font-size:15px;line-height:1.35;margin-top:4px}
+.bla-note{color:var(--t62);font-size:14px;line-height:1.4;margin-top:16px}
+
+/* Свобода */
+.bla-free{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.bla-free__img{min-height:520px}
+.bla-free__text{padding:40px}
+.bla-free__text h2{color:var(--green);font-size:46px;line-height:52px}
+.bla-free__text p{color:var(--t86);font-size:19px;line-height:1.5;margin-top:24px}
+.bla-cta{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.bla-cta a{display:block;border-radius:24px;padding:28px;transition:transform .2s}
+.bla-cta a:hover{transform:translateY(-2px)}
+.bla-cta b{display:block;font-weight:400;font-size:28px;line-height:34px}
+.bla-cta span{display:inline-block;font-size:19px;line-height:28px;margin-top:16px;text-decoration:underline;text-underline-offset:4px}
+
+/* Преимущества */
+.bla-adv{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-top:56px}
+.bla-adv__item{padding:12px 12px 24px;display:flex;flex-direction:column;gap:20px;min-height:400px}
+.bla-adv__photo{height:200px;border-radius:16px}
+.bla-adv__body{padding:0 12px}
+.bla-adv__icon{width:40px;height:40px;object-fit:contain}
+.bla-adv__body p{font-size:16px;line-height:24px;color:var(--t86);margin-top:12px}
+
+/* Фитнес-зоны */
+.bla-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.bla-tab{font-family:inherit;font-size:16px;line-height:24px;padding:10px 20px;border-radius:100px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;cursor:pointer;transition:.2s}
+.bla-tab:hover{border-color:#fff}
+.bla-tab.is-active{background:var(--green);border-color:var(--green);color:#000;font-weight:500}
+.bla-zone{display:none;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.bla-zone.is-active{display:grid}
+.bla-zone__img{min-height:599px}
+.bla-zone__text{padding:32px 36px 36px}
+.bla-zone__text h3{font-size:32px;line-height:40px;margin-bottom:14px}
+.bla-zone__text p,.bla-zone__text li{color:var(--t86);font-size:18px;line-height:27px}
+.bla-zone__text p+p,.bla-zone__text p+ul,.bla-zone__text ul+p{margin-top:14px}
+.bla-zone__text ul{list-style:none}
+.bla-zone__text li{position:relative;padding-left:14px}
+.bla-zone__text li+li{margin-top:14px}
+.bla-zone__text li::before{content:"•";position:absolute;left:0;color:var(--green)}
+
+/* Галерея */
+.bla-gal{position:relative;margin-top:12px}
+.bla-gal__track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-right:24px}
+.bla-gal__track::-webkit-scrollbar{display:none}
+.bla-gal__track div{flex:0 0 390px;height:428px;scroll-snap-align:start;border-radius:24px}
+.bla-gal__nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:12px}
+.bla-dots{display:flex;flex-wrap:wrap;gap:8px}
+.bla-dots button{width:8px;height:8px;border-radius:4px;border:0;padding:0;background:rgba(255,255,255,.3);cursor:pointer;transition:.25s}
+.bla-dots button.is-active{width:40px;background:var(--green)}
+.bla-arrows{display:flex;gap:10px}
+.bla-arrows button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:transparent;color:#fff;font-size:20px;cursor:pointer;font-family:inherit}
+.bla-arrows button:hover{border-color:var(--green);color:var(--green)}
+
+/* Клубные карты */
+.bla-cards__head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.bla-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}
+.bla-cards__item{padding:28px;display:flex;flex-direction:column;min-height:400px}
+.bla-cards__item h3{font-size:24px;line-height:30px}
+.bla-cards__item p{font-size:16px;line-height:1.45;color:var(--t86);margin-top:14px}
+.bla-cards__item .bla-cards__hours{color:#fff;margin-top:auto;padding-top:24px}
+.bla-cards__item .bla-link{margin-top:14px;align-self:flex-start}
+
+/* Гостевой визит */
+.bla-guest{background:var(--olive);border-radius:40px;padding:60px;display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.bla-guest h2{font-size:40px;line-height:46px}
+.bla-guest__lead{color:rgba(255,255,255,.9);font-size:18px;line-height:27px;margin-top:18px}
+.bla-form{display:flex;flex-direction:column;gap:12px}
+.bla-form input[type=text],.bla-form input[type=tel],.bla-form input[type=email]{width:100%;height:56px;border-radius:16px;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.22);color:#fff;font:16px/24px 'Jost',Arial,sans-serif;padding:0 18px;outline:none}
+.bla-form input::placeholder{color:rgba(255,255,255,.7)}
+.bla-form input:focus{border-color:#fff}
+.bla-form input.is-error{border-color:var(--red)}
+.bla-consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:18px;color:rgba(255,255,255,.82);cursor:pointer}
+.bla-consent input{width:16px;height:16px;margin:1px 0 0;accent-color:#000;flex:0 0 16px}
+.bla .bla-consent a{text-decoration:underline}
+.bla-form .bla-btn{align-self:flex-start}
+.bla-form__msg{font-size:14px;line-height:1.4;min-height:20px}
+
+/* Контакты */
+.bla-contacts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.bla-club{padding:36px}
+.bla-club h3{font-size:40px;line-height:48px}
+.bla-club>p{color:var(--t86);font-size:19px;line-height:1.5;margin-top:20px}
+.bla-club__info{display:flex;gap:40px;margin-top:32px;font-size:17px;line-height:25.5px}
+.bla-club__info>div{display:flex;flex-direction:column;gap:12px}
+.bla-club__info a:hover{color:var(--green)}
+.bla-map{border-radius:24px;overflow:hidden;min-height:345px;background:#151515;position:relative}
+.bla-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:invert(.92) hue-rotate(180deg) grayscale(.35)}
+
+/* Подвал */
+.bla-foot{border-top:1px solid var(--line);margin-top:56px;padding:44px 24px 56px;display:grid;grid-template-columns:1fr auto auto auto;gap:40px;align-items:end}
+.bla-foot__logo img{width:250px;height:auto}
+.bla-foot__col{display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:22.5px;color:var(--t78)}
+.bla-foot__col a:hover{color:#fff}
+.bla-soc{display:flex;gap:14px}
+.bla-soc img{width:28px;height:28px;object-fit:contain}
+
+/* Планшет */
+@media (max-width:1100px){
+  .bla-nav{display:none}
+  .bla-drawer__extra{display:block}
+  .bla-adv,.bla-cards{grid-template-columns:repeat(2,1fr)}
+  .bla-foot{grid-template-columns:1fr 1fr;align-items:start}
+  .bla-foot__logo{grid-column:1/-1;order:9}
+}
+@media (max-width:900px){
+  .bla-sec{padding-top:72px}
+  .bla-hero,.bla-free,.bla-zone.is-active,.bla-guest,.bla-contacts{grid-template-columns:1fr}
+  .bla-hero__media{max-width:560px}
+  .bla-free__img{min-height:360px}
+  .bla-zone__img{min-height:360px}
+  .bla-guest{padding:40px 32px;gap:32px}
+}
+/* Телефон */
+@media (max-width:640px){
+  .bla-wrap{padding:0 16px}
+  .bla-sec{padding-top:56px}
+  .bla-head__in{min-height:64px}
+  .bla-logo img{width:120px}
+  .bla-head__act .bla-btn{display:none}
+  .bla-drawer__grid{grid-template-columns:1fr 1fr;font-size:16px}
+  .bla-h1{font-size:34px}
+  .bla-lead{font-size:17px}
+  .bla-h2{font-size:32px}
+  .bla-sub{font-size:17px}
+  .bla-hero__btns .bla-btn{flex:1 1 auto}
+  .bla-hero__img{border-radius:28px}
+  .bla-badge{padding:16px 18px;max-width:240px}
+  .bla-badge b{font-size:28px}
+  .bla-free__text{padding:28px 24px}
+  .bla-free__text h2{font-size:34px;line-height:40px}
+  .bla-free__text p{font-size:17px}
+  .bla-free__img{min-height:280px}
+  .bla-cta{grid-template-columns:1fr}
+  .bla-cta b{font-size:24px;line-height:30px}
+  /* Преимущества и карты листаются вбок */
+  .bla-adv,.bla-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+  .bla-adv::-webkit-scrollbar,.bla-cards::-webkit-scrollbar{display:none}
+  .bla-adv__item,.bla-cards__item{flex:0 0 78%;scroll-snap-align:start;min-height:0}
+  .bla-cards__item{min-height:380px}
+  .bla-tabs{flex-wrap:nowrap;overflow-x:auto;margin-left:-16px;margin-right:-16px;padding:0 16px;scrollbar-width:none}
+  .bla-tabs::-webkit-scrollbar{display:none}
+  .bla-tab{flex:0 0 auto}
+  .bla-zone{margin-top:24px}
+  .bla-zone__img{min-height:260px}
+  .bla-zone__text{padding:24px}
+  .bla-zone__text h3{font-size:26px;line-height:32px}
+  .bla-zone__text p,.bla-zone__text li{font-size:16px;line-height:24px}
+  .bla-gal__track div{flex-basis:82%;height:340px}
+  .bla-arrows{display:none}
+  .bla-cards__head .bla-btn{width:100%}
+  .bla-guest{padding:32px 20px;border-radius:28px}
+  .bla-guest h2{font-size:30px;line-height:36px}
+  .bla-form .bla-btn{align-self:stretch}
+  .bla-club{padding:24px}
+  .bla-club h3{font-size:30px;line-height:36px}
+  .bla-club>p{font-size:17px}
+  .bla-club__info{flex-direction:column;gap:20px}
+  .bla-map{min-height:300px}
+  .bla-foot{grid-template-columns:1fr;gap:28px;padding:36px 16px 40px}
+  .bla-foot__logo img{width:180px}
+}
+</style>
+
+<div class="bla" id="bla">
+
+  <!-- ========== ШАПКА ========== -->
+  <header class="bla-head">
+    <div class="bla-wrap">
+      <div class="bla-head__in">
+        <a class="bla-logo" href="/admiral"><img src="https://static.tildacdn.com/tild6536-6434-4964-a134-353961616134/noroot.png" alt="Balance"></a>
+        <nav class="bla-nav">
+          <a href="/">Выбор клуба</a>
+          <a href="tel:+78612051818">Адмирал: +7 861 205 18 18</a>
+          <a href="#popup:callback-form-adm">Заказать звонок</a>
+        </nav>
+        <div class="bla-head__act">
+          <a class="bla-btn bla-btn--green" href="/loyalty">Программа лояльности</a>
+          <button class="bla-burger" type="button" aria-label="Меню" data-bla-burger><span></span><span></span><span></span></button>
+        </div>
+      </div>
+      <div class="bla-drawer">
+        <div class="bla-drawer__grid">
+          <a href="/" class="bla-drawer__extra">Выбор клуба</a>
+          <a href="tel:+78612051818" class="bla-drawer__extra">+7 861 205 18 18</a>
+          <a href="#popup:callback-form-adm" class="bla-drawer__extra">Заказать звонок</a>
+          <a href="/loyalty" class="bla-drawer__extra">Программа лояльности</a>
+          <a href="https://balance-fit.ru/news_admiral">Новости</a>
+          <a href="/table_admiral">Расписание</a>
+          <a href="/services_admiral">Услуги</a>
+          <a href="/sale_admiral">Акции</a>
+          <a href="#bla-cards">Клубные карты</a>
+          <a href="/cards_admiral">Заморозка карты</a>
+          <a href="https://trainers.myfitt.ru/#key=805Vgc2lo5CIXi3vjUMBl0NZhiYzeSOXNFYQI7qzfi5VXeqMKEJ-_ccBbInOuNCqSEKoS_ygOsK2dqB-Z2vZKQ&amp;theme=defaultTheme&amp;shape=circle&amp;columns=4" target="_blank" rel="noopener">Наша команда</a>
+          <a href="/kids_admiral">Balance дети</a>
+          <a href="https://krasnodar.hh.ru/employer/4335874?hhtmFrom=employers_list" target="_blank" rel="noopener">Вакансии</a>
+          <a href="#bla-contacts">Контакты</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== ПЕРВЫЙ ЭКРАН (акция) ========== -->
+  <section class="bla-wrap">
+    <div class="bla-hero">
+      <div class="bla-hero__text">
+        <p class="bla-eyebrow">Туапсе · ЖК «Форт Адмирал»</p>
+        <h1 class="bla-h1">Фитнес с бассейном<br>год за 39 000 ₽</h1>
+        <p class="bla-lead">Для тех, кто хочет быть в отличной форме, получать удовольствие от тренировок, быть частью сильного сообщества и сохранять баланс между работой и отдыхом.</p>
+        <p class="bla-meta"><span>Пн–пт 7:00–23:00</span><span>Сб–вс 8:00–23:00</span><span>ул. Портовиков, 39, лит. 5</span></p>
+        <div class="bla-hero__btns">
+          <a class="bla-btn bla-btn--red" href="#bla-guest">Хочу в Balance</a>
+          <a class="bla-btn bla-btn--ghost" href="#bla-cards">Клубные карты</a>
+        </div>
+        <p class="bla-note">*В рамках акции вы получаете: 9 месяцев фитнеса + 3 месяца заморозки</p>
+      </div>
+      <div class="bla-hero__media">
+        <div class="bla-cover bla-hero__img" style="background-image:url('https://static.tildacdn.com/tild3235-3166-4461-a636-303130303434/640480_Balance___39_.jpg')"></div>
+        <div class="bla-badge"><b>39 000 ₽</b><span>год фитнеса с бассейном:<br>9 месяцев + 3 месяца заморозки</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== СВОБОДА ЗАНИМАТЬСЯ СОБОЙ ========== -->
+  <section class="bla-wrap bla-sec">
+    <div class="bla-free">
+      <div class="bla-cover bla-free__img" style="background-image:url('https://static.tildacdn.com/tild6566-6132-4266-b134-386237313839/20250920_180220.jpg')"></div>
+      <div class="bla-card bla-free__text">
+        <h2>Свобода заниматься собой</h2>
+        <p>Balance Адмирал – для людей, которые хотят быть в отличной форме, получать удовольствие от посещения фитнес-клуба, общаться и находиться в обществе успешных людей, быть частью элитного комьюнити, наслаждаться жизнью и иметь возможность сохранять баланс между работой и отдыхом.</p>
+      </div>
+    </div>
+    <div class="bla-cta">
+      <a href="#bla-guest" style="background:var(--deep)"><b>Хочу заниматься в Balance</b><span>Оставить заявку</span></a>
+      <a href="https://krasnodar.hh.ru/employer/4335874?hhtmFrom=employers_list" target="_blank" rel="noopener" style="background:var(--olive)"><b>Хочу работать в Balance</b><span>Смотреть вакансии</span></a>
+    </div>
+  </section>
+
+  <!-- ========== ПРЕИМУЩЕСТВА ========== -->
+  <section class="bla-wrap">
+    <div class="bla-adv">
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild3139-3136-4665-a163-336338663063/advantages_1-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild6361-6264-4839-b235-376333363735/advantages_1-1.png" alt=""><p>Акватермальный комплекс.<br>Бассейн 25м., 4 дорожки. Сауны (финская, солевая), хаммам</p></div></div>
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild6663-6434-4831-b631-303330303631/advanteges_2-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild6339-6265-4332-a237-313235373631/advanteges_2-1.png" alt=""><p>Фитнес-диагностика ScanMe - это тщательная диагностика физического состояния</p></div></div>
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild6134-3631-4435-b438-313764383833/advanteges_3-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild6334-3730-4537-b431-636234663162/advanteges_3-1.png" alt=""><p>Групповые тренировки: более 50 программ — от пилатеса до кардио и кроссфита</p></div></div>
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild6238-3434-4136-b035-666634626463/advanteges_4-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild6532-3637-4431-b130-363230386364/_.png" alt=""><p>Cycle-студия. Мощная тренировка на вело-байках. Всего за 45 минут можно сжечь до 700 кКалл</p></div></div>
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild6464-3561-4966-a163-346536366162/advanteges_5-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild6634-3031-4139-b438-366664613535/advanteges_5-1.png" alt=""><p>Детский клуб Balance: фитнес-няня, продлёнка, мастер-классы, организация праздников. Школа плавания</p></div></div>
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild6163-3137-4661-b363-656334353230/advanteges_6-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild3663-6632-4361-b439-333264356663/photo.png" alt=""><p>Кардио зона: велотренажеры, беговые дорожки, эллипсы</p></div></div>
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild3938-3036-4462-b861-376339653531/advanteges_7-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild6665-3833-4532-a561-306338373562/advanteges_7-1.png" alt=""><p>Тренажеры премиум-брендов Nautilus и Star Trac</p></div></div>
+      <div class="bla-card bla-adv__item"><div class="bla-cover bla-adv__photo" style="background-image:url('https://static.tildacdn.com/tild6631-3366-4431-a631-323063653266/advanteges_8-2.jpg')"></div><div class="bla-adv__body"><img class="bla-adv__icon" src="https://static.tildacdn.com/tild3163-3330-4263-b863-663034323237/photo.png" alt=""><p>Персональный тренинг для эффективных и безопасных тренировок</p></div></div>
+    </div>
+  </section>
+
+  <!-- ========== ФИТНЕС-ЗОНЫ ========== -->
+  <section class="bla-wrap bla-sec" id="bla-zones">
+    <h2 class="bla-h2">Фитнес-зоны</h2>
+    <div class="bla-tabs" role="tablist">
+      <button class="bla-tab is-active" type="button" data-zone="1">Тренажерный зал</button>
+      <button class="bla-tab" type="button" data-zone="2">Кардиозона</button>
+      <button class="bla-tab" type="button" data-zone="3">Функциональная зона</button>
+      <button class="bla-tab" type="button" data-zone="4">Акватермальный комплекс</button>
+      <button class="bla-tab" type="button" data-zone="5">Банный комплекс + зона отдыха</button>
+      <button class="bla-tab" type="button" data-zone="6">Групповые тренировки</button>
+      <button class="bla-tab" type="button" data-zone="7">Зона единоборств</button>
+      <button class="bla-tab" type="button" data-zone="8">Balance дети</button>
+    </div>
+
+    <div class="bla-zone is-active" data-zone-panel="1">
+      <div class="bla-cover bla-zone__img" style="background-image:url('https://static.tildacdn.com/tild3838-3439-4464-a233-643439366531/-Balance--02262026_1.jpg')"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Тренажерный зал</h3>
+        <p>Мы предлагаем уникальный тренировочный опыт, который превзойдет ваши ожидания. Наш тренажёрный зал оснащён самыми современными и инновационными тренажёрами Nautilus и Star Trac, которые помогут вам максимально эффективно тренироваться.</p>
+        <p>4 зоны для разных активностей в одном пространстве.</p>
+        <ul>
+          <li>Зона блочных тренажёров для силовых тренировок (укрепляем и увеличиваем мышечную массу, создаем рельеф)</li>
+          <li>Зона рычажных тренажёров, ещё одна «станция» силовых тренировок</li>
+          <li>Зона свободных весов для детальной проработки конкретных групп мышц</li>
+          <li>Зона стретчинга (растяжки) – удобная зона с зеркалами и фитнес-аксессуарами</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bla-zone" data-zone-panel="2">
+      <div class="bla-cover bla-zone__img" data-bg="https://static.tildacdn.com/tild6433-3835-4866-a533-653039313563/image.png"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Кардиозона</h3>
+        <p>Мультифункциональное пространство, где можно просто размяться, а можно провести полноценную тренировку.</p>
+        <p>Премиальное оборудование Life Fitness - беговые дорожки, эллиптические кросс-тренажеры, тренажеры подъёма по ступеням и велотренажёры.</p>
+      </div>
+    </div>
+    <div class="bla-zone" data-zone-panel="3">
+      <div class="bla-cover bla-zone__img" data-bg="https://static.tildacdn.com/tild6539-6638-4763-a234-396630663634/image.png"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Зона функционального тренинга</h3>
+        <p>Развивает все основные физические качества: ловкость, координацию, гибкость, общую и силовую выносливость.</p>
+        <p>Эффект от занятий проявляется в увеличении силы, выносливости, формировании спортивного, подтянутого тела, происходит интенсивное жиросжигание, улучшается физическая форма и самочувствие.</p>
+      </div>
+    </div>
+    <div class="bla-zone" data-zone-panel="4">
+      <div class="bla-cover bla-zone__img" data-bg="https://static.tildacdn.com/tild3631-6564-4333-b037-383561633332/20250920_180150.jpg"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Акватермальный комплекс</h3>
+        <ul>
+          <li>Заняться аквааэробикой? Да.</li>
+          <li>Поставить личный рекорд на время по плаванию брассом? Да.</li>
+          <li>Отдохнуть на шезлонге у воды? Да.</li>
+          <li>Погреться в саунах или хаммаме? Да.</li>
+        </ul>
+        <p>Свобода выбора в Balance. Выбирайте спорт/отдых в панорамном 25-метровом бассейне.</p>
+      </div>
+    </div>
+    <div class="bla-zone" data-zone-panel="5">
+      <div class="bla-cover bla-zone__img" data-bg="https://static.tildacdn.com/tild3461-3465-4139-a461-303936346134/-Balance--02262026_1.jpg"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Банный комплекс + зона отдыха</h3>
+        <p>После тренировки или вместо неё:</p>
+        <ul>
+          <li>Париться в финской сауне или в хаммаме</li>
+          <li>С пользой для здоровья повести время в соляной комнате</li>
+          <li>Устроиться в наушниках или с книгой на шезлонге или сходить на массаж</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bla-zone" data-zone-panel="6">
+      <div class="bla-cover bla-zone__img" data-bg="https://static.tildacdn.com/tild6565-3837-4931-b666-336230323537/-Balance--02262026_1.jpg"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Групповые тренировки</h3>
+        <p>Огромный выбор групповых занятий по расписанию:</p>
+        <p>Аэробика, силовые и функциональные программы, танцы, боевые искусства, практика «Разум и тело». Ваш результат.</p>
+        <p>На групповых занятиях формируются настоящие коммьюнити: здесь делятся энергией, мотивируют и вдохновляют друг друга.</p>
+      </div>
+    </div>
+    <div class="bla-zone" data-zone-panel="7">
+      <div class="bla-cover bla-zone__img" data-bg="https://static.tildacdn.com/tild3362-3065-4639-a138-383862306131/image.png"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Зона единоборств</h3>
+        <p>Площадка для единоборств.</p>
+        <p>Персональные и групповые тренировки для детей и взрослых по различным направлениям единоборств помогут познать боевые искусства, научиться отрабатывать удары и приемы самозащиты.</p>
+        <p>На регулярной основе в клубах Balance проводятся Чемпионаты по единоборствам</p>
+      </div>
+    </div>
+    <div class="bla-zone" data-zone-panel="8">
+      <div class="bla-cover bla-zone__img" data-bg="https://static.tildacdn.com/tild6131-3437-4464-b139-656261396435/-Balance--02262026_1.jpg"></div>
+      <div class="bla-card bla-zone__text">
+        <h3>Детский клуб Balance</h3>
+        <p>Развиваться. Развиваться в разных направлениях.</p>
+        <p>Есть:</p>
+        <ul>
+          <li>Залы для групповых занятий: игры и спорт для ментального и физического здоровья;</li>
+          <li>Спортзал с татами для гимнастики, единоборств и занятий ЛФК;</li>
+        </ul>
+        <p>Детский клуб Balance устраивает творческие, образовательные и спортивные мероприятия для детей и родителей, проводит тематические вечеринки и дни рождения.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ГАЛЕРЕЯ ========== -->
+  <section class="bla-wrap bla-sec">
+    <h2 class="bla-h2">Галерея</h2>
+    <p class="bla-sub">Вы в Balance</p>
+    <div class="bla-gal">
+      <div class="bla-gal__track" data-bla-gal>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3136-3330-4765-b730-316266303133/-Balance--Photo-19.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3262-6666-4939-b863-343435313335/-Balance--02242026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3238-6463-4034-b337-663764643362/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3236-3639-4333-b430-623164653563/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3239-6634-4433-b162-666537366665/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6137-3333-4537-a235-376339306165/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6663-3765-4934-b838-356162333931/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6332-6238-4534-b436-323535396161/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6531-3134-4537-b332-623238363261/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6666-6565-4364-b236-656565326432/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6563-3263-4335-b430-633230306265/-Balance--Photo-37.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3266-3566-4066-b335-636265623361/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3737-6433-4933-a339-313563343533/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3436-6230-4361-a438-376337353532/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3762-3766-4533-b437-636130663635/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6262-3834-4065-a630-636162383238/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3933-6537-4834-a633-623762303465/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6262-6536-4839-a235-313933646134/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3239-3262-4136-b966-626438386362/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3535-3536-4364-b135-383366323338/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild3237-6332-4736-a535-393832326339/-Balance--Photo-6.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6665-3235-4433-b237-646135616536/-Balance--02262026_1.jpg"></div>
+        <div class="bla-cover" data-bg="https://static.tildacdn.com/tild6264-6566-4538-b764-313333396139/-Balance--02262026_1.jpg"></div>
+      </div>
+      <div class="bla-gal__nav">
+        <div class="bla-dots" data-bla-dots></div>
+        <div class="bla-arrows"><button type="button" data-bla-prev aria-label="Назад">←</button><button type="button" data-bla-next aria-label="Вперёд">→</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== КЛУБНЫЕ КАРТЫ ========== -->
+  <section class="bla-wrap bla-sec" id="bla-cards">
+    <div class="bla-cards__head">
+      <div><h2 class="bla-h2">Клубные карты</h2><p class="bla-sub">Выбирайте свою клубную карту</p></div>
+      <a class="bla-btn bla-btn--red" href="#popup:card-form-adm">Оформить карту</a>
+    </div>
+    <div class="bla-cards">
+      <div class="bla-card bla-cards__item">
+        <h3>Balance</h3>
+        <p>Безлимитная карта на 12 месяцев.<br>Свобода выбора: любое направление и в любой день.</p>
+        <p class="bla-cards__hours">Посещение с 7:00 до 23:00 в будни и с 8:00 до 23:00 в выходные.</p>
+        <a class="bla-link" href="#popup:card-1-adm">Подробнее</a>
+      </div>
+      <div class="bla-card bla-cards__item">
+        <h3>Дневная карта</h3>
+        <p>Дневная карта на 12 месяцев<br>Вам доступны все зоны, залы и занятия попадающие в слот времени до 16:00. По очень привлекательной стоимости</p>
+        <p class="bla-cards__hours">Посещение с 7:00 до 16:00 в будни и с 8:00 до 23:00 в выходные.</p>
+        <a class="bla-link" href="#popup:card-2-adm">Подробнее</a>
+      </div>
+      <div class="bla-card bla-cards__item">
+        <h3>Корпоративный Balance</h3>
+        <p>Безлимитные карты на 12 месяцев для вас и ваших коллег по выгодной цене.</p>
+        <p class="bla-cards__hours">Посещение с 7:00 до 23:00 в будни и с 8:00 до 23:00 в выходные.</p>
+        <a class="bla-link" href="#popup:card-3-adm">Подробнее</a>
+      </div>
+      <div class="bla-card bla-cards__item">
+        <h3>Balance дети</h3>
+        <p>Безлимитная карта на 12 месяцев.<br>Спорт / творчество / образование / развлечения.</p>
+        <p class="bla-cards__hours">Посещение с 9:00 до 21:00 в будни и с 9:00 до 21:00 в выходные.</p>
+        <a class="bla-link" href="#popup:card-4-adm">Подробнее</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ГОСТЕВОЙ ВИЗИТ ========== -->
+  <section class="bla-wrap bla-sec" id="bla-guest">
+    <div class="bla-guest">
+      <div>
+        <h2>Запишитесь<br>на гостевой визит</h2>
+        <p class="bla-guest__lead">И получите специальное предложение на клубную карту. Заполните форму – мы вам перезвоним.</p>
+      </div>
+      <form class="bla-form" data-bla-form novalidate>
+        <input type="text" name="Name" placeholder="Ваше имя" autocomplete="name">
+        <input type="tel" name="Phone" placeholder="Телефон" autocomplete="tel">
+        <input type="email" name="Email" placeholder="E-mail" autocomplete="email">
+        <label class="bla-consent"><input type="checkbox" name="consent" checked><span>Я ознакомлен(-а) с <a href="/security_admiral" target="_blank">Политикой обработки персональных данных</a> и даю согласие на обработку персональных данных.</span></label>
+        <button class="bla-btn bla-btn--white" type="submit">Оставить заявку</button>
+        <p class="bla-form__msg" data-bla-msg></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== КОНТАКТЫ ========== -->
+  <section class="bla-wrap bla-sec" id="bla-contacts">
+    <h2 class="bla-h2">Контакты</h2>
+    <div class="bla-contacts">
+      <div class="bla-card bla-club">
+        <h3>Balance Адмирал</h3>
+        <p>Свяжитесь с нами удобным способом: звоните, пишите, приезжайте</p>
+        <div class="bla-club__info">
+          <div><span>пн-пт:<br>7:00 - 23:00</span><span>сб-вс:<br>8:00 - 23:00</span></div>
+          <div>
+            <a href="tel:+78612051818">+7 861 205 18 18</a>
+            <a href="mailto:opadmiral@balancefit.ru">opadmiral@balancefit.ru</a>
+            <span>г. Туапсе ул. Портовиков 39, лит 5</span>
+          </div>
+        </div>
+      </div>
+      <div class="bla-map"><iframe data-src="https://yandex.ru/map-widget/v1/?text=%D0%A2%D1%83%D0%B0%D0%BF%D1%81%D0%B5%2C%20%D1%83%D0%BB.%20%D0%9F%D0%BE%D1%80%D1%82%D0%BE%D0%B2%D0%B8%D0%BA%D0%BE%D0%B2%2C%2039&amp;z=16" title="Balance Адмирал на карте" loading="lazy" allowfullscreen></iframe></div>
+    </div>
+  </section>
+
+  <!-- ========== ПОДВАЛ ========== -->
+  <footer class="bla-wrap">
+    <div class="bla-foot">
+      <a class="bla-foot__logo" href="/admiral"><img src="https://static.tildacdn.com/tild6536-6434-4964-a134-353961616134/noroot.png" alt="Balance"></a>
+      <nav class="bla-foot__col">
+        <a href="https://balance-fit.ru/news_admiral">Новости</a>
+        <a href="/table_admiral">Расписание</a>
+        <a href="#bla-cards">Клубные карты</a>
+        <a href="/sale_admiral">Акции</a>
+        <a href="/kids_admiral">Balance дети</a>
+        <a href="https://krasnodar.hh.ru/employer/4335874?hhtmFrom=employers_list" target="_blank" rel="noopener">Вакансии</a>
+        <a href="#bla-contacts">Контакты</a>
+      </nav>
+      <div class="bla-soc">
+        <a href="https://vk.com/balance_krd" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild6331-3336-4461-b263-333863363632/VK_icon.png" alt="VK"></a>
+        <a href="https://web.max.ru/139886900" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild3731-3463-4632-a263-373039396161/max_icon.png" alt="MAX"></a>
+        <a href="https://t.me/Balance_admiral_bot" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild6432-6563-4537-b532-643039633832/TG_icon.png" alt="Telegram"></a>
+        <a href="https://wa.me/79300365991" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild3264-3732-4436-a333-343665623962/WA_icon.png" alt="WhatsApp"></a>
+      </div>
+      <nav class="bla-foot__col">
+        <a href="/dogovor_admiral">Договор</a>
+        <a href="/pravila_admiral">Правила клуба</a>
+        <a href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FM39TcFShvHKihX%2BS0L%2FkQxnM5ZSZMXgcpResxL2BAr6eDlb3N%2F6D%2Ft6GsAQS4HJnq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&amp;name=Правила%20безопасности%20сети.pdf&amp;nosw=1" target="_blank" rel="noopener">Правила техники безопасности</a>
+        <a href="/oferta_case_adm">Договор-оферта временного пользования шкафом</a>
+        <a href="/security_admiral">Политика конфиденциальности</a>
+        <a href="/position">Положение об акции</a>
+        <a href="https://disk.yandex.ru/d/YmvqFI2Gc9oaAQ" target="_blank" rel="noopener">Прайс Адмирал</a>
+        <a href="/rekvizit_admiral">Реквизиты</a>
+        <a href="/oplata_admiral">Способы оплаты</a>
+      </nav>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  /* Ссылка попапа с тильдовской формой гостевого визита (Tilda → настройки блока попапа → «Ссылка для открытия»).
+     Если такой попап есть на странице, заявка из нашей формы уйдёт через него — в ту же почту/CRM, что и раньше. */
+  var GUEST_POPUP = '#popup:myform-adm';
+
+  var root = document.getElementById('bla'); if(!root) return;
+  var $ = function(s,el){return (el||root).querySelector(s)}, $$ = function(s,el){return Array.prototype.slice.call((el||root).querySelectorAll(s))};
+  function loadBg(el){ if(el && el.dataset.bg){ el.style.backgroundImage="url('"+el.dataset.bg+"')"; el.removeAttribute('data-bg'); } }
+
+  /* Меню */
+  $('[data-bla-burger]').addEventListener('click',function(){ root.classList.toggle('menu-open'); });
+  $$('.bla-drawer a').forEach(function(a){ a.addEventListener('click',function(){ root.classList.remove('menu-open'); }); });
+
+  /* Плавная прокрутка к якорям внутри блока */
+  $$('a[href^="#bla-"]').forEach(function(a){ a.addEventListener('click',function(e){
+    var t=document.getElementById(a.getAttribute('href').slice(1)); if(!t) return;
+    e.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'});
+  }); });
+
+  /* Вкладки фитнес-зон */
+  $$('.bla-tab').forEach(function(tab){ tab.addEventListener('click',function(){
+    $$('.bla-tab').forEach(function(t){ t.classList.toggle('is-active',t===tab); });
+    $$('.bla-zone').forEach(function(p){
+      var on=p.getAttribute('data-zone-panel')===tab.getAttribute('data-zone');
+      p.classList.toggle('is-active',on); if(on) loadBg($('[data-bg]',p));
+    });
+  }); });
+
+  /* Галерея */
+  var track=$('[data-bla-gal]'), slides=$$('div',track), dots=$('[data-bla-dots]');
+  slides.forEach(function(s,i){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Фото '+(i+1));
+    b.addEventListener('click',function(){ go(i); }); dots.appendChild(b); });
+  var dotEls=$$('button',dots);
+  function step(){ return slides[1] ? slides[1].offsetLeft-slides[0].offsetLeft : track.clientWidth; }
+  function cur(){ return Math.round(track.scrollLeft/step()); }
+  function go(i){ i=Math.max(0,Math.min(slides.length-1,i)); track.scrollTo({left:slides[i].offsetLeft-slides[0].offsetLeft,behavior:'smooth'}); }
+  function sync(){ var c=cur(); if(track.scrollLeft+track.clientWidth>=track.scrollWidth-4) c=slides.length-1;
+    dotEls.forEach(function(d,i){ d.classList.toggle('is-active',i===c); });
+    var vis=Math.ceil(track.clientWidth/step())+1; for(var i=c;i<=c+vis&&i<slides.length;i++) loadBg(slides[i]); }
+  track.addEventListener('scroll',function(){ window.requestAnimationFrame(sync); },{passive:true});
+  $('[data-bla-prev]').addEventListener('click',function(){ go(cur()-1); });
+  $('[data-bla-next]').addEventListener('click',function(){ go(cur()+1); });
+
+  /* Ленивая подгрузка галереи и карты при подлёте к ним */
+  var map=$('.bla-map iframe');
+  function lazyStart(){ sync(); if(map && map.dataset.src){ map.src=map.dataset.src; map.removeAttribute('data-src'); } }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ lazyStart(); io.disconnect(); } }); },{rootMargin:'600px'});
+    io.observe(track);
+  } else lazyStart();
+  window.addEventListener('resize',sync);
+
+  /* Форма гостевого визита */
+  var form=$('[data-bla-form]'), msg=$('[data-bla-msg]');
+  function openPopup(hash){ var a=document.createElement('a'); a.href=hash; a.style.display='none'; document.body.appendChild(a); a.click(); a.remove(); }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=form.Name, phone=form.Phone, email=form.Email, ok=true;
+    [name,phone,email].forEach(function(i){ i.classList.remove('is-error'); });
+    if(!name.value.trim()){ name.classList.add('is-error'); ok=false; }
+    if(phone.value.replace(/\D/g,'').length<10){ phone.classList.add('is-error'); ok=false; }
+    if(email.value && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)){ email.classList.add('is-error'); ok=false; }
+    if(!form.consent.checked){ msg.textContent='Нужно согласие на обработку персональных данных.'; return; }
+    if(!ok){ msg.textContent='Проверьте выделенные поля.'; return; }
+    msg.textContent='';
+    var pop=document.querySelector('[data-tooltip-hook="'+GUEST_POPUP+'"]'), tf=pop && pop.querySelector('form');
+    if(tf){
+      var put=function(n,v){ var i=tf.querySelector('[name="'+n+'"]'); if(i){ i.value=v; i.dispatchEvent(new Event('input',{bubbles:true})); } };
+      put('Name',name.value.trim()); put('Phone',phone.value.trim()); put('Email',email.value.trim());
+      var cb=tf.querySelector('input[type=checkbox]'); if(cb) cb.checked=true;
+      var btn=tf.querySelector('[type=submit]');
+      if(btn){ btn.click(); form.reset(); form.consent.checked=true; msg.textContent='Спасибо! Мы скоро перезвоним.'; return; }
+    }
+    openPopup(GUEST_POPUP);
+  });
+})();
+</script>
