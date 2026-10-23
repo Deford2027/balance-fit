@@ -1,0 +1,73 @@
+---
+/** Карта клубов как на главной Тильды: Яндекс.Карты API, серая подложка + белый слой
+    в режиме difference (карта тёмная, метки marker-difference.png – красные со звездой).
+    Координаты и подсказки меток – из кода карты Тильды; под картой – адреса трёх клубов. */
+import { clubList } from '../data/clubs';
+
+const points = [
+  { club: clubList[0], coords: [45.005341, 39.10671], hint: 'Краснодар, Бородинская 137 к2' },
+  { club: clubList[1], coords: [45.072923, 39.04124], hint: 'Краснодар, ул. им. Бочарникова 4, стр. Б' },
+  { club: clubList[2], coords: [44.125199, 39.076751], hint: 'г. Туапсе, ул. Портовиков 39, лит 5' },
+];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const marker = `${base}/_t/static/tild3261-3533-4439-a534-636133346639/marker-difference.png`;
+const api = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=831f87db-63c2-40d7-9323-264278280192';
+---
+<section class="bla-wrap bla-sec" id="map">
+  <h2 class="bla-h2">Клубы на карте</h2>
+  <div class="bla-ymap" data-ymap={JSON.stringify(points.map((p) => ({ coords: p.coords, hint: p.hint })))} data-marker={marker} data-api={api}>
+    <div class="bla-ymap__map"></div>
+    <div class="bla-ymap__tone"></div>
+  </div>
+  <div class="bla-grid">
+    {points.map((p, i) => (
+      <button type="button" class="bla-card bla-ymap__club" data-ymap-go={i}>
+        <b>{p.club.name}</b>
+        <span>{p.club.contacts.address}</span>
+      </button>
+    ))}
+  </div>
+</section>
+
+<script>
+  /* API карт грузится, когда блок близко к экрану */
+  type Pt = { coords: [number, number]; hint: string };
+  const box = document.querySelector<HTMLElement>('[data-ymap]');
+  const w = window as unknown as { ymaps: any };
+  if (box) {
+    const pts: Pt[] = JSON.parse(box.dataset.ymap!);
+    let map: any;
+    const init = () =>
+      w.ymaps.ready(() => {
+        map = new w.ymaps.Map(box.querySelector('.bla-ymap__map'), { center: [45.05, 39.07], zoom: 12 }, { searchControlProvider: 'yandex#search' });
+        pts.forEach((p) =>
+          map.geoObjects.add(
+            new w.ymaps.Placemark(p.coords, { hintContent: p.hint }, { iconLayout: 'default#image', iconImageHref: box.dataset.marker, iconImageSize: [30, 40], iconImageOffset: [-15, -40] })
+          )
+        );
+        map.setBounds(map.geoObjects.getBounds(), { checkZoomRange: true, zoomMargin: 60 });
+        map.behaviors.disable('scrollZoom');
+      });
+    /* Если API не загрузился (сеть, ключ) – виджет Яндекс.Карт с теми же тремя точками */
+    const fallback = () => {
+      if (map || box.querySelector('iframe')) return;
+      const pt = pts.map((p) => `${p.coords[1]},${p.coords[0]},pm2rdl`).join('~');
+      box.querySelector('.bla-ymap__tone')?.remove();
+      box.querySelector('.bla-ymap__map')!.innerHTML = `<iframe src="https://yandex.ru/map-widget/v1/?pt=${pt}&ll=39.07,44.6&z=8&theme=dark" title="Клубы Balance на карте" allowfullscreen style="width:100%;height:100%;border:0"></iframe>`;
+    };
+    const io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      const s = document.createElement('script');
+      s.src = box.dataset.api!;
+      s.onload = init;
+      s.onerror = fallback;
+      setTimeout(() => !map && fallback(), 10000);
+      document.head.appendChild(s);
+    }, { rootMargin: '600px' });
+    io.observe(box);
+    document.querySelectorAll<HTMLElement>('[data-ymap-go]').forEach((b) =>
+      b.addEventListener('click', () => map?.setCenter(pts[+b.dataset.ymapGo!].coords, 15, { duration: 400 }))
+    );
+  }
+</script>

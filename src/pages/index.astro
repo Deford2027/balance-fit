@@ -2,6 +2,7 @@
 /** Выбор клуба – главная сети. Тексты, фото и ссылки – со страницы Тильды (/old/index). */
 import Site from '../layouts/Site.astro';
 import { apps } from '../data/clubs';
+import ClubsMap from '../components/ClubsMap.astro';
 
 const clubs = [
   { name: 'Balance Империал', address: 'Краснодар, ул. Бородинская, 137, корп. 2', href: '/imperial', img: '/_t/static/tild6338-3366-4561-b033-363764343536/2023-09-18_163819.jpg', tone: 'bla-tone--blue' },
@@ -14,7 +15,6 @@ const brands = [
   { href: '/imperial/spa', img: '/_t/static/tild6563-6530-4035-b937-326164366463/slide-img-3.jpg', logo: '/_t/static/tild3334-3462-4737-b634-323963656635/logo_balance_spa.png', alt: 'Balance спа' },
   { href: '/cafe', img: '/_t/static/tild3965-3833-4664-b235-363931363933/slide-img-4.jpg', logo: '/_t/static/tild3632-3664-4530-a236-316436366139/logo_balance_cafe.png', alt: 'Balance кафе' },
 ];
-const map = 'https://yandex.ru/map-widget/v1/?ll=39.07%2C45.05&z=11&pt=39.106710,45.005341,pm2rdl~39.041240,45.072923,pm2rdl';
 ---
 <Site title="Сеть фитнес-клубов Balance" description="Добро пожаловать в сеть фитнес-клубов Balance! Мы предлагаем широкий спектр услуг для здоровья и фитнеса, чтобы помочь вам достичь своих целей. Присоединяйтесь к нам сегодня и начните путь к здоровому образу жизни вместе с Balance!" path="index">
   <section class="bla-wrap bla-sec--sm">
@@ -57,8 +57,5 @@ const map = 'https://yandex.ru/map-widget/v1/?ll=39.07%2C45.05&z=11&pt=39.106710
     </div>
   </section>
 
-  <section class="bla-wrap bla-sec">
-    <h2 class="bla-h2">Клубы на карте</h2>
-    <div class="bla-map" style="margin-top:24px;min-height:480px"><iframe data-src={map} title="Клубы Balance в Краснодаре на карте" loading="lazy" allowfullscreen></iframe></div>
-  </section>
+  <ClubsMap />
 </Site>
