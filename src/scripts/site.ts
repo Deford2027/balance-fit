@@ -98,6 +98,7 @@ $$('[data-gal]').forEach((gal) => {
     let c = cur();
     if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) c = slides.length - 1;
     dots && Array.from(dots.children).forEach((d, i) => d.classList.toggle('is-active', i === c));
+    if (slides[c]?.dataset.left) (gal as HTMLElement).style.setProperty('--left', slides[c].dataset.left!);
     const vis = Math.ceil(track.clientWidth / step()) + 1;
     for (let i = c; i <= c + vis && i < slides.length; i++) {
       loadBg(slides[i]);
@@ -109,6 +110,13 @@ $$('[data-gal]').forEach((gal) => {
   gal.querySelector('[data-gal-next]')?.addEventListener('click', () => go(cur() + 1));
   window.addEventListener('resize', sync);
   sync();
+  /* [data-gal-auto] – листается сам раз в 5 секунд, пока на него не навели мышь */
+  if ((gal as HTMLElement).dataset.galAuto !== undefined) {
+    let hover = false;
+    gal.addEventListener('mouseenter', () => (hover = true));
+    gal.addEventListener('mouseleave', () => (hover = false));
+    setInterval(() => !hover && go(cur() + 1 >= slides.length ? 0 : cur() + 1), 5000);
+  }
 });
 
 /* Ленивые картинки (вне скрытых вкладок, попапов и галерей) и карты */
