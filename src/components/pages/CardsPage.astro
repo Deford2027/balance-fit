@@ -1,0 +1,29 @@
+---
+/** Страница «Клубные карты» клуба: первый экран, карты рядами, заморозка / тренер, контакты. */
+import Site from '../../layouts/Site.astro';
+import PageHero from '../PageHero.astro';
+import Rows from '../Rows.astro';
+import Contacts from '../Contacts.astro';
+import { clubs, type ClubId } from '../../data/clubs';
+
+type Card = { title: string; text: string; img: string; more: string };
+const { club, path, title, description, order, cards, freeze, trainer } = Astro.props as {
+  club: ClubId; path: string; title: string; description: string; order: string; cards: Card[]; freeze: string; trainer: string;
+};
+const c = clubs[club];
+const S = '/_t/static/';
+---
+<Site title={title} description={description} club={club} path={path} crumbs={[{ text: c.name, href: c.home }, { text: 'Клубные карты', href: '' }]}>
+  <PageHero title="Клубные карты" lead="Выберите свою идеальную карту" img={S + 'tild3533-3064-4761-a638-643334663863/__.jpg'} btns={[{ text: 'Заказать карту', href: order }]} apps />
+  <Rows rows={cards.map((k) => ({ title: k.title, html: k.text, img: k.img, link: { text: 'Подробнее', href: k.more } }))} />
+  <Rows
+    id="freeze"
+    rows={[{
+      title: 'Уже являетесь<br>членом клуба Balance?',
+      html: '<p>Вы можете заморозить Вашу действующую карту или записаться на тренировку</p>',
+      img: S + 'tild6139-3137-4231-b064-383236666337/____Balance_.jpg',
+      btns: [{ text: 'Заморозить карту', href: freeze }, { text: 'Записаться к тренеру', href: trainer }],
+    }]}
+  />
+  <Contacts club={club} />
+</Site>

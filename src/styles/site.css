@@ -408,3 +408,5 @@ a.bla-tile:hover{border-color:rgba(196,232,5,.6);transform:translateY(-2px)}
   .bla-foot__logo img{width:180px}
   .bla-embed{padding:16px}
 }
+.bla-chips a{border-color:rgba(196,232,5,.45)}
+.bla-chips a::after{content:" +";color:var(--green)}

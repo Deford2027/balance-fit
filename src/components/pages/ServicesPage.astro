@@ -1,0 +1,28 @@
+---
+/** «Услуги фитнес-клуба»: первый экран, направления рядами (с подменю программ), гостевой визит, контакты. */
+import Site from '../../layouts/Site.astro';
+import PageHero from '../PageHero.astro';
+import Rows from '../Rows.astro';
+import Guest from '../Guest.astro';
+import Contacts from '../Contacts.astro';
+import { clubs, type ClubId } from '../../data/clubs';
+
+const { club, path, title, description, heroSub, hero, sections } = Astro.props as {
+  club: ClubId; path: string; title: string; description: string; heroSub?: string;
+  hero: string; sections: any[];
+};
+const c = clubs[club];
+---
+<Site title={title} description={description} club={club} path={path} crumbs={[{ text: c.name, href: c.home }, { text: 'Услуги', href: '' }]}>
+  <PageHero
+    title="Услуги фитнес-клуба<br>Balance"
+    eyebrow={heroSub}
+    lead="С нами вы будете выглядеть на все 100<br>с высоким уровнем комфорта и сервиса!"
+    img="/_t/static/tild3135-3863-4136-a634-383362353633/_.jpg"
+    btns={[{ text: 'Хочу в Balance', href: hero }]}
+    apps
+  />
+  <Rows title="Мы предлагаем разнообразие направлений" rows={sections} />
+  <Guest title="Вы можете записаться<br>на гостевой визит" lead="И получить специальное предложение на клубную карту.<br>Оставьте заявку. Мы вам перезвоним." tone="bla-guest--deep" />
+  <Contacts club={club} />
+</Site>

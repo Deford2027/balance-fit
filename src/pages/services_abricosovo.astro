@@ -1,0 +1,21 @@
+---
+/** Услуги Balance Абрикосово. Тексты и ссылки – со страницы Тильды (/old/services_abricosovo). */
+import ServicesPage from '../components/pages/ServicesPage.astro';
+import { servicesSections } from '../data/services';
+const sections = servicesSections({
+  cards: '/cards_abricosovo', table: '/table_abricosovo', kids: '/kids_abricosovo',
+  personal: '#popup:personal-training-abr', personalBtn: 'Хочу персональные тренировки',
+  personalHtml: '<p>В нашем клубе вы можете выбрать тренера, который составит для Вас <strong>индивидуальную программу тренировок</strong>, которая будет полностью соответствовать вашему уровню подготовки и в соответствии с тем, какого результата вы хотите добиться.</p>',
+  aquaHtml: '<p>Спортивное и свободное плавание, групповые аквапрограммы идеально подойдут <strong>любителям воды</strong>. Тренировки в воде эффективны и приведут ваше тело в тонус без изнурительных тренировок и боли в мышцах.</p>',
+  spa: { href: '/spa_abricosovo', html: '<p>Массажный кабинет Balance спа - это более 10 видов массажа: корректирующие, спортивные, расслабляющие, лимфодренажные и др.</p>' },
+  cafe: { href: '/cafe_abricosovo', html: '<p>Как известно, только тренироваться - недостаточно. Необходимо придерживаться сбалансированного питания. У нас большое разнообразие полезных блюд, а главное вкусных! В Balance cafe вы можете всегда можете прекусить до и после тренировки, а также прийти на завтрак, обед и ужин. У всех блюд расписаны КБЖУ для подсчета вашей калорийности.</p>' },
+});
+---
+<ServicesPage
+  club="abricosovo"
+  path="services_abricosovo"
+  title="Услуги фитнес-клуба Balance"
+  description="Услуги фитнес-клубаBalance"
+  hero="#popup:myform-abr"
+  sections={sections}
+/>

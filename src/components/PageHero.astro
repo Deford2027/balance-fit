@@ -1,0 +1,33 @@
+---
+/** Первый экран внутренней страницы: карточка с заголовком и кнопками + фото (или без фото). */
+import { apps as appLinks } from '../data/clubs';
+type Btn = { text: string; href: string; tone?: 'red' | 'green' | 'ghost' | 'white' };
+const { title, eyebrow, lead, img, btns = [], apps = false, tone = '' } = Astro.props as {
+  title: string; eyebrow?: string; lead?: string; img?: string; btns?: Btn[]; apps?: boolean; tone?: string;
+};
+const ext = (h: string) => /^https?:/.test(h);
+---
+<section class="bla-wrap">
+  <div class:list={['bla-phero', { 'bla-phero--solo': !img }]}>
+    <div class:list={['bla-card bla-phero__text', tone]}>
+      {eyebrow && <p class="bla-eyebrow">{eyebrow}</p>}
+      <h1 class="bla-h1" set:html={title} />
+      {lead && <p class="bla-lead" set:html={lead} />}
+      <slot />
+      {(btns.length > 0 || apps) && (
+        <div class="bla-hero__btns">
+          {btns.map((b, i) => (
+            <a class={`bla-btn bla-btn--${b.tone ?? (i === 0 ? 'red' : 'ghost')}`} href={b.href} {...(ext(b.href) ? { target: '_blank', rel: 'noopener' } : {})}>{b.text}</a>
+          ))}
+          {apps && (
+            <div style="flex-basis:100%">
+              <p class="bla-apps__title">Скачайте приложение</p>
+              <div class="bla-apps">{appLinks.map((a) => <a href={a.href} target="_blank" rel="noopener"><img src={a.img} alt={a.text} /></a>)}</div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+    {img && <div class="bla-cover bla-phero__img" style={`background-image:url('${img}')`}></div>}
+  </div>
+</section>

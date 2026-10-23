@@ -1,0 +1,35 @@
+---
+/** Ряды «фото + текст» с чередованием сторон. */
+type Btn = { text: string; href: string; tone?: string };
+type Chip = { text: string; href?: string };
+type Row = { title: string; html: string; img: string; tag?: string; chips?: Chip[]; btns?: Btn[]; link?: Btn; id?: string };
+const { rows, title, sub, id } = Astro.props as { rows: Row[]; title?: string; sub?: string; id?: string };
+const ext = (h: string) => /^https?:/.test(h);
+---
+<section class="bla-wrap bla-sec" id={id}>
+  {title && <h2 class="bla-h2" set:html={title} />}
+  {sub && <p class="bla-sub" set:html={sub} />}
+  <div class="bla-rows">
+    {rows.map((r) => (
+      <div class="bla-row" id={r.id}>
+        <div class="bla-cover bla-row__img" data-bg={r.img}></div>
+        <div class="bla-card bla-row__text">
+          {r.tag && <span class="bla-row__tag">{r.tag}</span>}
+          <h3 set:html={r.title} />
+          {r.html && <div class="bla-text" set:html={r.html} />}
+          {r.chips && (
+            <div class="bla-chips">{r.chips.map((c) => (c.href ? <a href={c.href}>{c.text}</a> : <span>{c.text}</span>))}</div>
+          )}
+          {(r.btns?.length || r.link) && (
+            <div class="bla-btns">
+              {r.btns?.map((b, i) => (
+                <a class={`bla-btn bla-btn--${b.tone ?? (i === 0 ? 'green' : 'ghost')}`} href={b.href} {...(ext(b.href) ? { target: '_blank', rel: 'noopener' } : {})}>{b.text}</a>
+              ))}
+              {r.link && <a class="bla-link" href={r.link.href} {...(ext(r.link.href) ? { target: '_blank', rel: 'noopener' } : {})}>{r.link.text}</a>}
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
