@@ -34,23 +34,23 @@ const map = 'https://yandex.ru/map-widget/v1/?ll=39.07%2C45.05&z=11&pt=39.106710
     </div>
   </section>
 
-  <section class="bla-wrap bla-sec">
-    <div class="bla-free">
-      <div class="bla-card bla-free__text bla-tone--olive">
-        <h2 style="color:#fff">Свобода заниматься собой</h2>
+  <section class="bla-wrap bla-sec bla-brands bla-brands--v3">
+    <div class="bla-card bla-strip">
+      <h2 class="bla-h2">Свобода заниматься собой</h2>
+      <div>
         <p class="bla-apps__title">Скачайте приложение</p>
         <div class="bla-apps">
           {apps.map((a) => <a href={a.href} target="_blank" rel="noopener"><img src={a.img} alt={a.text} /></a>)}
         </div>
       </div>
-      <div class="bla-grid bla-grid--2" style="margin-top:0">
-        {brands.map((b) => (
-          <a class="bla-card bla-tile" href={b.href}>
-            <div class="bla-cover bla-tile__img" data-bg={b.img}></div>
-            <div class="bla-tile__body"><img src={b.logo} alt={b.alt} style="height:34px;width:auto" /></div>
-          </a>
-        ))}
-      </div>
+    </div>
+    <div class="bla-grid bla-grid--4">
+      {brands.map((b) => (
+        <a class="bla-card bla-tile" href={b.href}>
+          <div class="bla-cover bla-tile__img" data-bg={b.img}></div>
+          <div class="bla-tile__body"><img src={b.logo} alt={b.alt} style="height:30px;width:auto" /></div>
+        </a>
+      ))}
     </div>
   </section>
 

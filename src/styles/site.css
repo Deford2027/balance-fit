@@ -438,3 +438,16 @@ a.bla-tile:hover{border-color:rgba(196,232,5,.6);transform:translateY(-2px)}
 .bla-menu .is-num{color:var(--green);white-space:nowrap}
 .bla-menuwrap{overflow-x:auto}
 @media (max-width:640px){.bla-menu{width:560px;font-size:14px}}
+
+/* Главная сети: полоса «Свобода заниматься собой» с приложением */
+.bla-strip{display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;padding:32px 40px}
+.bla-strip .bla-apps__title{margin:0}
+@media (max-width:640px){.bla-strip{padding:28px 24px}}
+/* v2: оливковая полоса, логотипы поверх фото */
+.bla-brands--v2 .bla-strip{background:var(--olive);border-color:var(--olive)}
+.bla-brands--v2 .bla-strip .bla-h2{color:#fff}
+.bla-brands--v2 .bla-tile,.bla-brands--v3 .bla-tile{padding:0;position:relative;overflow:hidden;gap:0}
+.bla-brands--v2 .bla-tile__img,.bla-brands--v3 .bla-tile__img{border-radius:0;aspect-ratio:1/1}
+.bla-brands--v2 .bla-tile__body,.bla-brands--v3 .bla-tile__body{position:absolute;left:0;right:0;bottom:0;padding:60px 20px 20px;background:linear-gradient(transparent,rgba(0,0,0,.85))}
+/* v3: без плашки – заголовок и приложение прямо на фоне */
+.bla-brands--v3 .bla-strip{background:none;border:0;padding:0}
