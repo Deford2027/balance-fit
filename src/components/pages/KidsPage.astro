@@ -1,0 +1,70 @@
+---
+/** «Детский клуб Balance дети»: первый экран, предложения, направления, услуги, галерея, гостевой визит, контакты. */
+import Site from '../../layouts/Site.astro';
+import PageHero from '../PageHero.astro';
+import Rows from '../Rows.astro';
+import Gallery from '../Gallery.astro';
+import Guest from '../Guest.astro';
+import Contacts from '../Contacts.astro';
+import { clubs, type ClubId } from '../../data/clubs';
+
+type Offer = { title: string; sub?: string; html?: string; img: string; more?: string };
+const { club, path, title, description, lead, hero, offers, swimHtml, table, uslugi } = Astro.props as {
+  club: ClubId; path: string; title: string; description: string; lead: string; hero: string;
+  offers: Offer[]; swimHtml: string; table: string; uslugi: string;
+};
+const c = clubs[club];
+const S = '/_t/static/';
+const chip = (text: string, href?: string) => ({ text, href });
+const gallery = ['tild3530-3638-4531-b465-326234366632/iKVq18zNERE.jpg', 'tild3261-3233-4935-a536-383966396237/pnjiLxwvIPA_1.jpg', 'tild3839-3564-4134-b234-626237646331/BZ8y6dLA1Jk.jpg', 'tild3835-6432-4962-b131-626166626364/Uc4UXrJsj0Q.jpg', 'tild6363-6434-4130-b232-393537643831/nHVPPuvRNjA.jpg', 'tild3863-3565-4437-b835-366530643161/2iaXf0xnATA.jpg', 'tild6166-3865-4933-b665-656633353137/WQEaYxxBkd4.jpg', 'tild3563-3561-4862-b864-663165333463/hRMaHkUYph8.jpg', 'tild6331-6662-4334-a161-323865643337/MkElwQ80wsU.jpg', 'tild3035-3964-4636-b138-396330306238/TC19TabDXaU.jpg', 'tild6365-6265-4237-a635-373435343630/bLBGpAjDfq4.jpg', 'tild6637-6332-4736-b832-363663353133/Gu0QW6jyx94.jpg', 'tild3334-6362-4330-a534-626433356439/vfa737FaswQ.jpg', 'tild6337-3638-4665-a466-396637626665/cynPVXjRPaY.jpg', 'tild3639-6431-4566-b231-303234656562/cssmAKJuMH8.jpg', 'tild3233-6565-4939-a266-366266316334/Wsc4ql1zeB0.jpg', 'tild3333-3861-4130-b166-653765663031/R1ZXZLZklwE.jpg', 'tild6633-6263-4466-a630-326132633564/psm3sJaKrsg.jpg', 'tild3562-3939-4134-b961-636237383031/YYkwzSbD0Wk.jpg'].map((f) => S + f);
+---
+<Site title={title} description={description} club={club} path={path} crumbs={[{ text: c.name, href: c.home }, { text: 'Balance дети', href: '' }]}>
+  <PageHero eyebrow="Balance дети" title="Детский клуб" lead={lead} img={S + 'tild3835-3330-4434-b564-653037356366/__.jpg'} btns={[{ text: 'Узнать подробности', href: hero }]} apps />
+
+  <section class="bla-wrap bla-sec">
+    <h2 class="bla-h2">Наши предложения и акции</h2>
+    <p class="bla-sub">Актуальные предложения</p>
+    <div class="bla-grid bla-grid--2">
+      {offers.map((o) => (
+        <div class="bla-card bla-tile">
+          <div class="bla-cover bla-tile__img" data-bg={o.img}></div>
+          <div class="bla-tile__body">
+            <h3 set:html={o.title} />
+            {o.sub && <p class="bla-text" style="color:var(--green)">{o.sub}</p>}
+            {o.html && <div class="bla-text" set:html={o.html} />}
+            {o.more && <a class="bla-link" href={o.more}>Подробнее</a>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Rows
+    title="Направления"
+    rows={[
+      { title: 'Школа плавания', img: S + 'tild6236-3335-4039-b966-363966653862/_.jpg', html: swimHtml, btns: [{ text: 'Подробнее', href: table }] },
+      {
+        title: 'Детский фитнес', img: S + 'tild6465-6463-4561-b837-386234613438/_.jpg',
+        html: '<p>Мы позаботились о том, чтобы <strong>ваш ребенок</strong> с интересом посещал наш клуб и мы уделили особое внимание подбору направлений:</p>',
+        chips: [
+          chip('БЕБИ от 6 месяцев до 3х лет'), chip('Программы для детей 3-5 лет', '#submenu:kids-2'), chip('Тренировки для детей 6-7 лет', '#submenu:kids-3'),
+          chip('Направления для детей 8-13 лет', '#submenu:kids-4'), chip('Единоборства', '#submenu:kids-5'), chip('Мини-сад'), chip('Летний лагерь'),
+          chip('Мастер-классы'), chip('Школа плавания'), chip('Грудничковое плавание'),
+        ],
+        btns: [{ text: 'Расписание тренировок', href: table }],
+      },
+    ]}
+  />
+  <Rows
+    title="Услуги Детского клуба Balance"
+    rows={[{
+      title: 'Хотите, чтобы ваш ребенок:',
+      img: S + 'tild6536-3239-4463-b065-633731366230/__Balance_kids.jpg',
+      html: '<p>Научился плавать?<br>Адаптировался к детскому саду?</p><p>А может, вам нужна помощь в подготовке к школе и выполнением домашних заданий?</p><p>Или нужно наполнить жизнь ребёнка фитнес-занятиями?</p>',
+      btns: [{ text: 'Подробнее', href: uslugi }],
+    }]}
+  />
+  <Gallery images={gallery} sub="Спортивная и активная жизнь в Balance. Присоединяйтесь!" />
+  <Guest title="Вы можете записаться<br>на гостевой визит" lead="И получить специальное предложение на клубную карту.<br>Оставьте заявку. Мы вам перезвоним." tone="bla-guest--deep" />
+  <Contacts club={club} />
+</Site>
