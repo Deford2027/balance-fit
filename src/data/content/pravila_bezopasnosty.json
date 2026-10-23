@@ -1,0 +1,24 @@
+{
+ "path": "pravila_bezopasnosty",
+ "title": "Правила безопасности",
+ "description": "Balance Империал правила безопасности клуба",
+ "recs": [
+  {
+   "id": "rec604788158",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Правила техники безопасности",
+    "Balance Империал"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec604788159",
+   "type": "doc",
+   "iframes": [
+    "https://docs.google.com/document/d/13JQgNqMeBex9nTyrUpejEg6mFTn2v9jQwqE26Zv_3Yc/preview"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,101 @@
+---
+/** Вёрстка блоков из lib/blocks.ts в новом дизайне (вкладки рендерят свои блоки через Astro.self). */
+import PageHero from './PageHero.astro';
+import Rows from './Rows.astro';
+import Guest from './Guest.astro';
+import Contacts from './Contacts.astro';
+import type { ClubId } from '../data/clubs';
+import type { Block } from '../lib/blocks';
+
+const { blocks, club, tabsId = 't' } = Astro.props as { blocks: Block[]; club?: ClubId; tabsId?: string };
+const ext = (h: string) => /^https?:/.test(h);
+const attrs = (h: string) => (ext(h) ? { target: '_blank', rel: 'noopener' } : {});
+---
+{blocks.map((b, i) => {
+  switch (b.kind) {
+    case 'hero':
+      return <PageHero eyebrow={b.eyebrow} title={b.title} lead={b.lead} img={b.img} btns={b.btns} apps={b.apps} />;
+    case 'head':
+      return (
+        <section class="bla-wrap bla-sec bla-sec--head" id={b.id}>
+          <h2 class="bla-h2" set:html={b.title} />
+          {b.sub && <p class="bla-sub" set:html={b.sub} />}
+        </section>
+      );
+    case 'rows':
+      return <Rows rows={b.rows.map((r) => ({ ...r, btns: r.btns.map((x, k) => ({ ...x, tone: k ? 'ghost' : 'green' })) }))} />;
+    case 'card':
+      return (
+        <section class="bla-wrap bla-sec" id={b.id}>
+          <div class="bla-card bla-tile--pad bla-text bla-textcard">
+            {b.texts.map((t, k) => (k === 0 ? <h3 set:html={t} /> : <p set:html={t} />))}
+            {b.btns.length > 0 && (
+              <div class="bla-btns">{b.btns.map((x, k) => <a class={`bla-btn bla-btn--${k ? 'ghost' : 'green'}`} href={x.href} {...attrs(x.href)}>{x.text}</a>)}</div>
+            )}
+          </div>
+        </section>
+      );
+    case 'form':
+      return <Guest title={b.title} lead={b.lead} id={`form-${i}`} />;
+    case 'doc':
+      return (
+        <section class="bla-wrap bla-sec--sm">
+          <div class="bla-card bla-doc" set:html={b.html} />
+        </section>
+      );
+    case 'prices':
+      return (
+        <section class="bla-wrap">
+          <div class="bla-price">
+            {b.tables.map((t) => (
+              <div class="bla-card bla-price__group">
+                <h3 set:html={t.head[0]} />
+                {t.head.length > 2 ? (
+                  <div class="bla-ptable">
+                    <table>
+                      <thead><tr>{t.head.map((h, k) => <th set:html={k ? h : ''} />)}</tr></thead>
+                      <tbody>{t.rows.map((r) => <tr>{r.map((c) => <td set:html={c} />)}</tr>)}</tbody>
+                    </table>
+                  </div>
+                ) : (
+                  t.rows.map((r) => <div class="bla-price__row"><span set:html={r[0]} /><span set:html={r.slice(1).join(' ')} /></div>)
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    case 'tabs':
+      return (
+        <section class="bla-sec--sm" data-tabs>
+          <div class="bla-wrap"><div class="bla-tabs">
+            {b.tabs.map((t, k) => <button type="button" class:list={['bla-tab', { 'is-active': k === 0 }]} data-tab={`${tabsId}${i}-${k}`}>{t.title}</button>)}
+          </div></div>
+          {b.tabs.map((t, k) => (
+            <div data-panel={`${tabsId}${i}-${k}`} class:list={{ 'is-active': k === 0 }}>
+              <Astro.self blocks={t.blocks} club={club} tabsId={`${tabsId}${i}-${k}-`} />
+            </div>
+          ))}
+        </section>
+      );
+    case 'acc':
+      return (
+        <section class="bla-wrap bla-sec--sm">
+          <div class="bla-acc">
+            {b.items.map((x, k) => (
+              <details open={k === 0}>
+                <summary set:html={x.title} />
+                <div class="bla-text" set:html={x.html} />
+              </details>
+            ))}
+          </div>
+        </section>
+      );
+    case 'contacts':
+      return club && <Contacts club={club} />;
+    case 'embed':
+      return <section class="bla-wrap bla-sec--sm"><div class="bla-card bla-embed bla-embed--light" set:html={b.html} /></section>;
+    case 'frame':
+      return <section class="bla-wrap bla-sec--sm"><div class="bla-card bla-embed bla-embed--doc"><iframe src={b.src} title="Документ" loading="lazy"></iframe></div></section>;
+  }
+})}

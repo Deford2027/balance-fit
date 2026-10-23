@@ -1,0 +1,40 @@
+{
+ "path": "contacts_abricosovo",
+ "title": "Контакты фитнес-клуба Balance Абрикосово в Краснодаре",
+ "description": "Телефон, адрес и другие контактные данные фитнес-клуба Balance Абрикосово в Краснодаре. ",
+ "recs": [
+  {
+   "id": "rec664096939",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Balance Абрикосово",
+    "Свяжитесь с нами удобным способом: звоните, пишите, приезжайте",
+    "Ресепшн",
+    "Отдел продаж",
+    "<a href=\"tel:+78612052727\">+7 861 205 27 27</a>",
+    "<a href=\"tel:+78612072717\">+7 861 207 27 17</a>",
+    "пн-пт: 6:00 - 23:00",
+    "ежедневно: 9:00 - 21:00",
+    "сб-вс: 8:00 - 23:00",
+    "<a href=\"mailto:op_abrikosovo@balancefit.ru\">op_abrikosovo@balancefit.ru</a>",
+    "Краснодар, ул. им. Бочарникова 4, стр. Б"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec664097122",
+   "type": "396",
+   "img": "/_t/static/tild3033-3138-4138-b338-653436343930/icon-mail-white.svg",
+   "texts": [
+    "Служба заботы о клиентах",
+    "По вопросам рекламы и сотрудничества",
+    "<a href=\"mailto:serv-manager@balancefit.ru\">Вы можете написать нам свои пожелания и отзывы</a>",
+    "<a href=\"mailto:market@balancefit.ru\">Присылайте ваши предложения на почту</a>",
+    "<a href=\"mailto:serv-manager@balancefit.ru\">abrikosovo@balancefit.ru</a>",
+    "<a href=\"mailto:market@balancefit.ru\">smm@balancefit.ru</a>"
+   ],
+   "btns": []
+  }
+ ]
+}

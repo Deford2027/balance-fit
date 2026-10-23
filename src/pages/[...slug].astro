@@ -17,6 +17,9 @@ type Page = {
     и стилях после порта и доп. CSS. Данные порта не трогаем – перепорт её не сотрёт. */
 type Palette = { colors?: Record<string, string>; css?: string };
 
+import ContentPage from '../components/pages/ContentPage.astro';
+import type { Content } from '../lib/blocks';
+
 export function getStaticPaths() {
   const files = import.meta.glob<Page>('../data/pages/*.json', { eager: true, import: 'default' });
   const palettes = import.meta.glob<Palette>('../data/palettes/*.json', { eager: true, import: 'default' });
@@ -27,15 +30,20 @@ export function getStaticPaths() {
       .map((f) => f.replace(/^\.\//, '').replace(/\.astro$/, '').replace(/(^|\/)index$/, ''))
       .filter((p) => !p.includes('['))
   );
+  /* Остальные страницы собраны общим шаблоном из выгрузки Тильды (src/data/content) */
+  const contents = import.meta.glob<Content>('../data/content/*.json', { eager: true, import: 'default' });
+  const content = new Map(Object.values(contents).map((c) => [c.path, c]));
   return Object.values(files).flatMap((page) => {
     const props = { page, palette: palettes[`../data/palettes/${page.path || 'index'}.json`] };
+    const c = !page.redirect && !own.has(page.path) ? content.get(page.path) : undefined;
+    if (c) return [{ params: { slug: page.path }, props: { ...props, content: c } }, { params: { slug: `old/${page.path}` }, props }];
     if (page.path === 'admiral') return [{ params: { slug: 'admiral-tilda' }, props }];
     if (!page.redirect && own.has(page.path)) return [{ params: { slug: `old/${page.path || 'index'}` }, props }];
     return [{ params: { slug: page.path || undefined }, props }];
   });
 }
 
-const { page, palette } = Astro.props as { page: Page; palette?: Palette };
+const { page, palette, content } = Astro.props as { page: Page; palette?: Palette; content?: Content };
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 function rebase(s: string) {
@@ -57,7 +65,7 @@ function recolor(s: string) {
 const target = page.redirect?.startsWith('/') ? base + page.redirect : page.redirect;
 ---
 
-{
+{content ? <ContentPage content={content} /> : (
   page.redirect ? (
     <html lang="ru">
       <head>
@@ -83,4 +91,4 @@ const target = page.redirect?.startsWith('/') ? base + page.redirect : page.redi
       </body>
     </html>
   )
-}
+)}

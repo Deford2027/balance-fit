@@ -1,0 +1,21 @@
+{
+ "path": "lk",
+ "title": "Личный кабинет фитнес-клуба Balance Империал",
+ "description": "ЛК Balance Империал",
+ "recs": [
+  {
+   "id": "rec605276820",
+   "type": "131",
+   "embed": "<div id=\"mf_personal_widget_cont_6og\"></div> <script async=\"async\" data-club=\"2434\" data-code=\"676502\" data-debug=\"0\" data-div=\"mf_personal_widget_cont_6og\" data-domain=\"mobifitness.ru\" data-language=\"\" data-test=\"0\" data-type=\"personal\" data-version=\"v6\" id=\"mobifitness_personal_widget_script_6og\" src=\"//mobifitness.ru/personal-widget/js/code.js\" type=\"text/javascript\"></script>"
+  },
+  {
+   "id": "rec682774028",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Личный кабинет фитнес клуба Balance Империал"
+   ],
+   "btns": []
+  }
+ ]
+}

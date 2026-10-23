@@ -295,6 +295,19 @@ a.bla-tile:hover{border-color:rgba(196,232,5,.6);transform:translateY(-2px)}
 /* Пустой виджет / встраивание */
 .bla-embed{padding:32px;margin-top:24px;min-height:200px}
 .bla-embed iframe{width:100%;min-height:720px;border:0;border-radius:16px;background:#fff}
+.bla-embed--light{background:#fff;color:#000}
+.bla-embed--doc iframe{min-height:80vh}
+
+/* Блоки страниц из выгрузки Тильды */
+.bla-sec--head+.bla-wrap,.bla-sec--head+section{padding-top:0}
+.bla-sec--head+.bla-sec--sm{padding-top:8px}
+.bla-textcard h3{color:var(--green);font-size:28px;line-height:1.25;margin-bottom:16px}
+.bla-textcard p+p{margin-top:12px}
+.bla-ptable{overflow-x:auto}
+.bla-ptable table{width:100%;border-collapse:collapse;font-size:16px;line-height:1.45}
+.bla-ptable th{color:var(--t62);font-weight:400;text-align:right;padding:8px 0 8px 16px;white-space:nowrap}
+.bla-ptable td{padding:12px 0 12px 16px;border-top:1px solid var(--line);text-align:right;color:var(--green);white-space:nowrap}
+.bla-ptable td:first-child{text-align:left;color:var(--t86);white-space:normal;padding-left:0}
 
 /* Подвал */
 .bla-foot{border-top:1px solid var(--line);margin-top:96px;padding:44px 24px 56px;display:grid;grid-template-columns:1fr auto auto auto;gap:40px;align-items:end}
@@ -410,3 +423,18 @@ a.bla-tile:hover{border-color:rgba(196,232,5,.6);transform:translateY(-2px)}
 }
 .bla-chips a{border-color:rgba(196,232,5,.45)}
 .bla-chips a::after{content:" +";color:var(--green)}
+
+/* Контакты: строки карточки клуба и «Служба заботы» */
+.bla-lines{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:22px;font-size:17px;line-height:1.45;color:var(--t86)}
+.bla-lines a{color:#fff}
+.bla-lines a:hover{color:var(--green)}
+.bla-care h3{color:var(--green);font-size:28px;margin-bottom:6px}
+.bla-care .bla-lines{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+@media (max-width:640px){.bla-lines{grid-template-columns:1fr}}
+[data-panel]>.bla-sec:first-child,[data-panel]>.bla-wrap:first-child{padding-top:32px}
+.bla-acc .bla-text ul{padding-left:20px;margin:6px 0 10px}
+.bla-menu{display:grid;gap:8px 16px;margin-top:8px;font-size:15px;line-height:22px}
+.bla-menu b{font-weight:400;color:var(--t62);font-size:14px}
+.bla-menu .is-num{color:var(--green);white-space:nowrap}
+.bla-menuwrap{overflow-x:auto}
+@media (max-width:640px){.bla-menu{width:560px;font-size:14px}}

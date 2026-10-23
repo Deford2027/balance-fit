@@ -1,0 +1,24 @@
+{
+ "path": "pravila",
+ "title": "Правила клуба",
+ "description": "Правила клубного членства Balance Империал",
+ "recs": [
+  {
+   "id": "rec604778740",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Правила клубного членства",
+    "Balance Империал"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec604778741",
+   "type": "doc",
+   "iframes": [
+    "https://docs.google.com/document/d/1pUjpTU3zY2U1nuvI4GCraAuGg6JM7P5Jo9i_H9ehWL4/preview"
+   ]
+  }
+ ]
+}

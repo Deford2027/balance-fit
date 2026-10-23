@@ -1,0 +1,34 @@
+{
+ "path": "contacts_admiral",
+ "title": "Контакты фитнес-клуба Balance Адмирал в Туапсе",
+ "description": "Телефон, адрес и другие контактные данные фитнес-клуба Balance Адмирал в Туапсе. ",
+ "recs": [
+  {
+   "id": "rec733678911",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Balance Адмирал",
+    "Свяжитесь с нами удобным способом: звоните, пишите, приезжайте",
+    "<a href=\"tel:+78612051818\">+7(861)205-18-18</a>",
+    "<a href=\"mailto:opadmiral@balancefit.ru\">opadmiral@balancefit.ru</a>",
+    "г. Туапсе ул. Портовиков 39, лит 5"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec827970111",
+   "type": "396",
+   "img": "/_t/static/tild3033-3138-4138-b338-653436343930/icon-mail-white.svg",
+   "texts": [
+    "Служба заботы о клиентах",
+    "По вопросам рекламы и сотрудничества",
+    "<a href=\"mailto:serv-manager@balancefit.ru\">Вы можете написать нам свои пожелания и отзывы</a>",
+    "<a href=\"mailto:market@balancefit.ru\">Отправляйте ваши предложения на почту</a>",
+    "<a href=\"mailto:serv-manager@balancefit.ru\">serv-manager@balancefit.ru</a>",
+    "<a href=\"mailto:market@balancefit.ru\">smm@balancefit.ru</a>"
+   ],
+   "btns": []
+  }
+ ]
+}

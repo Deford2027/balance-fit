@@ -1,0 +1,20 @@
+---
+/** Страница из выгрузки Тильды в новом дизайне: шапка и подвал клуба + блоки (lib/blocks.ts). */
+import Site from '../../layouts/Site.astro';
+import Blocks from '../Blocks.astro';
+import { clubs } from '../../data/clubs';
+import { contentMeta } from '../../data/content-pages';
+import { toBlocks, type Content } from '../../lib/blocks';
+
+const { content } = Astro.props as { content: Content };
+const meta = contentMeta(content.path, content.title);
+const club = meta.club ? clubs[meta.club] : undefined;
+const blocks = toBlocks(content);
+/* Страницы-документы без своего первого экрана получают заголовок – название страницы */
+const needTitle = !['hero', 'head'].includes(blocks[0]?.kind);
+const crumbs = club ? [{ text: club.name, href: club.home }, { text: meta.crumb, href: '' }] : undefined;
+---
+<Site title={content.title} description={content.description ?? undefined} club={meta.club} path={content.path} crumbs={crumbs}>
+  {needTitle && <section class="bla-wrap bla-sec--sm"><h1 class="bla-h1" style="color:var(--green)">{content.title}</h1></section>}
+  <Blocks blocks={blocks} club={meta.club} />
+</Site>

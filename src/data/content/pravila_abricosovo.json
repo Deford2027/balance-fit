@@ -1,0 +1,24 @@
+{
+ "path": "pravila_abricosovo",
+ "title": "Правила клуба",
+ "description": null,
+ "recs": [
+  {
+   "id": "rec661724547",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Правила клубного членства",
+    "Balance Абрикосово"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec661724550",
+   "type": "doc",
+   "iframes": [
+    "https://docs.google.com/document/d/12oI8ojaQJV9NTsaAX-LhoyB9YLJMx-YQ5zd3xr1cLCM/preview"
+   ]
+  }
+ ]
+}

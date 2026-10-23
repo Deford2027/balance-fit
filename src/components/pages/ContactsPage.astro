@@ -1,0 +1,37 @@
+---
+/** Контакты клуба: тексты карточки клуба и «Службы заботы» – со страницы Тильды (src/data/content), карта и соцсети – из clubs.ts. */
+import Site from '../../layouts/Site.astro';
+import { clubs, icons, type ClubId } from '../../data/clubs';
+import type { Content } from '../../lib/blocks';
+
+const { club: id, content } = Astro.props as { club: ClubId; content: Content };
+const c = clubs[id];
+const withTexts = content.recs.filter((r) => (r.texts?.length ?? 0) > 2);
+const [card, care] = [withTexts[0].texts!, withTexts[1].texts!];
+const map = `https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(c.contacts.map)}&z=16`;
+---
+<Site title={content.title} description={content.description ?? undefined} club={id} path={content.path} crumbs={[{ text: c.name, href: c.home }, { text: 'Контакты', href: '' }]}>
+  <section class="bla-wrap bla-sec--sm">
+    <h1 class="bla-h1" style="color:var(--green)">Контакты</h1>
+    <div class="bla-contacts">
+      <div class="bla-card bla-club">
+        <h3 set:html={card[0]} />
+        <p set:html={card[1]} />
+        <div class="bla-lines">{card.slice(2).map((t) => <span set:html={t} />)}</div>
+        <div class="bla-soc">
+          <a href={c.social.vk} target="_blank" rel="noopener"><img src={icons.vk} alt="VK" /></a>
+          <a href={c.social.max} target="_blank" rel="noopener"><img src={icons.max} alt="MAX" /></a>
+          <a href={c.social.tg} target="_blank" rel="noopener"><img src={icons.tg} alt="Telegram" /></a>
+          <a href={c.social.wa} target="_blank" rel="noopener"><img src={icons.wa} alt="WhatsApp" /></a>
+        </div>
+      </div>
+      <div class="bla-map"><iframe data-src={map} title={`${c.name} на карте`} loading="lazy" allowfullscreen></iframe></div>
+    </div>
+  </section>
+  <section class="bla-wrap bla-sec--sm">
+    <div class="bla-card bla-tile--pad bla-care">
+      <h3 set:html={care[0]} />
+      <div class="bla-lines">{care.slice(1).map((t) => <span set:html={t} />)}</div>
+    </div>
+  </section>
+</Site>

@@ -1,0 +1,21 @@
+{
+ "path": "lk_abricosovo",
+ "title": "Личный кабинет",
+ "description": "Личный кабинет Balance Абрикосово",
+ "recs": [
+  {
+   "id": "rec632939490",
+   "type": "131",
+   "embed": "<div id=\"mf_personal_widget_cont_bw2\"></div> <script async=\"async\" data-club=\"6212\" data-code=\"676502\" data-debug=\"0\" data-div=\"mf_personal_widget_cont_bw2\" data-domain=\"mobifitness.ru\" data-language=\"\" data-test=\"0\" data-type=\"personal\" data-version=\"v6\" id=\"mobifitness_personal_widget_script_bw2\" src=\"//mobifitness.ru/personal-widget/js/code.js\" type=\"text/javascript\"></script>"
+  },
+  {
+   "id": "rec682773436",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Личный кабинет фитнес клуба Balance Абрикосово"
+   ],
+   "btns": []
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "path": "contacts",
+ "title": "Контакты фитнес-клуба Balance",
+ "description": "Контакты фитнес-клуба Balance Абрикосово , Balance Империал",
+ "recs": [
+  {
+   "id": "rec615450908",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Контакты",
+    "Контакты фитнес-клуба Balance"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec606651463",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Balance Империал",
+    "Свяжитесь с нами удобным способом: звоните, пишите, приезжайте",
+    "Ресепшн",
+    "Отдел продаж",
+    "<a href=\"tel:+78612072727\">+7 861 207 27 27</a>",
+    "<a href=\"tel:+78612072737\">+7 861 207 27 37</a>",
+    "пн-пт: 6:00 - 23:00",
+    "сб-вс: 7:00 - 23:00",
+    "<a href=\"mailto:op@balancefit.ru\">op@balancefit.ru</a>",
+    "Краснодар, ул. Бородинская 137, к.2"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec606638276",
+   "type": "396",
+   "img": "/_t/static/tild3033-3138-4138-b338-653436343930/icon-mail-white.svg",
+   "texts": [
+    "Служба заботы о клиентах",
+    "По вопросам рекламы и сотрудничества",
+    "<a href=\"mailto:serv-manager@balancefit.ru\">Вы можете написать нам свои пожелания и отзывы</a>",
+    "<a href=\"mailto:market@balancefit.ru\">Отправляйте ваши предложения на почту</a>",
+    "<a href=\"mailto:imperial@balancefit.ru\">imperial@balancefit.ru</a>",
+    "<a href=\"mailto:market@balancefit.ru\">smm@balancefit.ru</a>"
+   ],
+   "btns": []
+  }
+ ]
+}

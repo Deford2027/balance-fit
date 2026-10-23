@@ -1,0 +1,48 @@
+{
+ "path": "rekvizit_day",
+ "title": "Реквизиты Империал",
+ "description": null,
+ "recs": [
+  {
+   "id": "rec681155166",
+   "type": "396",
+   "img": "/_t/static/tild6637-3064-4431-b062-333936386334/Balance-logo-green-s.png",
+   "texts": [
+    "+7 (861) 207-27-37<br>Адрес: Бородинская, 137, к2",
+    "ПН-ПТ 6.00-23.00 <br>СБ-ВС 7.00-23.00"
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec681152811",
+   "type": "396",
+   "img": "/_t/static/tild6535-6666-4632-b463-326563623932/icon-phone-white.svg",
+   "texts": [
+    "ООО \"Баланс\"",
+    "<a href=\"tel:+78612072727\">ИНН: 2312270581<br>КПП: 231201001<br>ОГРН: 1182375028967<br>Юридический адрес: 350910, Краснодар, ул. Бординская 137, оф 158</a>",
+    "<a href=\"tel:+78612072727\">+7 (861) 207-27-27</a>"
+   ],
+   "btns": [
+    {
+     "text": "Перейти на сайт",
+     "href": "/borodinskaya"
+    }
+   ]
+  },
+  {
+   "id": "rec681156978",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Balance Империал",
+    "Свяжитесь с нами удобным способом: звоните, пишите, приезжайте",
+    "пн-пт:<br>6:00 - 23:00",
+    "<a href=\"tel:+78612072727\">+7 861 207 27 27</a>",
+    "<a href=\"mailto:op@balancefit.ru\"></a><a href=\"mailto:op@balancefit.ru\">op@balancefit.ru</a>  -> mailto:op@balancefit.ru  links: mailto:op@balancefit.ru | mailto:op@balancefit.ru",
+    "сб-вс:<br>7:00 - 23:00",
+    "Краснодар, ул. Бородинская 137, корп. 2"
+   ],
+   "btns": []
+  }
+ ]
+}

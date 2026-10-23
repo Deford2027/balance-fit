@@ -1,0 +1,38 @@
+{
+ "path": "imperial/schedule",
+ "title": "Расписание групповых и индивидуальных программ – фитнес-клуб Balance Краснодар",
+ "description": "Расписание фитнес-клуба Balance Империал",
+ "recs": [
+  {
+   "id": "rec661060730",
+   "type": "396",
+   "img": "/_t/static/tild6566-6464-4431-b465-646133653132/_.jpg",
+   "texts": [
+    "Расписание<br>фитнес-клуба",
+    "Расписание<br>фитнес-клуба Balance империал",
+    "Скачайте приложение"
+   ],
+   "btns": [
+    {
+     "text": "Хочу в Balance",
+     "href": "#popup:myform"
+    }
+   ]
+  },
+  {
+   "id": "rec600580607",
+   "type": "396",
+   "img": null,
+   "texts": [
+    "Расписание групповых и персональных тренировок",
+    "Чтобы выбрать нужное направление, время и дату тренировок, воспользуйтесь фильтрами."
+   ],
+   "btns": []
+  },
+  {
+   "id": "rec1138025991",
+   "type": "131",
+   "embed": "<div> <iframe src=\"https://sched.myfitt.ru/#key=wN6Vy561hPCoHCgU8BAgloUXtXYOEs0xZlf8TGaT9GdVswKnFUK2IG18h71oP77Ff2UAsa37IMx7q9dSWiTq7Q&amp;theme=defaultTheme\" style=\"border:0; inset: 0px; width: 100%; height: 600px\"></iframe> </div>"
+  }
+ ]
+}
