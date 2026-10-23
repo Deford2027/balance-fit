@@ -16,7 +16,10 @@ const { html, path, extra = [] } = Astro.props as { html: string; path: string; 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const all = data as unknown as Kind & { pages: Record<string, Partial<Kind>> };
 const own = all.pages[path] ?? {};
-const pick = <K extends keyof Kind>(k: K, hook: string) => (own[k] as Kind[K] | undefined)?.[hook] ?? all[k][hook];
+/* У Абрикосово на Тильде нет своей формы «Заказать карту» (#popup:card-form-abr ведёт в никуда) –
+   берём общую форму без суффикса клуба */
+const pick = <K extends keyof Kind>(k: K, hook: string) =>
+  (own[k] as Kind[K] | undefined)?.[hook] ?? all[k][hook] ?? (k === 'forms' ? all[k][hook.replace(/-(abr|adm)$/, '')] : undefined);
 
 const hooksIn = (s: string) => [...s.matchAll(/#(?:popup|submenu):[\w-]+/g)].map((m) => m[0]);
 const want = new Set([...hooksIn(html), ...extra]);
