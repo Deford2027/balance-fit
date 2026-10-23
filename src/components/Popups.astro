@@ -1,0 +1,85 @@
+---
+/** Попапы страницы в новом дизайне (<dialog>): формы, «Подробнее» по картам,
+    программа лояльности, списки программ. Тексты – src/data/popups.json
+    (scripts/redesign-popups.py, со страниц Тильды). Попап попадает на страницу,
+    если на него есть ссылка (#popup:..., #submenu:...) в разметке или в другом попапе.
+    Заявки, как и на всей копии, не уходят – их ловит no-leads.js. */
+import data from '../data/popups.json';
+import { rebase } from '../lib/rebase';
+
+type Field = { name: string; type: string; placeholder: string };
+type Form = { title: string; descr: string; fields: Field[]; consent: string; button: string };
+type Info = { title: string; html: string; img: string; buttons: { text: string; href: string }[] };
+type Kind = { forms: Record<string, Form>; info: Record<string, Info>; submenus: Record<string, { text: string; href: string }[]> };
+
+const { html, path, extra = [] } = Astro.props as { html: string; path: string; extra?: string[] };
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const all = data as unknown as Kind & { pages: Record<string, Partial<Kind>> };
+const own = all.pages[path] ?? {};
+const pick = <K extends keyof Kind>(k: K, hook: string) => (own[k] as Kind[K] | undefined)?.[hook] ?? all[k][hook];
+
+const hooksIn = (s: string) => [...s.matchAll(/#(?:popup|submenu):[\w-]+/g)].map((m) => m[0]);
+const want = new Set([...hooksIn(html), ...extra]);
+/* второй и третий круг – ссылки из самих попапов («Заказать карту» в «Подробнее») */
+for (let i = 0; i < 2; i++) {
+  for (const h of [...want]) {
+    const info = pick('info', h);
+    if (info) hooksIn(info.html + info.buttons.map((b) => b.href).join(' ')).forEach((x) => want.add(x));
+  }
+}
+const id = (hook: string) => 'pop-' + hook.split(':')[1];
+const clean = (s: string) => rebase(s.replace(/<p>\s*<\/p>/g, ''), base);
+const btnHref = (h: string) => (h.startsWith('/') ? base + h : h);
+
+const forms = [...want].filter((h) => pick('forms', h)).map((h) => ({ hook: h, ...pick('forms', h) }));
+const infos = [...want].filter((h) => pick('info', h)).map((h) => ({ hook: h, ...pick('info', h) }));
+const menus = [...want].filter((h) => pick('submenus', h)).map((h) => ({ hook: h, items: pick('submenus', h) }));
+---
+{forms.map((f) => (
+  <dialog class="bla-modal" id={id(f.hook)}>
+    <div class="bla-modal__in">
+      <button class="bla-modal__close" type="button" aria-label="Закрыть" data-close>×</button>
+      <h2>{f.title}</h2>
+      {f.descr && <div class="bla-text"><p set:html={f.descr} /></div>}
+      <form class="bla-form" method="post" action="#" novalidate>
+        {f.fields.map((fl) =>
+          fl.type === 'file' ? (
+            <label class="bla-form__file">{fl.placeholder}<input type="file" name={fl.name} /></label>
+          ) : fl.type === 'textarea' ? (
+            <textarea name={fl.name} placeholder={fl.placeholder}></textarea>
+          ) : (
+            <input type={fl.type} name={fl.name} placeholder={fl.placeholder} />
+          )
+        )}
+        {f.consent && (
+          <label class="bla-consent"><input type="checkbox" name="consent" checked /><span set:html={clean(f.consent)} /></label>
+        )}
+        <button class="bla-btn bla-btn--green" type="submit">{f.button}</button>
+      </form>
+    </div>
+  </dialog>
+))}
+{infos.map((p) => (
+  <dialog class="bla-modal bla-modal--wide" id={id(p.hook)}>
+    <div class="bla-modal__in">
+      <button class="bla-modal__close" type="button" aria-label="Закрыть" data-close>×</button>
+      {p.img && <div class="bla-modal__img" data-bg={base + p.img}></div>}
+      {p.title && <h2>{p.title}</h2>}
+      <div class="bla-text" set:html={clean(p.html)} />
+      {p.buttons.filter((b) => b.text !== 'Текст кнопки').length > 0 && (
+        <div class="bla-btns">
+          {p.buttons.filter((b) => b.text !== 'Текст кнопки').map((b) => <a class="bla-btn bla-btn--green" href={btnHref(b.href)}>{b.text}</a>)}
+        </div>
+      )}
+    </div>
+  </dialog>
+))}
+{menus.map((m) => (
+  <dialog class="bla-modal bla-modal--list" id={id(m.hook)}>
+    <div class="bla-modal__in">
+      <button class="bla-modal__close" type="button" aria-label="Закрыть" data-close>×</button>
+      <h2 data-menu-title>Программы</h2>
+      <ul>{m.items.map((it) => <li>{it.text}</li>)}</ul>
+    </div>
+  </dialog>
+))}

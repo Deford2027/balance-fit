@@ -1,0 +1,61 @@
+---
+/** Выбор клуба – главная сети. Тексты, фото и ссылки – со страницы Тильды (/old/index). */
+import Site from '../layouts/Site.astro';
+import { apps } from '../data/clubs';
+
+const clubs = [
+  { name: 'Balance Империал', address: 'Краснодар, ул. Бородинская, 137, корп. 2', href: '/imperial', img: '/_t/static/tild6338-3366-4561-b033-363764343536/2023-09-18_163819.jpg', tone: 'bla-tone--blue' },
+  { name: 'Balance Абрикосово', address: 'Краснодар, ул. Бочарникова, 4, стр. Б', href: '/abricosovo', img: '/_t/static/tild3539-3038-4935-a265-333464653662/2023-08-29_181957.jpg', tone: 'bla-tone--olive' },
+  { name: 'Balance Адмирал', address: 'Туапсе, ул. Портовиков, 39, лит. 5', href: '/admiral', img: '/_t/static/tild3530-6264-4632-a239-333930363638/Balance_27.jpg', tone: 'bla-tone--deep' },
+];
+const brands = [
+  { href: '/', img: '/_t/static/tild3430-6632-4063-b832-643539303435/slide-img-1.jpg', logo: '/_t/static/tild6664-6637-4834-b235-636430633237/logo_balance.png', alt: 'Balance' },
+  { href: '/imperial/kids', img: '/_t/static/tild3564-3835-4663-b664-363465396364/slide-img-2.jpg', logo: '/_t/static/tild3036-6662-4366-b330-613864306361/logo_balance_kids.png', alt: 'Balance дети' },
+  { href: '/imperial/spa', img: '/_t/static/tild6563-6530-4035-b937-326164366463/slide-img-3.jpg', logo: '/_t/static/tild3334-3462-4737-b634-323963656635/logo_balance_spa.png', alt: 'Balance спа' },
+  { href: '/cafe', img: '/_t/static/tild3965-3833-4664-b235-363931363933/slide-img-4.jpg', logo: '/_t/static/tild3632-3664-4530-a236-316436366139/logo_balance_cafe.png', alt: 'Balance кафе' },
+];
+const map = 'https://yandex.ru/map-widget/v1/?ll=39.07%2C45.05&z=11&pt=39.106710,45.005341,pm2rdl~39.041240,45.072923,pm2rdl';
+---
+<Site title="Сеть фитнес-клубов Balance" description="Добро пожаловать в сеть фитнес-клубов Balance! Мы предлагаем широкий спектр услуг для здоровья и фитнеса, чтобы помочь вам достичь своих целей. Присоединяйтесь к нам сегодня и начните путь к здоровому образу жизни вместе с Balance!" path="index">
+  <section class="bla-wrap bla-sec--sm">
+    <p class="bla-eyebrow">Сеть фитнес-клубов Balance</p>
+    <h1 class="bla-h1">Выбери свой клуб</h1>
+    <div class="bla-clubs">
+      {clubs.map((c) => (
+        <a class="bla-card bla-clubs__item" href={c.href}>
+          <div class="bla-cover bla-clubs__img" data-bg={c.img}></div>
+          <div class="bla-clubs__body">
+            <h3>{c.name}</h3>
+            <p>{c.address}</p>
+            <span class="bla-btn bla-btn--red">Перейти на страницу клуба</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="bla-wrap bla-sec">
+    <div class="bla-free">
+      <div class="bla-card bla-free__text bla-tone--olive">
+        <h2 style="color:#fff">Свобода заниматься собой</h2>
+        <p class="bla-apps__title">Скачайте приложение</p>
+        <div class="bla-apps">
+          {apps.map((a) => <a href={a.href} target="_blank" rel="noopener"><img src={a.img} alt={a.text} /></a>)}
+        </div>
+      </div>
+      <div class="bla-grid bla-grid--2" style="margin-top:0">
+        {brands.map((b) => (
+          <a class="bla-card bla-tile" href={b.href}>
+            <div class="bla-cover bla-tile__img" data-bg={b.img}></div>
+            <div class="bla-tile__body"><img src={b.logo} alt={b.alt} style="height:34px;width:auto" /></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bla-wrap bla-sec">
+    <h2 class="bla-h2">Клубы на карте</h2>
+    <div class="bla-map" style="margin-top:24px;min-height:480px"><iframe data-src={map} title="Клубы Balance в Краснодаре на карте" loading="lazy" allowfullscreen></iframe></div>
+  </section>
+</Site>

@@ -1,0 +1,26 @@
+---
+/** Клубные карты: четыре карточки с «Подробнее» (попапы карт Тильды). */
+type Card = { title: string; text: string; hours: string; more: string };
+const { cards, order, title = 'Клубные карты', sub = 'Выбирайте свою клубную карту', id = 'cards' } = Astro.props as {
+  cards: Card[]; order?: { text: string; href: string }; title?: string; sub?: string; id?: string;
+};
+---
+<section class="bla-wrap bla-sec" id={id}>
+  <div class="bla-cards__head">
+    <div>
+      <h2 class="bla-h2">{title}</h2>
+      {sub && <p class="bla-sub">{sub}</p>}
+    </div>
+    {order && <a class="bla-btn bla-btn--red" href={order.href}>{order.text}</a>}
+  </div>
+  <div class="bla-cards">
+    {cards.map((c) => (
+      <div class="bla-card bla-cards__item">
+        <h3>{c.title}</h3>
+        <p set:html={c.text} />
+        <p class="bla-cards__hours">{c.hours}</p>
+        <a class="bla-link" href={c.more}>Подробнее</a>
+      </div>
+    ))}
+  </div>
+</section>

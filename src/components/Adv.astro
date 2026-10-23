@@ -1,0 +1,15 @@
+---
+/** Преимущества клуба: карточки «фото + значок + текст» (как на главной Адмирала). */
+type Item = { img: string; icon: string; text: string };
+const { items } = Astro.props as { items: Item[] };
+---
+<section class="bla-wrap">
+  <div class="bla-adv">
+    {items.map((it) => (
+      <div class="bla-card bla-adv__item">
+        <div class="bla-cover bla-adv__photo" data-bg={it.img}></div>
+        <div class="bla-adv__body"><img class="bla-adv__icon" src={it.icon} alt="" loading="lazy" /><p set:html={it.text} /></div>
+      </div>
+    ))}
+  </div>
+</section>

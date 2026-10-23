@@ -1,0 +1,27 @@
+---
+/** Блок «Запишитесь на гостевой визит» с формой (заявки на копии не уходят – no-leads.js). */
+const {
+  title = 'Запишитесь<br>на гостевой визит',
+  lead = 'И получите специальное предложение на клубную карту. Заполните форму – мы вам перезвоним.',
+  policy = '/security',
+  consent = '/privacy',
+  tone = '',
+  email = true,
+  id = 'guest',
+} = Astro.props as { title?: string; lead?: string; policy?: string; consent?: string; tone?: string; email?: boolean; id?: string };
+---
+<section class="bla-wrap bla-sec" id={id}>
+  <div class:list={['bla-guest', tone]}>
+    <div>
+      <h2 set:html={title} />
+      {lead && <p class="bla-guest__lead" set:html={lead} />}
+    </div>
+    <form class="bla-form" method="post" action="#" novalidate>
+      <input type="text" name="Name" placeholder="Ваше имя" autocomplete="name" />
+      <input type="tel" name="Phone" placeholder="Телефон" autocomplete="tel" />
+      {email && <input type="email" name="Email" placeholder="E-mail" autocomplete="email" />}
+      <label class="bla-consent"><input type="checkbox" name="consent" checked /><span>Я ознакомлен(-а) с <a href={policy} target="_blank">Политикой обработки персональных данных</a> и даю свое <a href={consent} target="_blank">согласие</a> на обработку персональных данных.</span></label>
+      <button class="bla-btn bla-btn--white" type="submit">Оставить заявку</button>
+    </form>
+  </div>
+</section>

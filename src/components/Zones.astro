@@ -1,0 +1,20 @@
+---
+/** Фитнес-зоны: вкладки, у каждой – фото и описание. */
+type Zone = { tab: string; title: string; img: string; html: string };
+const { zones, title = 'Фитнес-зоны', id = 'zones' } = Astro.props as { zones: Zone[]; title?: string; id?: string };
+---
+<section class="bla-wrap bla-sec" id={id} data-tabs>
+  <h2 class="bla-h2">{title}</h2>
+  <div class="bla-tabs" role="tablist">
+    {zones.map((z, i) => <button class:list={['bla-tab', { 'is-active': i === 0 }]} type="button" data-tab={String(i)}>{z.tab}</button>)}
+  </div>
+  {zones.map((z, i) => (
+    <div class:list={['bla-zone', { 'is-active': i === 0 }]} data-panel={String(i)}>
+      <div class="bla-cover bla-zone__img" data-bg={z.img}></div>
+      <div class="bla-card bla-zone__text">
+        <h3>{z.title}</h3>
+        <Fragment set:html={z.html} />
+      </div>
+    </div>
+  ))}
+</section>

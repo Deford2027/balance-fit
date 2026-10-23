@@ -1,0 +1,17 @@
+---
+/** Галерея-лента со стрелками и точками. */
+const { images, title = 'Галерея', sub = 'Вы в Balance', id = 'gallery' } = Astro.props as { images: string[]; title?: string; sub?: string; id?: string };
+---
+<section class="bla-wrap bla-sec" id={id}>
+  <h2 class="bla-h2">{title}</h2>
+  {sub && <p class="bla-sub">{sub}</p>}
+  <div class="bla-gal" data-gal>
+    <div class="bla-gal__track" data-gal-track>
+      {images.map((src) => <div class="bla-cover" data-bg={src}></div>)}
+    </div>
+    <div class="bla-gal__nav">
+      <div class="bla-dots" data-gal-dots></div>
+      <div class="bla-arrows"><button type="button" data-gal-prev aria-label="Назад">←</button><button type="button" data-gal-next aria-label="Вперёд">→</button></div>
+    </div>
+  </div>
+</section>

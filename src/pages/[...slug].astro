@@ -20,11 +20,19 @@ type Palette = { colors?: Record<string, string>; css?: string };
 export function getStaticPaths() {
   const files = import.meta.glob<Page>('../data/pages/*.json', { eager: true, import: 'default' });
   const palettes = import.meta.glob<Palette>('../data/palettes/*.json', { eager: true, import: 'default' });
-  return Object.values(files).map((page) => ({
-    /* /admiral свёрстана заново (src/pages/admiral.astro, прошлая – admiral-v1.astro), версия Тильды – рядом для сравнения */
-    params: { slug: page.path === 'admiral' ? 'admiral-tilda' : page.path || undefined },
-    props: { page, palette: palettes[`../data/palettes/${page.path || 'index'}.json`] },
-  }));
+  /* Страницы, свёрстанные заново (файлы .astro в src/pages), идут в новом дизайне, а их версия
+     Тильды – рядом для сравнения: /old/<путь> (/admiral-tilda – как раньше). Редиректы – как были. */
+  const own = new Set(
+    Object.keys(import.meta.glob('./**/*.astro'))
+      .map((f) => f.replace(/^\.\//, '').replace(/\.astro$/, '').replace(/(^|\/)index$/, ''))
+      .filter((p) => !p.includes('['))
+  );
+  return Object.values(files).flatMap((page) => {
+    const props = { page, palette: palettes[`../data/palettes/${page.path || 'index'}.json`] };
+    if (page.path === 'admiral') return [{ params: { slug: 'admiral-tilda' }, props }];
+    if (!page.redirect && own.has(page.path)) return [{ params: { slug: `old/${page.path || 'index'}` }, props }];
+    return [{ params: { slug: page.path || undefined }, props }];
+  });
 }
 
 const { page, palette } = Astro.props as { page: Page; palette?: Palette };
