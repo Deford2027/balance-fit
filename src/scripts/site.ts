@@ -98,7 +98,6 @@ $$('[data-gal]').forEach((gal) => {
     let c = cur();
     if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) c = slides.length - 1;
     dots && Array.from(dots.children).forEach((d, i) => d.classList.toggle('is-active', i === c));
-    if (slides[c]?.dataset.left) (gal as HTMLElement).style.setProperty('--left', slides[c].dataset.left!);
     const vis = Math.ceil(track.clientWidth / step()) + 1;
     for (let i = c; i <= c + vis && i < slides.length; i++) {
       loadBg(slides[i]);

@@ -9,11 +9,10 @@ const clubs = [
   { name: 'Balance Адмирал', address: 'Туапсе, ул. Портовиков, 39, лит. 5', href: '/admiral', img: '/_t/static/tild3530-6264-4632-a239-333930363638/Balance_27.jpg', tone: 'bla-tone--deep' },
 ];
 const brands = [
-  /* цвета карточки слева (left) и плашки с логотипом (plate) – как на слайдах Тильды */
-  { href: '/', img: '/_t/static/tild3430-6632-4063-b832-643539303435/slide-img-1.jpg', logo: '/_t/static/tild6664-6637-4834-b235-636430633237/logo_balance.png', alt: 'Balance', left: '#678a2e', plate: '#00244b' },
-  { href: '/imperial/kids', img: '/_t/static/tild3564-3835-4663-b664-363465396364/slide-img-2.jpg', logo: '/_t/static/tild3036-6662-4366-b330-613864306361/logo_balance_kids.png', alt: 'Balance дети', left: '#28348a', plate: '#eb9f9c' },
-  { href: '/imperial/spa', img: '/_t/static/tild6563-6530-4035-b937-326164366463/slide-img-3.jpg', logo: '/_t/static/tild3334-3462-4737-b634-323963656635/logo_balance_spa.png', alt: 'Balance спа', left: '#00244b', plate: '#28348a' },
-  { href: '/cafe', img: '/_t/static/tild3965-3833-4664-b235-363931363933/slide-img-4.jpg', logo: '/_t/static/tild3632-3664-4530-a236-316436366139/logo_balance_cafe.png', alt: 'Balance кафе', left: '#286c1c', plate: '#5d8b16' },
+  { href: '/', img: '/_t/static/tild3430-6632-4063-b832-643539303435/slide-img-1.jpg', logo: '/_t/static/tild6664-6637-4834-b235-636430633237/logo_balance.png', alt: 'Balance' },
+  { href: '/imperial/kids', img: '/_t/static/tild3564-3835-4663-b664-363465396364/slide-img-2.jpg', logo: '/_t/static/tild3036-6662-4366-b330-613864306361/logo_balance_kids.png', alt: 'Balance дети' },
+  { href: '/imperial/spa', img: '/_t/static/tild6563-6530-4035-b937-326164366463/slide-img-3.jpg', logo: '/_t/static/tild3334-3462-4737-b634-323963656635/logo_balance_spa.png', alt: 'Balance спа' },
+  { href: '/cafe', img: '/_t/static/tild3965-3833-4664-b235-363931363933/slide-img-4.jpg', logo: '/_t/static/tild3632-3664-4530-a236-316436366139/logo_balance_cafe.png', alt: 'Balance кафе' },
 ];
 const map = 'https://yandex.ru/map-widget/v1/?ll=39.07%2C45.05&z=11&pt=39.106710,45.005341,pm2rdl~39.041240,45.072923,pm2rdl';
 ---
@@ -36,7 +35,7 @@ const map = 'https://yandex.ru/map-widget/v1/?ll=39.07%2C45.05&z=11&pt=39.106710
   </section>
 
   <section class="bla-wrap bla-sec">
-    <div class="bla-brands" data-gal data-gal-auto style={`--left:${brands[0].left}`}>
+    <div class="bla-brands" data-gal data-gal-auto>
       <div class="bla-brands__text">
         <h2>Свобода заниматься собой</h2>
         <div>
@@ -48,9 +47,9 @@ const map = 'https://yandex.ru/map-widget/v1/?ll=39.07%2C45.05&z=11&pt=39.106710
       </div>
       <div class="bla-brands__track" data-gal-track>
         {brands.map((b) => (
-          <a class="bla-brands__slide" href={b.href} data-left={b.left}>
+          <a class="bla-brands__slide" href={b.href}>
             <div class="bla-cover bla-brands__img" data-bg={b.img}></div>
-            <div class="bla-brands__plate" style={`background:${b.plate}`}><img src={b.logo} alt={b.alt} /></div>
+            <div class="bla-brands__plate"><img src={b.logo} alt={b.alt} /></div>
           </a>
         ))}
       </div>
