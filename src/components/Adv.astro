@@ -1,5 +1,7 @@
 ---
-/** Преимущества клуба: карточки «фото + значок + текст» (как на главной Адмирала). */
+/** Преимущества клуба: карточки «фото + значок + текст» (как на главной Адмирала).
+    Значок – линейная иконка по тексту карточки (src/data/adv-icons.ts), картинка Тильды – если не нашлась. */
+import { advIcon } from '../data/adv-icons';
 type Item = { img: string; icon: string; text: string };
 const { items } = Astro.props as { items: Item[] };
 ---
@@ -8,7 +10,7 @@ const { items } = Astro.props as { items: Item[] };
     {items.map((it) => (
       <div class="bla-card bla-adv__item">
         <div class="bla-cover bla-adv__photo" data-bg={it.img}></div>
-        <div class="bla-adv__body"><img class="bla-adv__icon" src={it.icon} alt="" loading="lazy" /><p set:html={it.text} /></div>
+        <div class="bla-adv__body">{advIcon(it.text) ? <span class="bla-adv__ico" set:html={advIcon(it.text)} /> : <img class="bla-adv__icon" src={it.icon} alt="" loading="lazy" />}<p set:html={it.text} /></div>
       </div>
     ))}
   </div>
