@@ -5,6 +5,7 @@
     потому что на этой странице рантайма Тильды нет. Прошлая версия – /admiral-v1. */
 import block from '../admiral/admiral-tilda.html?raw';
 import ClubMap from '../components/ClubMap.astro';
+import '../styles/motion.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -46,5 +47,8 @@ const [before, after] = html.split(/<div class="bla-map"><iframe[^\n]*?<\/iframe
     <Fragment set:html={before} />
     <ClubMap club="admiral" />
     <Fragment set:html={after} />
+    <script>
+      import '../scripts/motion';
+    </script>
   </body>
 </html>

@@ -1,0 +1,19 @@
+/* Анимации: появление блоков при прокрутке (классы ставит src/scripts/motion.ts) и ховеры.
+   Без JS и при «уменьшить движение» всё видно сразу и ничего не двигается. */
+@media (prefers-reduced-motion:no-preference){
+  #bla .bla-rv{opacity:0;transform:translateY(32px);transition:opacity .8s ease var(--rv,0ms),transform .9s cubic-bezier(.2,.7,.2,1) var(--rv,0ms)}
+  #bla .bla-rv--zoom{transform:scale(.96)}
+  #bla .bla-rv.is-in{opacity:1;transform:none}
+
+  .bla-clubs__item,.bla-adv>*,.bla-cards>*,.bla-grid>.bla-card,.bla-ymap__club,.bla-brands__slide{transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .25s,box-shadow .35s}
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .bla-btn:hover{transform:translateY(-2px)}
+  .bla-btn--green:hover{box-shadow:0 10px 28px rgba(196,232,5,.3)}
+  .bla-btn--red:hover{box-shadow:0 10px 28px rgba(255,63,73,.32)}
+  .bla-clubs__item:hover,.bla-adv>*:hover,.bla-cards>*:hover,.bla-grid>.bla-card:hover,.bla-ymap__club:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  .bla-clubs__item .bla-cover,.bla-cards>* .bla-cover{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .bla-clubs__item:hover .bla-cover,.bla-cards>*:hover .bla-cover{transform:scale(1.04)}
+  .bla-logo img{transition:transform .3s}
+  .bla-logo:hover img{transform:scale(1.04)}
+}

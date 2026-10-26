@@ -3,6 +3,7 @@
     Пути в разметке страниц корневые (/imperial, /_t/...): подпапка Pages дописывается здесь.
     Попапы (#popup:..., #submenu:...) собираются по ссылкам на странице – см. Popups.astro. */
 import '../styles/site.css';
+import '../styles/motion.css';
 import Popups from '../components/Popups.astro';
 import Drawer from '../components/Drawer.astro';
 import { clubs, clubList, icons, type ClubId, type Link } from '../data/clubs';
@@ -116,6 +117,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
 
     <script>
       import '../scripts/site.ts';
+      import '../scripts/motion';
     </script>
   </body>
 </html>
