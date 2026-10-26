@@ -18,13 +18,14 @@ type Page = {
 type Palette = { colors?: Record<string, string>; css?: string };
 
 import ContentPage from '../components/pages/ContentPage.astro';
+import { newPath, clubOf, shared, clubIds, fixLinks, type ClubId } from '../lib/routes';
 import type { Content } from '../lib/blocks';
 
 export function getStaticPaths() {
   const files = import.meta.glob<Page>('../data/pages/*.json', { eager: true, import: 'default' });
   const palettes = import.meta.glob<Palette>('../data/palettes/*.json', { eager: true, import: 'default' });
   /* Страницы, свёрстанные заново (файлы .astro в src/pages), идут в новом дизайне, а их версия
-     Тильды – рядом для сравнения: /old/<путь> (/admiral-tilda – как раньше). Редиректы – как были. */
+     Тильды – рядом для сравнения: /old/<путь>. Адреса – внутри клуба (lib/routes.ts). */
   const own = new Set(
     Object.keys(import.meta.glob('./**/*.astro'))
       .map((f) => f.replace(/^\.\//, '').replace(/\.astro$/, '').replace(/(^|\/)index$/, ''))
@@ -34,16 +35,20 @@ export function getStaticPaths() {
   const contents = import.meta.glob<Content>('../data/content/*.json', { eager: true, import: 'default' });
   const content = new Map(Object.values(contents).map((c) => [c.path, c]));
   return Object.values(files).flatMap((page) => {
+    /* Редиректы Тильды не нужны: ссылки сразу ведут на страницу клуба (lib/routes.ts) */
+    if (page.redirect) return [];
     const props = { page, palette: palettes[`../data/palettes/${page.path || 'index'}.json`] };
-    const c = !page.redirect && !own.has(page.path) ? content.get(page.path) : undefined;
-    if (c) return [{ params: { slug: page.path }, props: { ...props, content: c } }, { params: { slug: `old/${page.path}` }, props }];
-    if (page.path === 'admiral') return [{ params: { slug: 'admiral-tilda' }, props }];
-    if (!page.redirect && own.has(page.path)) return [{ params: { slug: `old/${page.path || 'index'}` }, props }];
-    return [{ params: { slug: page.path || undefined }, props }];
+    const to = newPath(page.path);
+    const old = { params: { slug: `old/${page.path || 'index'}` }, props };
+    const c = !own.has(to) ? content.get(page.path) : undefined;
+    if (c && shared.includes(page.path)) return [...clubIds.map((club) => ({ params: { slug: `${club}/${page.path}` }, props: { ...props, content: c, club } })), old];
+    if (c) return [{ params: { slug: to }, props: { ...props, content: c } }, old];
+    if (own.has(to)) return [old];
+    return [{ params: { slug: to || undefined }, props }];
   });
 }
 
-const { page, palette, content } = Astro.props as { page: Page; palette?: Palette; content?: Content };
+const { page, palette, content, club } = Astro.props as { page: Page; palette?: Palette; content?: Content; club?: ClubId };
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 function rebase(s: string) {
@@ -65,7 +70,7 @@ function recolor(s: string) {
 const target = page.redirect?.startsWith('/') ? base + page.redirect : page.redirect;
 ---
 
-{content ? <ContentPage content={content} /> : (
+{content ? <ContentPage content={content} club={club} /> : (
   page.redirect ? (
     <html lang="ru">
       <head>
@@ -87,7 +92,7 @@ const target = page.redirect?.startsWith('/') ? base + page.redirect : page.redi
         {palette?.css && <style is:inline set:html={palette.css} />}
       </head>
       <body {...page.bodyAttrs}>
-        <Fragment set:html={recolor(rebase(page.body!))} />
+        <Fragment set:html={recolor(rebase(fixLinks(page.body!, clubOf(page.path))))} />
       </body>
     </html>
   )

@@ -1,9 +1,9 @@
 ---
 /** Услуги Balance Адмирал. Тексты и ссылки – со страницы Тильды (/old/services_admiral). */
-import ServicesPage from '../components/pages/ServicesPage.astro';
-import { servicesSections } from '../data/services';
+import ServicesPage from '../../components/pages/ServicesPage.astro';
+import { servicesSections } from '../../data/services';
 const sections = servicesSections({
-  cards: '/cards_admiral', table: '/table_admiral', kids: '/kids_admiral',
+  cards: '/admiral/cards', table: '/admiral/schedule', kids: '/admiral/kids',
   personal: '#popup:personal-training-adm', personalBtn: 'Хочу тренироваться персонально',
   personalHtml: '<p>В нашем клубе вы можете выбрать тренера, который составит для вас <strong>индивидуальную программу тренировок</strong>, которая будет полностью соответствовать вашему уровню подготовки и в соответствии с тем, какого результата вы хотите добиться.</p>',
   aquaHtml: '<p>Спортивное и свободное плавание, групповые аквапрограммы идеально подойдут <strong>любителям воды</strong>. Тренировки в воде эффективны и приведут ваше тело в тонус без изнурительных тренировок и боли в мышцах.</p>',

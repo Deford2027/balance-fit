@@ -2,7 +2,7 @@
 /** Статья «Бассейн в Краснодаре» – шаблон страницы статьи в новом стиле по демо-странице студии
     (seo.сеоконтентзавод.рф/demo/bal-bassejn-krasnodar.html). Текст сокращён: полный перенос – при настройке ленты. */
 import Site from '../../layouts/Site.astro';
-import { clubs } from '../../data/clubs';
+import { clubs, type ClubId } from '../../data/clubs';
 import '../../styles/blog.css';
 
 const S = '/_t/static/';
@@ -23,9 +23,11 @@ const faq = [
   ['Какие зоны входят в клубную карту?', 'Бассейны, финская и инфракрасная сауны, хаммам, соляная комната, душ Шарко и зона отдыха.'],
   ['Можно ли получить налоговый вычет?', 'Да, услуги клуба подходят под социальный налоговый вычет 13%.'],
 ];
+const { club: id } = Astro.props as { club: ClubId };
+const c = clubs[id];
 const pair = [clubs.imperial, clubs.abricosovo];
 ---
-<Site title="Бассейн в Краснодаре – акватермальный комплекс фитнес-клуба Balance" description="Два бассейна, сауны, хаммам и школа плавания в фитнес-клубах Balance в Краснодаре." club="imperial" path="blog/bal-bassejn-krasnodar" crumbs={[{ text: 'Balance Империал', href: '/imperial' }, { text: 'Новости и статьи', href: '/news' }, { text: 'Бассейн', href: '' }]}>
+<Site title="Бассейн в Краснодаре – акватермальный комплекс фитнес-клуба Balance" description="Два бассейна, сауны, хаммам и школа плавания в фитнес-клубах Balance в Краснодаре." club={id} path="blog/bal-bassejn-krasnodar" crumbs={[{ text: c.name, href: c.home }, { text: 'Новости и статьи', href: `/${id}/news` }, { text: 'Бассейн', href: '' }]}>
   <section class="bla-wrap bla-sec--sm">
     <div class="bla-art-hero">
       <div class="bla-art-hero__text">
@@ -33,7 +35,7 @@ const pair = [clubs.imperial, clubs.abricosovo];
         <h1 class="bla-h1">Бассейн в Краснодаре – акватермальный комплекс Balance</h1>
         <p class="bla-lead">Взрослый бассейн 25 м, детский с водой +32 °C, сауны, хаммам и школа плавания – рассказываем, что входит в клубную карту и с чего начать.</p>
         <div class="bla-hero__btns" style="margin-top:8px">
-          <a class="bla-btn bla-btn--red" href="/imperial#bla-guest">Записаться на визит</a>
+          <a class="bla-btn bla-btn--red" href={`${c.home}#bla-guest`}>Записаться на визит</a>
           <a class="bla-btn bla-btn--ghost" href="#prices">Смотреть цены</a>
         </div>
         <span class="bla-note-tpl">Шаблон статьи – текст сокращён</span>
@@ -111,16 +113,16 @@ const pair = [clubs.imperial, clubs.abricosovo];
   <section class="bla-wrap bla-sec">
     <div class="bla-cta-lime">
       <div><h2>Гостевой визит</h2><p>Целый день во всех зонах клуба – бассейн, сауны и тренировки.</p></div>
-      <a class="bla-btn" href="/imperial#bla-guest">Записаться на визит</a>
+      <a class="bla-btn" href={`${c.home}#bla-guest`}>Записаться на визит</a>
     </div>
   </section>
 
   <section class="bla-wrap bla-sec">
     <h2 class="bla-h2">Что посмотреть дальше</h2>
     <div class="bla-posts">
-      <a class="bla-card bla-post" href="/imperial/spa"><div class="bla-cover bla-post__img" data-bg={S + 'tild3662-6636-4237-a439-633563623839/_2025-11-11_13453843.png'}></div><div class="bla-post__body"><h3>Balance спа</h3><span class="bla-post__more">Перейти →</span></div></a>
-      <a class="bla-card bla-post" href="/imperial/kids"><div class="bla-cover bla-post__img" data-bg={S + 'tild3032-3537-4164-b638-656466623563/advanteges_5-2.jpg'}></div><div class="bla-post__body"><h3>Balance дети</h3><span class="bla-post__more">Перейти →</span></div></a>
-      <a class="bla-card bla-post" href="/news"><div class="bla-cover bla-post__img" data-bg={S + 'tild6536-6364-4532-b134-326432366464/_2025-11-11_13525106.png'}></div><div class="bla-post__body"><h3>Все новости и статьи</h3><span class="bla-post__more">Перейти →</span></div></a>
+      <a class="bla-card bla-post" href={`/${id}/spa`}><div class="bla-cover bla-post__img" data-bg={S + 'tild3662-6636-4237-a439-633563623839/_2025-11-11_13453843.png'}></div><div class="bla-post__body"><h3>Balance спа</h3><span class="bla-post__more">Перейти →</span></div></a>
+      <a class="bla-card bla-post" href={`/${id}/kids`}><div class="bla-cover bla-post__img" data-bg={S + 'tild3032-3537-4164-b638-656466623563/advanteges_5-2.jpg'}></div><div class="bla-post__body"><h3>Balance дети</h3><span class="bla-post__more">Перейти →</span></div></a>
+      <a class="bla-card bla-post" href={`/${id}/news`}><div class="bla-cover bla-post__img" data-bg={S + 'tild6536-6364-4532-b134-326432366464/_2025-11-11_13525106.png'}></div><div class="bla-post__body"><h3>Все новости и статьи</h3><span class="bla-post__more">Перейти →</span></div></a>
     </div>
   </section>
 </Site>

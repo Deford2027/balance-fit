@@ -9,7 +9,7 @@
   лежат локально в `public/`. Своих плагинов на jQuery (Nolim, слайдеры из Zero, GL20, zeroaccordmax) не переписываем.
 - `npm run port` – `scripts/tilda-port.mjs`: обходит сайт (sitemap + ссылки), пишет `src/data/pages/*.json`,
   качает ресурсы в `public/_t/` (`scripts/tilda-assets.mjs`). Кэш скачанного – `node_modules/.cache/tilda-port`.
-- Маршрут `src/pages/[...slug].astro` собирает страницу из JSON; редиректы Тильды – meta refresh.
+- Маршрут `src/pages/[...slug].astro` собирает страницу из JSON. Адреса – только внутри клуба (/imperial/…, /abricosovo/…, /admiral/…), перевод старых адресов Тильды и ссылок – `src/lib/routes.ts`; редиректы Тильды не выпускаются.
 - Подпапка Pages (`/balance-fit`) задаётся `PUBLIC_BASE` при сборке, пути в данных корневые.
 - Публикация: push в main → Actions → https://deford2027.github.io/balance-fit/ (закрыто от индексации).
 

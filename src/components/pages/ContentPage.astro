@@ -2,12 +2,14 @@
 /** Страница из выгрузки Тильды в новом дизайне: шапка и подвал клуба + блоки (lib/blocks.ts). */
 import Site from '../../layouts/Site.astro';
 import Blocks from '../Blocks.astro';
-import { clubs } from '../../data/clubs';
+import { clubs, type ClubId } from '../../data/clubs';
 import { contentMeta } from '../../data/content-pages';
 import { toBlocks, type Content } from '../../lib/blocks';
 
-const { content } = Astro.props as { content: Content };
-const meta = contentMeta(content.path, content.title);
+const { content, club: forClub } = Astro.props as { content: Content; club?: ClubId };
+const found = contentMeta(content.path, content.title);
+/* Общие страницы (лояльность, согласия) – копия у каждого клуба */
+const meta = { ...found, club: forClub ?? found.club ?? 'imperial' };
 const club = meta.club ? clubs[meta.club] : undefined;
 const blocks = toBlocks(content);
 /* Страницы-документы без своего первого экрана получают заголовок – название страницы */

@@ -8,6 +8,7 @@ import Popups from '../components/Popups.astro';
 import Drawer from '../components/Drawer.astro';
 import { clubs, clubList, icons, type ClubId, type Link } from '../data/clubs';
 import { rebase } from '../lib/rebase';
+import { fixLinks } from '../lib/routes';
 
 type Props = {
   title: string;
@@ -75,7 +76,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
             </nav>
           </div>
         )}
-        <Fragment set:html={rebase(body, base)} />
+        <Fragment set:html={rebase(fixLinks(body, clubId ?? 'imperial'), base)} />
       </main>
 
       <footer class="bla-wrap">
@@ -105,14 +106,14 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
               {clubList.map((c) => <a href={c.headerPhone.href}>{c.short}: {c.headerPhone.text}</a>)}
             </nav>
             <nav class="bla-foot__col">
-              <a href={`${base}/loyalty`}>Положение о программе лояльности</a>
-              <a href={`${base}/metrika`}>Согласие на использование Яндекс.Метрики</a>
+              <a href={`${base}/imperial/loyalty`}>Положение о программе лояльности</a>
+              <a href={`${base}/imperial/metrika`}>Согласие на использование Яндекс.Метрики</a>
             </nav>
           </div>
         )}
       </footer>
 
-      <Popups html={body} path={path} extra={['#popup:infoblock', ...(club ? [club.callback] : [])]} />
+      <Popups html={body} path={path} club={clubId} extra={['#popup:infoblock', ...(club ? [club.callback] : [])]} />
     </div>
 
     <script>

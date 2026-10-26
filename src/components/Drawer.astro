@@ -43,7 +43,7 @@ const pages = (c: Club) => [...c.menu, ...(c.subscription ? [c.subscription] : [
           <a href={`${base}${c.home}`} data-menu-club={c.id} class:list={{ 'is-on': i === 0 }}>{c.name}<small>{c.contacts.address}</small></a>
         ))}
         <a href="#popup:infoblock" class="bla-menu-c__extra">Программа лояльности</a>
-        <a href={`${base}/loyalty`} class="bla-menu-c__extra">Положение о программе лояльности</a>
+        <a href={`${base}/imperial/loyalty`} class="bla-menu-c__extra">Положение о программе лояльности</a>
       </div>
       {clubList.map((c, i) => (
         <div class:list={['bla-menu-c__panel', { 'is-on': i === 0 }]} data-menu-panel={c.id}>

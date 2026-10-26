@@ -1,6 +1,6 @@
 ---
 /** Новости и статьи клуба – шаблон в новом стиле (лента Тильды пока не перенесена, см. src/data/blog.ts).
-    У каждого клуба своя страница: /news (Империал), /news_abricosovo, /news_admiral. */
+    У каждого клуба своя страница: /imperial/news, /abricosovo/news, /admiral/news. */
 import Site from '../../layouts/Site.astro';
 import { posts } from '../../data/blog';
 import { clubs, type ClubId } from '../../data/clubs';
@@ -8,6 +8,7 @@ import '../../styles/blog.css';
 
 const { club: id, path } = Astro.props as { club: ClubId; path: string };
 const c = clubs[id];
+const href = (h: string) => (h.startsWith('/') ? `/${id}${h}` : h);
 const [top, ...rest] = posts.filter((p) => p.clubs.includes(id));
 ---
 <Site title={`Новости и статьи – ${c.name}`} description={`Новости и статьи фитнес-клуба ${c.name}.`} club={id} path={path} crumbs={[{ text: c.name, href: c.home }, { text: 'Новости и статьи', href: '' }]}>
@@ -15,7 +16,7 @@ const [top, ...rest] = posts.filter((p) => p.clubs.includes(id));
     <h1 class="bla-h1" style="color:var(--green)">Новости и статьи</h1>
     <p class="bla-lead" style="margin-top:14px">Новости {c.name}, статьи о тренировках, бассейне и заботе о себе</p>
     <span class="bla-note-tpl">Шаблон страницы – карточки с пометкой «пример» заменятся лентой новостей</span>
-    <a class="bla-card bla-post bla-post--top" href={top.href}>
+    <a class="bla-card bla-post bla-post--top" href={href(top.href)}>
       <div class="bla-cover bla-post__img" data-bg={top.img}></div>
       <div class="bla-post__body">
         <div class="bla-post__meta"><span>{top.tag}</span>{top.read && <span>{top.read}</span>}{top.demo && <span class="is-demo">пример</span>}</div>
@@ -26,7 +27,7 @@ const [top, ...rest] = posts.filter((p) => p.clubs.includes(id));
     </a>
     <div class="bla-posts">
       {rest.map((p) => (
-        <a class="bla-card bla-post" href={p.href}>
+        <a class="bla-card bla-post" href={href(p.href)}>
           <div class="bla-cover bla-post__img" data-bg={p.img}></div>
           <div class="bla-post__body">
             <div class="bla-post__meta"><span>{p.tag}</span>{p.demo && <span class="is-demo">пример</span>}</div>

@@ -6,13 +6,14 @@
     Заявки, как и на всей копии, не уходят – их ловит no-leads.js. */
 import data from '../data/popups.json';
 import { rebase } from '../lib/rebase';
+import { fixLinks, type ClubId } from '../lib/routes';
 
 type Field = { name: string; type: string; placeholder: string };
 type Form = { title: string; descr: string; fields: Field[]; consent: string; button: string };
 type Info = { title: string; html: string; img: string; buttons: { text: string; href: string }[] };
 type Kind = { forms: Record<string, Form>; info: Record<string, Info>; submenus: Record<string, { text: string; href: string }[]> };
 
-const { html, path, extra = [] } = Astro.props as { html: string; path: string; extra?: string[] };
+const { html, path, extra = [], club = 'imperial' } = Astro.props as { html: string; path: string; extra?: string[]; club?: ClubId };
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const all = data as unknown as Kind & { pages: Record<string, Partial<Kind>> };
 const own = all.pages[path] ?? {};
@@ -31,7 +32,7 @@ for (let i = 0; i < 2; i++) {
   }
 }
 const id = (hook: string) => 'pop-' + hook.split(':')[1];
-const clean = (s: string) => rebase(s.replace(/<p>\s*<\/p>/g, ''), base);
+const clean = (s: string) => rebase(fixLinks(s.replace(/<p>\s*<\/p>/g, ''), club), base);
 const btnHref = (h: string) => (h.startsWith('/') ? base + h : h);
 
 const forms = [...want].filter((h) => pick('forms', h)).map((h) => ({ hook: h, ...pick('forms', h) }));

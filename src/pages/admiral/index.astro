@@ -3,9 +3,9 @@
     Разметка – тот же блок, что вставляется в Тильду (src/admiral/admiral-tilda.html):
     здесь картинки берутся из локальной копии, а попапы Тильды заменены ссылками,
     потому что на этой странице рантайма Тильды нет. Прошлая версия – /admiral-v1. */
-import block from '../admiral/admiral-tilda.html?raw';
-import ClubMap from '../components/ClubMap.astro';
-import '../styles/motion.css';
+import block from '../../admiral/admiral-tilda.html?raw';
+import ClubMap from '../../components/ClubMap.astro';
+import '../../styles/motion.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -13,10 +13,10 @@ const popups: Record<string, string> = {
   '#popup:callback-form-adm': '#bla-guest',
   '#popup:card-form-adm': '#bla-guest',
   '#popup:myform-adm': '#bla-guest',
-  '#popup:card-1-adm': '/cards_admiral',
-  '#popup:card-2-adm': '/cards_admiral',
-  '#popup:card-3-adm': '/cards_admiral',
-  '#popup:card-4-adm': '/cards_admiral',
+  '#popup:card-1-adm': '/admiral/cards',
+  '#popup:card-2-adm': '/admiral/cards',
+  '#popup:card-3-adm': '/admiral/cards',
+  '#popup:card-4-adm': '/admiral/cards',
 };
 
 let html = block
@@ -48,7 +48,7 @@ const [before, after] = html.split(/<div class="bla-map"><iframe[^\n]*?<\/iframe
     <ClubMap club="admiral" />
     <Fragment set:html={after} />
     <script>
-      import '../scripts/motion';
+      import '../../scripts/motion';
     </script>
   </body>
 </html>
