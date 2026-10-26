@@ -117,7 +117,7 @@ export const clubs: Record<ClubId, Club> = {
     subscription: { text: 'Оформить фитнес по подписке', href: '/lkabrikosovo' },
     menu: [
       { text: 'Расписание', href: '/table_abricosovo' },
-      { text: 'Новости', href: '/news' },
+      { text: 'Новости', href: '/news_abricosovo' },
       { text: 'Услуги', href: '/services_abricosovo' },
       { text: 'Акции', href: '/sale_abricosovo' },
       { text: 'Клубные карты', href: '/cards_abricosovo' },
@@ -133,7 +133,7 @@ export const clubs: Record<ClubId, Club> = {
       { text: 'Контакты', href: '/contacts_abricosovo' },
     ],
     footerNav: [
-      { text: 'Новости', href: '/news' },
+      { text: 'Новости', href: '/news_abricosovo' },
       { text: 'Расписание', href: '/table_abricosovo' },
       { text: 'Клубные карты', href: '/cards_abricosovo' },
       { text: 'Акции', href: '/sale_abricosovo' },
@@ -185,7 +185,7 @@ export const clubs: Record<ClubId, Club> = {
     callback: '#popup:callback-form-adm',
     menu: [
       { text: 'Расписание', href: '/table_admiral' },
-      { text: 'Новости', href: '/news' },
+      { text: 'Новости', href: '/news_admiral' },
       { text: 'Услуги', href: '/services_admiral' },
       { text: 'Акции', href: '/sale_admiral' },
       { text: 'Клубные карты', href: '/cards_admiral' },
@@ -199,7 +199,7 @@ export const clubs: Record<ClubId, Club> = {
       { text: 'Контакты', href: '/contacts_admiral' },
     ],
     footerNav: [
-      { text: 'Новости', href: '/news' },
+      { text: 'Новости', href: '/news_admiral' },
       { text: 'Расписание', href: '/table_admiral' },
       { text: 'Клубные карты', href: '/cards_admiral' },
       { text: 'Акции', href: '/sale_admiral' },

@@ -1,7 +1,5 @@
 /* Новости и статьи: список и страница статьи */
 .bla-note-tpl{display:inline-flex;gap:8px;align-items:center;margin-top:16px;padding:8px 14px;border-radius:100px;border:1px dashed rgba(196,232,5,.5);color:var(--green);font-size:14px}
-.bla-filter{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
-.bla-filter .is-active{background:var(--green);border-color:var(--green);color:#000;font-weight:500}
 .bla-post{display:flex;flex-direction:column;overflow:hidden;padding:12px;gap:18px}
 .bla-post__img{height:220px;border-radius:16px}
 .bla-post__body{padding:0 12px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
@@ -16,7 +14,6 @@
 .bla-post--top .bla-post__body{padding:28px 24px;justify-content:center}
 .bla-post--top h3{font-size:36px;line-height:1.15}
 .bla-posts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
-[data-clubs][hidden]{display:none!important}
 
 .bla-art-hero{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;align-items:stretch}
 .bla-art-hero__text{padding:8px 0;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
