@@ -4,6 +4,7 @@
     здесь картинки берутся из локальной копии, а попапы Тильды заменены ссылками,
     потому что на этой странице рантайма Тильды нет. Прошлая версия – /admiral-v1. */
 import block from '../admiral/admiral-tilda.html?raw';
+import ClubMap from '../components/ClubMap.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -22,6 +23,8 @@ let html = block
   .replace(/href="(#popup:[\w-]+)"/g, (_, hook) => `href="${popups[hook] ?? '#bla-guest'}"`)
   .replace(/(href|src|data-bg)="\/(?!\/)/g, `$1="${base}/`)
   .replace(/url\('\/_t\//g, `url('${base}/_t/`);
+/* Карта – как на главной сети (Яндекс.Карты с метками Тильды) вместо виджета из блока */
+const [before, after] = html.split(/<div class="bla-map"><iframe[^\n]*?<\/iframe><\/div>/);
 ---
 <!doctype html>
 <html lang="ru">
@@ -33,9 +36,15 @@ let html = block
     <meta name="description" content="Фитнес-клуб Balance Адмирал в Туапсе: фитнес с бассейном – год за 39 000 ₽, тренажёрный зал Nautilus и Star Trac, более 50 групповых программ." />
     <link rel="icon" href={`${base}/_t/static/tild3539-3835-4330-a130-613337626539/favicon.ico`} />
     <script is:inline src={`${base}/no-leads.js`}></script>
-    <style is:inline>body{margin:0;background:#000}</style>
+    <style is:inline>body{margin:0;background:#000}
+      .bla-map.bla-ymap .bla-ymap__map{position:absolute;inset:0}
+      .bla-ymap [class*="ground-pane"]{filter:grayscale(1)}
+      .bla-ymap__tone{position:absolute;inset:0;background:#fff;mix-blend-mode:difference;pointer-events:none}
+      .bla-map.bla-ymap iframe{filter:none}</style>
   </head>
   <body>
-    <Fragment set:html={html} />
+    <Fragment set:html={before} />
+    <ClubMap club="admiral" />
+    <Fragment set:html={after} />
   </body>
 </html>

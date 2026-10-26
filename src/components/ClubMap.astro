@@ -1,0 +1,13 @@
+---
+/** Карта одного клуба в стиле карты на главной (src/scripts/ymap.ts). */
+import { clubs, ymapApi, ymapMarker, type ClubId } from '../data/clubs';
+const c = clubs[(Astro.props as { club: ClubId }).club];
+---
+<div class="bla-map bla-ymap" data-ymap={JSON.stringify([{ coords: c.contacts.coords, hint: c.contacts.hint }])} data-zoom="16" data-marker={ymapMarker} data-api={ymapApi}>
+  <div class="bla-ymap__map"></div>
+  <div class="bla-ymap__tone"></div>
+</div>
+
+<script>
+  import '../scripts/ymap';
+</script>

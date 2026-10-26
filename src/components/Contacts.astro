@@ -1,9 +1,9 @@
 ---
 /** Контакты клуба: карточка и Яндекс.Карта. */
 import { clubs, icons, type ClubId } from '../data/clubs';
+import ClubMap from './ClubMap.astro';
 const { club: id, title = 'Контакты', h = 'h2', social = false } = Astro.props as { club: ClubId; title?: string; h?: 'h1' | 'h2'; social?: boolean };
 const c = clubs[id];
-const map = `https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(c.contacts.map)}&z=16`;
 const H = h;
 ---
 <section class="bla-wrap bla-sec" id="contacts">
@@ -29,6 +29,6 @@ const H = h;
         </div>
       )}
     </div>
-    <div class="bla-map"><iframe data-src={map} title={`${c.name} на карте`} loading="lazy" allowfullscreen></iframe></div>
+    <ClubMap club={id} />
   </div>
 </section>

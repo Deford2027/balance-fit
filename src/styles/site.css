@@ -494,6 +494,8 @@ a.bla-tile:hover{border-color:rgba(196,232,5,.6);transform:translateY(-2px)}
 .bla-ymap{position:relative;height:520px;margin-top:24px;border-radius:32px;overflow:hidden;background:#1a1a1a}
 .bla-ymap__map{position:absolute;inset:0}
 .bla-ymap [class*="ground-pane"]{filter:grayscale(1)}
+.bla-map.bla-ymap{height:auto;margin-top:0;border-radius:24px}
+.bla-map.bla-ymap iframe{filter:none}
 .bla-ymap__tone{position:absolute;inset:0;background:#fff;mix-blend-mode:difference;pointer-events:none}
 .bla-ymap__club{text-align:left;font:inherit;color:#fff;cursor:pointer;padding:22px 24px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s}
 .bla-ymap__club:hover{border-color:var(--green)}

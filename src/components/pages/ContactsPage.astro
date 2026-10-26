@@ -2,13 +2,13 @@
 /** Контакты клуба: тексты карточки клуба и «Службы заботы» – со страницы Тильды (src/data/content), карта и соцсети – из clubs.ts. */
 import Site from '../../layouts/Site.astro';
 import { clubs, icons, type ClubId } from '../../data/clubs';
+import ClubMap from '../ClubMap.astro';
 import type { Content } from '../../lib/blocks';
 
 const { club: id, content } = Astro.props as { club: ClubId; content: Content };
 const c = clubs[id];
 const withTexts = content.recs.filter((r) => (r.texts?.length ?? 0) > 2);
 const [card, care] = [withTexts[0].texts!, withTexts[1].texts!];
-const map = `https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(c.contacts.map)}&z=16`;
 ---
 <Site title={content.title} description={content.description ?? undefined} club={id} path={content.path} crumbs={[{ text: c.name, href: c.home }, { text: 'Контакты', href: '' }]}>
   <section class="bla-wrap bla-sec--sm">
@@ -25,7 +25,7 @@ const map = `https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(c.contac
           <a href={c.social.wa} target="_blank" rel="noopener"><img src={icons.wa} alt="WhatsApp" /></a>
         </div>
       </div>
-      <div class="bla-map"><iframe data-src={map} title={`${c.name} на карте`} loading="lazy" allowfullscreen></iframe></div>
+      <ClubMap club={id} />
     </div>
   </section>
   <section class="bla-wrap bla-sec--sm">
