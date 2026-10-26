@@ -10,6 +10,7 @@ export type Club = {
   short: string; // «Империал»
   city: string;
   home: string;
+  photo: string; // фото здания – в меню (с главной сети)
   headerPhone: Link;
   callback: string; // хук попапа «Заказать звонок»
   lk?: Link;
@@ -39,6 +40,7 @@ export const clubs: Record<ClubId, Club> = {
     short: 'Империал',
     city: 'Краснодар',
     home: '/imperial',
+    photo: '/_t/static/tild6338-3366-4561-b033-363764343536/2023-09-18_163819.jpg',
     headerPhone: { text: '+7 861 207 27 27', href: 'tel:+78612072727' },
     callback: '#popup:callback-form',
     menu: [
@@ -104,6 +106,7 @@ export const clubs: Record<ClubId, Club> = {
     short: 'Абрикосово',
     city: 'Краснодар',
     home: '/abricosovo',
+    photo: '/_t/static/tild3539-3038-4935-a265-333464653662/2023-08-29_181957.jpg',
     headerPhone: { text: '+7 861 205 27 27', href: 'tel:+78612052727' },
     callback: '#popup:callback-form-abr',
     lk: { text: 'ЛК', href: '/lkabrikosovo' },
@@ -171,6 +174,7 @@ export const clubs: Record<ClubId, Club> = {
     short: 'Адмирал',
     city: 'Туапсе',
     home: '/admiral',
+    photo: '/_t/static/tild3530-6264-4632-a239-333930363638/Balance_27.jpg',
     headerPhone: { text: '+7 861 205 18 18', href: 'tel:+78612051818' },
     callback: '#popup:callback-form-adm',
     menu: [

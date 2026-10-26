@@ -1,0 +1,58 @@
+---
+/** Раскрывающееся меню (бургер), вариант «крупный список»:
+    на странице клуба – его страницы в две колонки + фото и карточка с телефоном;
+    на странице сети – клубы слева, страницы выбранного клуба справа (наведение или нажатие меняет клуб). */
+import { clubs, clubList, icons, type Club, type ClubId } from '../data/clubs';
+
+const { club: clubId } = Astro.props as { club?: ClubId };
+const club = clubId ? clubs[clubId] : undefined;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const ext = (href: string) => /^https?:/.test(href);
+const href = (h: string) => (ext(h) || h.startsWith('#') ? h : base + h);
+const attrs = (h: string) => (ext(h) ? { target: '_blank', rel: 'noopener' } : {});
+const pages = (c: Club) => [...c.menu, ...(c.subscription ? [c.subscription] : [])];
+---
+<div class="bla-drawer">
+  {club ? (
+    <div class="bla-menu-c bla-menu-c--club">
+      <div class="bla-menu-c__list">
+        {pages(club).map((l) => <a href={href(l.href)} {...attrs(l.href)}>{l.text}<i>→</i></a>)}
+        <a href="#popup:infoblock" class="bla-menu-c__mob">Программа лояльности<i>→</i></a>
+      </div>
+      <div class="bla-menu-c__side">
+        <div class="bla-cover bla-menu-c__photo" data-bg={base + club.photo}></div>
+        <div class="bla-menu-c__card">
+          <span class="bla-menu-c__k">{club.short}</span>
+          <a class="bla-menu-c__phone" href={club.headerPhone.href}>{club.headerPhone.text}</a>
+          <span class="bla-menu-c__muted">{club.contacts.address}<br />{club.contacts.hours.map(([d, t]) => `${d} ${t}`).join(' · ')}</span>
+          <a class="bla-btn bla-btn--red" href={club.callback}>Заказать звонок</a>
+          <div class="bla-soc">
+            <a href={club.social.vk} target="_blank" rel="noopener"><img src={`${base}${icons.vk}`} alt="VK" /></a>
+            <a href={club.social.max} target="_blank" rel="noopener"><img src={`${base}${icons.max}`} alt="MAX" /></a>
+            <a href={club.social.tg} target="_blank" rel="noopener"><img src={`${base}${icons.tg}`} alt="Telegram" /></a>
+            <a href={club.social.wa} target="_blank" rel="noopener"><img src={`${base}${icons.wa}`} alt="WhatsApp" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="bla-menu-c bla-menu-c--net" data-menu-clubs>
+      <div class="bla-menu-c__clubs">
+        {clubList.map((c, i) => (
+          <a href={`${base}${c.home}`} data-menu-club={c.id} class:list={{ 'is-on': i === 0 }}>{c.name}<small>{c.contacts.address}</small></a>
+        ))}
+        <a href="#popup:infoblock" class="bla-menu-c__extra">Программа лояльности</a>
+        <a href={`${base}/loyalty`} class="bla-menu-c__extra">Положение о программе лояльности</a>
+      </div>
+      {clubList.map((c, i) => (
+        <div class:list={['bla-menu-c__panel', { 'is-on': i === 0 }]} data-menu-panel={c.id}>
+          <div class="bla-menu-c__list">
+            <a href={`${base}${c.home}`} class="bla-menu-c__home">Главная {c.short}<i>→</i></a>
+            {pages(c).map((l) => <a href={href(l.href)} {...attrs(l.href)}>{l.text}<i>→</i></a>)}
+          </div>
+          <div class="bla-cover bla-menu-c__photo" data-bg={base + c.photo}></div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>

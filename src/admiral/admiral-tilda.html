@@ -45,11 +45,23 @@
 .bla.menu-open .bla-burger span:nth-child(1){top:9px;transform:rotate(45deg)}
 .bla.menu-open .bla-burger span:nth-child(2){opacity:0}
 .bla.menu-open .bla-burger span:nth-child(3){top:9px;transform:rotate(-45deg)}
-.bla-drawer{display:none;border-top:1px solid var(--line);padding:24px 0 32px}
+.bla-drawer{display:none;border-top:1px solid var(--line);padding:24px 0 32px;max-height:calc(100vh - 77px);overflow:auto}
 .bla.menu-open .bla-drawer{display:block}
-.bla-drawer__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 32px;font-size:18px;line-height:1.6}
-.bla-drawer__grid a:hover{color:var(--green)}
-.bla-drawer__extra{display:none}
+.bla-menu-c{display:grid;gap:40px;align-items:start}
+.bla-menu-c--club{grid-template-columns:1fr 360px}
+.bla-menu-c__list{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;align-content:start}
+.bla-menu-c__list a{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:22px;line-height:1.3;padding:13px 0;border-bottom:1px solid var(--line);transition:color .2s}
+.bla-menu-c__list a i{font-style:normal;color:var(--green);transition:transform .2s}
+.bla-menu-c__list a:hover{color:var(--green)}
+.bla-menu-c__list a:hover i{transform:translateX(4px)}
+.bla-menu-c__mob{display:none!important}
+.bla-menu-c__side{display:flex;flex-direction:column;gap:14px}
+.bla-menu-c__photo{height:180px;border-radius:24px}
+.bla-menu-c__card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.bla-menu-c__k{color:var(--t62);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.bla-menu-c__phone{font-size:28px;line-height:1.2}
+.bla-menu-c__phone:hover{color:var(--green)}
+.bla-menu-c__muted{color:var(--t62);font-size:14px;line-height:1.5}
 
 /* Первый экран */
 .bla-hero{display:grid;grid-template-columns:613fr 545fr;gap:34px;padding-top:26px;align-items:center}
@@ -163,7 +175,9 @@
 /* Планшет */
 @media (max-width:1100px){
   .bla-nav{display:none}
-  .bla-drawer__extra{display:block}
+  .bla-menu-c--club{grid-template-columns:1fr}
+  .bla-menu-c__photo{display:none}
+  .bla-menu-c__mob{display:flex!important}
   .bla-adv,.bla-cards{grid-template-columns:repeat(2,1fr)}
   .bla-foot{grid-template-columns:1fr 1fr;align-items:start}
   .bla-foot__logo{grid-column:1/-1;order:9}
@@ -183,7 +197,8 @@
   .bla-head__in{min-height:64px}
   .bla-logo img{width:120px}
   .bla-head__act .bla-btn{display:none}
-  .bla-drawer__grid{grid-template-columns:1fr 1fr;font-size:16px}
+  .bla-menu-c__list{grid-template-columns:1fr}
+  .bla-menu-c__list a{font-size:19px;padding:11px 0}
   .bla-h1{font-size:34px}
   .bla-lead{font-size:17px}
   .bla-h2{font-size:32px}
@@ -245,21 +260,36 @@
         </div>
       </div>
       <div class="bla-drawer">
-        <div class="bla-drawer__grid">
-          <a href="/" class="bla-drawer__extra">Выбор клуба</a>
-          <a href="tel:+78612051818" class="bla-drawer__extra">+7 861 205 18 18</a>
-          <a href="#popup:callback-form-adm" class="bla-drawer__extra">Заказать звонок</a>
-          <a href="/loyalty" class="bla-drawer__extra">Программа лояльности</a>
-          <a href="https://balance-fit.ru/news_admiral">Новости</a>
-          <a href="/table_admiral">Расписание</a>
-          <a href="/services_admiral">Услуги</a>
-          <a href="/sale_admiral">Акции</a>
-          <a href="#bla-cards">Клубные карты</a>
-          <a href="/cards_admiral">Заморозка карты</a>
-          <a href="https://trainers.myfitt.ru/#key=805Vgc2lo5CIXi3vjUMBl0NZhiYzeSOXNFYQI7qzfi5VXeqMKEJ-_ccBbInOuNCqSEKoS_ygOsK2dqB-Z2vZKQ&amp;theme=defaultTheme&amp;shape=circle&amp;columns=4" target="_blank" rel="noopener">Наша команда</a>
-          <a href="/kids_admiral">Balance дети</a>
-          <a href="https://krasnodar.hh.ru/employer/4335874?hhtmFrom=employers_list" target="_blank" rel="noopener">Вакансии</a>
-          <a href="#bla-contacts">Контакты</a>
+        <div class="bla-menu-c bla-menu-c--club">
+          <div class="bla-menu-c__list">
+            <a href="https://balance-fit.ru/news_admiral">Новости<i>→</i></a>
+            <a href="/table_admiral">Расписание<i>→</i></a>
+            <a href="/services_admiral">Услуги<i>→</i></a>
+            <a href="/sale_admiral">Акции<i>→</i></a>
+            <a href="#bla-cards">Клубные карты<i>→</i></a>
+            <a href="/cards_admiral">Заморозка карты<i>→</i></a>
+            <a href="https://trainers.myfitt.ru/#key=805Vgc2lo5CIXi3vjUMBl0NZhiYzeSOXNFYQI7qzfi5VXeqMKEJ-_ccBbInOuNCqSEKoS_ygOsK2dqB-Z2vZKQ&amp;theme=defaultTheme&amp;shape=circle&amp;columns=4" target="_blank" rel="noopener">Наша команда<i>→</i></a>
+            <a href="/kids_admiral">Balance дети<i>→</i></a>
+            <a href="https://krasnodar.hh.ru/employer/4335874?hhtmFrom=employers_list" target="_blank" rel="noopener">Вакансии<i>→</i></a>
+            <a href="#bla-contacts">Контакты<i>→</i></a>
+            <a href="/" class="bla-menu-c__mob">Выбор клуба<i>→</i></a>
+            <a href="/loyalty" class="bla-menu-c__mob">Программа лояльности<i>→</i></a>
+          </div>
+          <div class="bla-menu-c__side">
+            <div class="bla-cover bla-menu-c__photo" data-bg="https://static.tildacdn.com/tild3530-6264-4632-a239-333930363638/Balance_27.jpg"></div>
+            <div class="bla-menu-c__card">
+              <span class="bla-menu-c__k">Адмирал</span>
+              <a class="bla-menu-c__phone" href="tel:+78612051818">+7 861 205 18 18</a>
+              <span class="bla-menu-c__muted">г. Туапсе ул. Портовиков 39, лит 5<br>пн-пт 7:00 - 23:00 · сб-вс 8:00 - 23:00</span>
+              <a class="bla-btn bla-btn--red" href="#popup:callback-form-adm">Заказать звонок</a>
+            <div class="bla-soc">
+              <a href="https://vk.com/balance_krd" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild6331-3336-4461-b263-333863363632/VK_icon.png" alt="VK"></a>
+              <a href="https://web.max.ru/139886900" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild3731-3463-4632-a263-373039396161/max_icon.png" alt="MAX"></a>
+              <a href="https://t.me/Balance_admiral_bot" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild6432-6563-4537-b532-643039633832/TG_icon.png" alt="Telegram"></a>
+              <a href="https://wa.me/79300365991" target="_blank" rel="noopener"><img src="https://static.tildacdn.com/tild3264-3732-4436-a333-343665623962/WA_icon.png" alt="WhatsApp"></a>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -571,7 +601,7 @@
   function loadBg(el){ if(el && el.dataset.bg){ el.style.backgroundImage="url('"+el.dataset.bg+"')"; el.removeAttribute('data-bg'); } }
 
   /* Меню */
-  $('[data-bla-burger]').addEventListener('click',function(){ root.classList.toggle('menu-open'); });
+  $('[data-bla-burger]').addEventListener('click',function(){ root.classList.toggle('menu-open'); loadBg($('.bla-drawer [data-bg]')); });
   $$('.bla-drawer a').forEach(function(a){ a.addEventListener('click',function(){ root.classList.remove('menu-open'); }); });
 
   /* Плавная прокрутка к якорям внутри блока */

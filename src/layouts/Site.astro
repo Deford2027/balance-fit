@@ -4,6 +4,7 @@
     Попапы (#popup:..., #submenu:...) собираются по ссылкам на странице – см. Popups.astro. */
 import '../styles/site.css';
 import Popups from '../components/Popups.astro';
+import Drawer from '../components/Drawer.astro';
 import { clubs, clubList, icons, type ClubId, type Link } from '../data/clubs';
 import { rebase } from '../lib/rebase';
 
@@ -61,37 +62,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
               <button class="bla-burger" type="button" aria-label="Меню" data-burger><span></span><span></span><span></span></button>
             </div>
           </div>
-          <div class="bla-drawer">
-            <div class="bla-drawer__grid">
-              {club ? (
-                <>
-                  <a href={`${base}/`} class="bla-drawer__extra">Выбор клуба</a>
-                  <a href={club.headerPhone.href} class="bla-drawer__extra">{club.headerPhone.text}</a>
-                  <a href={club.callback} class="bla-drawer__extra">Заказать звонок</a>
-                  <a href="#popup:infoblock" class="bla-drawer__extra">Программа лояльности</a>
-                  {club.menu.map((l) => <a href={ext(l.href) ? l.href : `${base}${l.href}`} {...linkAttrs(l.href)}>{l.text}</a>)}
-                  {club.subscription && <a href={`${base}${club.subscription.href}`}>{club.subscription.text}</a>}
-                </>
-              ) : (
-                <>
-                  {clubList.map((c) => <a href={`${base}${c.home}`}>{c.name}</a>)}
-                  <a href="#popup:infoblock">Программа лояльности</a>
-                  <a href={`${base}/loyalty`}>Положение о программе лояльности</a>
-                </>
-              )}
-            </div>
-            {club && (
-              <div class="bla-drawer__foot">
-                <span>{club.contacts.address}</span>
-                <div class="bla-soc">
-                  <a href={club.social.vk} target="_blank" rel="noopener"><img src={`${base}${icons.vk}`} alt="VK" /></a>
-                  <a href={club.social.max} target="_blank" rel="noopener"><img src={`${base}${icons.max}`} alt="MAX" /></a>
-                  <a href={club.social.tg} target="_blank" rel="noopener"><img src={`${base}${icons.tg}`} alt="Telegram" /></a>
-                  <a href={club.social.wa} target="_blank" rel="noopener"><img src={`${base}${icons.wa}`} alt="WhatsApp" /></a>
-                </div>
-              </div>
-            )}
-          </div>
+          <Drawer club={clubId} />
         </div>
       </header>
 

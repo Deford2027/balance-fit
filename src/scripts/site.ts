@@ -12,8 +12,13 @@ function loadBg(el: Element | null) {
 }
 
 /* Меню и выбор клуба */
-document.querySelector('[data-burger]')?.addEventListener('click', () => root.classList.toggle('menu-open'));
-$$('.bla-drawer a').forEach((a) => a.addEventListener('click', () => root.classList.remove('menu-open')));
+document.querySelector('[data-burger]')?.addEventListener('click', () => {
+  root.classList.toggle('menu-open');
+  $$('.bla-drawer [data-bg]').filter((el) => !el.closest('[data-menu-panel]:not(.is-on)')).forEach(loadBg);
+});
+$$('.bla-drawer a').forEach((a) =>
+  a.addEventListener('click', () => !a.matches('[data-menu-club]:not(.is-on)') && root.classList.remove('menu-open'))
+);
 const pick = document.querySelector<HTMLElement>('[data-pick]');
 pick?.querySelector('button')?.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -21,6 +26,24 @@ pick?.querySelector('button')?.addEventListener('click', (e) => {
 });
 document.addEventListener('click', (e) => {
   if (pick && !pick.contains(e.target as Node)) pick.classList.remove('is-open');
+});
+
+/* Меню сети: наведение на клуб показывает его страницы; на телефоне первое нажатие – показать, второе – перейти */
+$$<HTMLAnchorElement>('[data-menu-club]').forEach((a) => {
+  const show = () => {
+    $$('[data-menu-club]').forEach((x) => x.classList.toggle('is-on', x === a));
+    $$('[data-menu-panel]').forEach((p) => {
+      const on = p.dataset.menuPanel === a.dataset.menuClub;
+      p.classList.toggle('is-on', on);
+      if (on) $$('[data-bg]', p).forEach(loadBg);
+    });
+  };
+  a.addEventListener('mouseenter', show);
+  a.addEventListener('click', (e) => {
+    if (a.classList.contains('is-on')) return;
+    e.preventDefault();
+    show();
+  });
 });
 
 /* Попапы: ссылки #popup:имя и #submenu:имя открывают <dialog id="pop-имя"> */
