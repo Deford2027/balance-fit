@@ -129,6 +129,8 @@ html{scroll-padding-top:96px}
 .bla-phero__img{min-height:420px}
 .bla-phero--solo{grid-template-columns:1fr}
 .bla-phero--solo .bla-phero__text{min-height:0;padding:40px}
+.bla-phero--solo .bla-phero__text:not(.bla-card){padding:8px 0 0}
+.bla-phero--solo .bla-phero__text:not(.bla-card) .bla-h1{color:var(--green)}
 .bla-phero--solo .bla-phero__text .bla-hero__btns{margin-top:0}
 .bla-apps{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .bla-apps img{height:44px;width:auto}

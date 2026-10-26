@@ -9,7 +9,7 @@ const ext = (h: string) => /^https?:/.test(h);
 ---
 <section class="bla-wrap">
   <div class:list={['bla-phero', { 'bla-phero--solo': !img }]}>
-    <div class:list={['bla-card bla-phero__text', tone]}>
+    <div class:list={['bla-phero__text', tone, { 'bla-card': img || tone }]}>
       {eyebrow && <p class="bla-eyebrow">{eyebrow}</p>}
       <h1 class="bla-h1" set:html={title} />
       {lead && <p class="bla-lead" set:html={lead} />}
