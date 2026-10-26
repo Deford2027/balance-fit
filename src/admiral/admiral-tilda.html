@@ -47,6 +47,14 @@
 .bla.menu-open .bla-burger span:nth-child(3){top:9px;transform:rotate(-45deg)}
 .bla-drawer{display:none;border-top:1px solid var(--line);padding:24px 0 32px;max-height:calc(100vh - 77px);overflow:auto}
 .bla.menu-open .bla-drawer{display:block}
+.bla-pick{position:relative}
+.bla-pick>button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.bla-pick>button::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-3px)}
+.bla-pick__list{display:none;position:absolute;top:calc(100% + 14px);left:-16px;min-width:220px;background:#161616;border:1px solid var(--line);border-radius:20px;padding:10px;z-index:5}
+.bla-pick.is-open .bla-pick__list{display:block}
+.bla-pick__list a{display:block;padding:10px 14px;border-radius:12px;color:#fff;font-size:16px}
+.bla-pick__list a:hover,.bla-pick__list a.is-active{background:rgba(255,255,255,.08);color:var(--green)}
+.bla-pick__list small{display:block;color:var(--t62);font-size:13px;line-height:1.3}
 .bla-menu-c{display:grid;gap:40px;align-items:start}
 .bla-menu-c--club{grid-template-columns:1fr 360px}
 .bla-menu-c__list{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;align-content:start}
@@ -250,7 +258,14 @@
       <div class="bla-head__in">
         <a class="bla-logo" href="/"><img src="https://static.tildacdn.com/tild6536-6434-4964-a134-353961616134/noroot.png" alt="Balance"></a>
         <nav class="bla-nav">
-          <a href="/">Выбор клуба</a>
+          <div class="bla-pick" data-pick>
+            <button type="button" aria-haspopup="true">Адмирал</button>
+            <div class="bla-pick__list">
+              <a href="/imperial">Balance Империал<small>Краснодар</small></a>
+              <a href="/abricosovo">Balance Абрикосово<small>Краснодар</small></a>
+              <a href="/admiral" class="is-active">Balance Адмирал<small>Туапсе</small></a>
+            </div>
+          </div>
           <a href="tel:+78612051818">Адмирал: +7 861 205 18 18</a>
           <a href="#popup:callback-form-adm">Заказать звонок</a>
         </nav>
@@ -601,6 +616,9 @@
   function loadBg(el){ if(el && el.dataset.bg){ el.style.backgroundImage="url('"+el.dataset.bg+"')"; el.removeAttribute('data-bg'); } }
 
   /* Меню */
+  var pick=$('[data-pick]');
+  pick.querySelector('button').addEventListener('click',function(e){ e.stopPropagation(); pick.classList.toggle('is-open'); });
+  document.addEventListener('click',function(e){ if(!pick.contains(e.target)) pick.classList.remove('is-open'); });
   $('[data-bla-burger]').addEventListener('click',function(){ root.classList.toggle('menu-open'); loadBg($('.bla-drawer [data-bg]')); });
   $$('.bla-drawer a').forEach(function(a){ a.addEventListener('click',function(){ root.classList.remove('menu-open'); }); });
 

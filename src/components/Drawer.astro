@@ -17,6 +17,7 @@ const pages = (c: Club) => [...c.menu, ...(c.subscription ? [c.subscription] : [
     <div class="bla-menu-c bla-menu-c--club">
       <div class="bla-menu-c__list">
         {pages(club).map((l) => <a href={href(l.href)} {...attrs(l.href)}>{l.text}<i>→</i></a>)}
+        <a href={`${base}/`} class="bla-menu-c__mob">Выбор клуба<i>→</i></a>
         <a href="#popup:infoblock" class="bla-menu-c__mob">Программа лояльности<i>→</i></a>
       </div>
       <div class="bla-menu-c__side">
