@@ -1,0 +1,56 @@
+---
+/** Новости и статьи всех клубов – шаблон в новом стиле (лента Тильды пока не перенесена, см. src/data/blog.ts). */
+import Site from '../layouts/Site.astro';
+import { posts } from '../data/blog';
+import { clubs } from '../data/clubs';
+import '../styles/blog.css';
+
+const [top, ...rest] = posts;
+const tags = (p: (typeof posts)[number]) => p.clubs.map((id) => clubs[id].short);
+---
+<Site title="Новости и статьи – сеть фитнес-клубов Balance" description="Новости и статьи фитнес-клубов Balance в Краснодаре и Туапсе." path="news" crumbs={[{ text: 'Выбор клуба', href: '/' }, { text: 'Новости и статьи', href: '' }]}>
+  <section class="bla-wrap bla-sec--sm">
+    <h1 class="bla-h1" style="color:var(--green)">Новости и статьи</h1>
+    <p class="bla-lead" style="margin-top:14px">Новости клубов Balance, статьи о тренировках, бассейне и заботе о себе</p>
+    <span class="bla-note-tpl">Шаблон страницы – карточки с пометкой «пример» заменятся лентой новостей</span>
+    <div class="bla-filter" data-post-filter>
+      <button class="bla-tab is-active" type="button" data-f="">Все клубы</button>
+      <button class="bla-tab" type="button" data-f="imperial">Империал</button>
+      <button class="bla-tab" type="button" data-f="abricosovo">Абрикосово</button>
+      <button class="bla-tab" type="button" data-f="admiral">Адмирал</button>
+    </div>
+    <a class="bla-card bla-post bla-post--top" href={top.href} data-clubs={top.clubs.join(' ')}>
+      <div class="bla-cover bla-post__img" data-bg={top.img}></div>
+      <div class="bla-post__body">
+        <div class="bla-post__meta"><span>{top.tag}</span>{tags(top).map((t) => <span>{t}</span>)}{top.read && <span>{top.read}</span>}</div>
+        <h3>{top.title}</h3>
+        <p>{top.lead}</p>
+        <span class="bla-post__more">Читать статью →</span>
+      </div>
+    </a>
+    <div class="bla-posts">
+      {rest.map((p) => (
+        <a class="bla-card bla-post" href={p.href} data-clubs={p.clubs.join(' ')}>
+          <div class="bla-cover bla-post__img" data-bg={p.img}></div>
+          <div class="bla-post__body">
+            <div class="bla-post__meta"><span>{p.tag}</span>{tags(p).map((t) => <span>{t}</span>)}{p.demo && <span class="is-demo">пример</span>}</div>
+            <h3>{p.title}</h3>
+            <p>{p.lead}</p>
+            <span class="bla-post__more">Читать →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Site>
+
+<script>
+  /* Фильтр по клубу */
+  const box = document.querySelector<HTMLElement>('[data-post-filter]');
+  box?.querySelectorAll<HTMLButtonElement>('[data-f]').forEach((b) =>
+    b.addEventListener('click', () => {
+      box.querySelectorAll('[data-f]').forEach((x) => x.classList.toggle('is-active', x === b));
+      document.querySelectorAll<HTMLElement>('[data-clubs]').forEach((p) => (p.hidden = !!b.dataset.f && !p.dataset.clubs!.split(' ').includes(b.dataset.f!)));
+    })
+  );
+</script>

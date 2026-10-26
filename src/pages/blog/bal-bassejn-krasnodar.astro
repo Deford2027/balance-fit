@@ -1,0 +1,133 @@
+---
+/** Статья «Бассейн в Краснодаре» – шаблон страницы статьи в новом стиле по демо-странице студии
+    (seo.сеоконтентзавод.рф/demo/bal-bassejn-krasnodar.html). Текст сокращён: полный перенос – при настройке ленты. */
+import Site from '../../layouts/Site.astro';
+import { clubs } from '../../data/clubs';
+import '../../styles/blog.css';
+
+const S = '/_t/static/';
+const toc = [
+  ['diff', 'Чем Balance отличается от обычного бассейна'],
+  ['aqua', 'Что входит в акватермальный комплекс'],
+  ['school', 'Школа плавания и аквааэробика'],
+  ['prices', 'Сколько стоит'],
+  ['start', 'Как начать'],
+  ['limits', 'Когда Balance не подойдёт'],
+  ['faq', 'Частые вопросы'],
+  ['clubs', 'Два клуба с бассейном'],
+];
+const faq = [
+  ['Можно ли ходить только в бассейн?', 'Отдельного разового билета в бассейн нет. Познакомиться с клубом можно через гостевой визит – это целый день во всех зонах.'],
+  ['С какого возраста можно плавать?', 'Детский бассейн с водой +32 °C подходит для грудничкового плавания с трёх месяцев.'],
+  ['Что взять с собой?', 'Шапочку для плавания и нескользящие тапочки. Перед первым самостоятельным посещением – инструктаж.'],
+  ['Какие зоны входят в клубную карту?', 'Бассейны, финская и инфракрасная сауны, хаммам, соляная комната, душ Шарко и зона отдыха.'],
+  ['Можно ли получить налоговый вычет?', 'Да, услуги клуба подходят под социальный налоговый вычет 13%.'],
+];
+const pair = [clubs.imperial, clubs.abricosovo];
+---
+<Site title="Бассейн в Краснодаре – акватермальный комплекс фитнес-клуба Balance" description="Два бассейна, сауны, хаммам и школа плавания в фитнес-клубах Balance в Краснодаре." path="blog/bal-bassejn-krasnodar" crumbs={[{ text: 'Выбор клуба', href: '/' }, { text: 'Новости и статьи', href: '/news' }, { text: 'Бассейн', href: '' }]}>
+  <section class="bla-wrap bla-sec--sm">
+    <div class="bla-art-hero">
+      <div class="bla-art-hero__text">
+        <p class="bla-eyebrow">Статья · 10 минут · Краснодар</p>
+        <h1 class="bla-h1">Бассейн в Краснодаре – акватермальный комплекс Balance</h1>
+        <p class="bla-lead">Взрослый бассейн 25 м, детский с водой +32 °C, сауны, хаммам и школа плавания – рассказываем, что входит в клубную карту и с чего начать.</p>
+        <div class="bla-hero__btns" style="margin-top:8px">
+          <a class="bla-btn bla-btn--red" href="/imperial#bla-guest">Записаться на визит</a>
+          <a class="bla-btn bla-btn--ghost" href="#prices">Смотреть цены</a>
+        </div>
+        <span class="bla-note-tpl">Шаблон статьи – текст сокращён</span>
+      </div>
+      <div class="bla-cover bla-art-hero__img" data-bg={S + 'tild3061-3339-4236-b264-396234643866/image.png'}></div>
+    </div>
+
+    <div class="bla-art">
+      <article class="bla-art__body">
+        <h2 id="diff">Чем Balance отличается от обычного бассейна</h2>
+        <p>В клубах два бассейна: взрослый на 25 метров и 4 дорожки и детский с водой +32 °C, в котором занимаются малыши с трёх месяцев.</p>
+        <div class="bla-cover bla-art__pic" data-bg={S + 'tild3139-3136-4665-a163-336338663063/advantages_1-2.jpg'}></div>
+
+        <h2 id="aqua">Что входит в акватермальный комплекс</h2>
+        <ul>
+          <li>Финская сауна и хаммам</li>
+          <li>Инфракрасная сауна и соляная комната</li>
+          <li>Душ Шарко</li>
+          <li>Зона отдыха</li>
+        </ul>
+
+        <h2 id="school">Школа плавания и аквааэробика</h2>
+        <p>Грудничковое плавание, детская школа плавания, аквааэробика для взрослых и свободное плавание по дорожкам.</p>
+        <div class="bla-cover bla-art__pic" data-bg={S + 'tild3365-6364-4035-b432-303737303836/image.png'}></div>
+
+        <h2 id="prices">Сколько стоит</h2>
+        <p>Цена зависит от клуба, формата доступа, срока и состава карты. Цены меняются несколько раз в год – актуальные уточняйте в клубе.</p>
+        <div class="bla-art__stats">
+          <div><b>34 200 ₽</b><span>от – клубная карта на год</span></div>
+          <div><b>42 700 ₽</b><span>дневная карта на 12 месяцев, Империал</span></div>
+          <div><b>13%</b><span>социальный налоговый вычет</span></div>
+        </div>
+
+        <h2 id="start">Как начать</h2>
+        <ul class="bla-art__steps">
+          <li>Записаться на гостевой визит</li>
+          <li>Посмотреть клуб и попробовать все зоны</li>
+          <li>Выбрать формат клубной карты</li>
+          <li>Пройти инструктаж в бассейне</li>
+          <li>Взять шапочку и нескользящие тапочки</li>
+          <li>Прийти на первое плавание</li>
+        </ul>
+
+        <h2 id="limits">Когда Balance не подойдёт</h2>
+        <ul>
+          <li>Нужен разовый билет только в бассейн – его нет</li>
+          <li>Нужны дорожки 50 метров – бассейн 25 метров</li>
+        </ul>
+
+        <h2 id="faq">Частые вопросы</h2>
+        <div class="bla-acc">
+          {faq.map(([q, a]) => <details><summary>{q}</summary><div class="bla-acc__body"><p>{a}</p></div></details>)}
+        </div>
+
+        <h2 id="clubs">Два клуба с бассейном в Краснодаре</h2>
+        <div class="bla-art__stats" style="grid-template-columns:1fr 1fr">
+          {pair.map((c) => (
+            <div>
+              <b style="font-size:22px">{c.name}</b>
+              <span>{c.contacts.address}<br />{c.contacts.hours.map(([d, t]) => `${d} ${t}`).join(' · ')}</span>
+              <a href={c.contacts.phone.href} style="display:block;margin-top:12px;font-size:20px">{c.contacts.phone.text}</a>
+              <a href={c.home} style="display:block;margin-top:8px;color:var(--green);font-size:15px">Страница клуба →</a>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <aside class="bla-card bla-toc" data-toc>
+        <span class="bla-eyebrow">Содержание</span>
+        <ol>{toc.map(([id, t], i) => <li><a href={`#${id}`}><i>{String(i + 1).padStart(2, '0')}</i>{t}</a></li>)}</ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="bla-wrap bla-sec">
+    <div class="bla-cta-lime">
+      <div><h2>Гостевой визит</h2><p>Целый день во всех зонах клуба – бассейн, сауны и тренировки.</p></div>
+      <a class="bla-btn" href="/imperial#bla-guest">Записаться на визит</a>
+    </div>
+  </section>
+
+  <section class="bla-wrap bla-sec">
+    <h2 class="bla-h2">Что посмотреть дальше</h2>
+    <div class="bla-posts">
+      <a class="bla-card bla-post" href="/imperial/spa"><div class="bla-cover bla-post__img" data-bg={S + 'tild3662-6636-4237-a439-633563623839/_2025-11-11_13453843.png'}></div><div class="bla-post__body"><h3>Balance спа</h3><span class="bla-post__more">Перейти →</span></div></a>
+      <a class="bla-card bla-post" href="/imperial/kids"><div class="bla-cover bla-post__img" data-bg={S + 'tild3032-3537-4164-b638-656466623563/advanteges_5-2.jpg'}></div><div class="bla-post__body"><h3>Balance дети</h3><span class="bla-post__more">Перейти →</span></div></a>
+      <a class="bla-card bla-post" href="/news"><div class="bla-cover bla-post__img" data-bg={S + 'tild6536-6364-4532-b134-326432366464/_2025-11-11_13525106.png'}></div><div class="bla-post__body"><h3>Все новости и статьи</h3><span class="bla-post__more">Перейти →</span></div></a>
+    </div>
+  </section>
+</Site>
+
+<script>
+  /* Подсветка текущего раздела в содержании */
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc] a'));
+  const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && links.forEach((a) => a.classList.toggle('is-on', a.hash === `#${e.target.id}`))), { rootMargin: '-20% 0px -70% 0px' });
+  document.querySelectorAll('.bla-art__body h2[id]').forEach((h) => io.observe(h));
+</script>
