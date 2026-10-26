@@ -25,6 +25,8 @@ export type Club = {
     address: string;
     hours: [string, string][];
     map: string; // адрес для Яндекс.Карт
+    coords: [number, number]; // метка на карте (из кода карты Тильды)
+    hint: string;
   };
   suffix: string; // хвост хуков попапов: '', '-abr', '-adm'
 };
@@ -97,6 +99,8 @@ export const clubs: Record<ClubId, Club> = {
         ['сб-вс', '7:00 - 23:00'],
       ],
       map: 'Краснодар, ул. Бородинская, 137к2',
+      coords: [45.005341, 39.10671],
+      hint: 'Краснодар, Бородинская 137 к2',
     },
     suffix: '',
   },
@@ -165,6 +169,8 @@ export const clubs: Record<ClubId, Club> = {
         ['сб-вс', '8:00 - 23:00'],
       ],
       map: 'Краснодар, улица Героя Бочарникова, 4Б',
+      coords: [45.072923, 39.04124],
+      hint: 'Краснодар, ул. им. Бочарникова 4, стр. Б',
     },
     suffix: '-abr',
   },
@@ -227,6 +233,8 @@ export const clubs: Record<ClubId, Club> = {
         ['сб-вс', '8:00 - 23:00'],
       ],
       map: 'Туапсе, ул. Портовиков, 39',
+      coords: [44.125199, 39.076751],
+      hint: 'г. Туапсе, ул. Портовиков 39, лит 5',
     },
     suffix: '-adm',
   },
@@ -249,3 +257,7 @@ export const icons = {
   wa: '/_t/static/tild3264-3732-4436-a333-343665623962/WA_icon.png',
   favicon: '/_t/static/tild3539-3835-4330-a130-613337626539/favicon.ico',
 };
+
+/* Карты в стиле главной Тильды (src/scripts/ymap.ts): ключ API и метка – из кода карты Тильды */
+export const ymapApi = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=831f87db-63c2-40d7-9323-264278280192';
+export const ymapMarker = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/_t/static/tild3261-3533-4439-a534-636133346639/marker-difference.png`;
