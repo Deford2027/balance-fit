@@ -1,37 +1,85 @@
 ---
-/** Контакты клуба: тексты карточки клуба и «Службы заботы» – со страницы Тильды (src/data/content), карта и соцсети – из clubs.ts. */
+/** Контакты клуба (вариант «плитки-кнопки»): телефоны, почта и мессенджеры – плитками, ниже адрес с маршрутом и карта,
+    затем «Служба заботы». Тексты – со страницы Тильды (src/data/content), карта, соцсети и часы по умолчанию – из clubs.ts. */
 import Site from '../../layouts/Site.astro';
-import { clubs, icons, type ClubId } from '../../data/clubs';
 import ClubMap from '../ClubMap.astro';
+import { clubs, icons, type ClubId } from '../../data/clubs';
 import type { Content } from '../../lib/blocks';
+import '../../styles/contacts.css';
 
 const { club: id, content } = Astro.props as { club: ClubId; content: Content };
 const c = clubs[id];
 const withTexts = content.recs.filter((r) => (r.texts?.length ?? 0) > 2);
 const [card, care] = [withTexts[0].texts!, withTexts[1].texts!];
+const link = (t: string) => {
+  const m = t.match(/href="([^"]+)">([^<]+)</);
+  return m ? { href: m[1], text: m[2] } : undefined;
+};
+const plain = (t: string) => t.replace(/<[^>]+>/g, '').trim();
+
+/* Карточка клуба: два телефона – ресепшн и отдел продаж, один – просто «Телефон» */
+const phones = (card.map(link).filter((l) => l?.href.startsWith('tel:')) as { href: string; text: string }[]).map((p) => ({
+  ...p,
+  text: p.text.replace(/^\+7\((\d{3})\)(\d{3})-(\d\d)-(\d\d)$/, '+7 $1 $2 $3 $4'), // +7(861)205-18-18 – как остальные номера
+}));
+const phoneLabels = phones.length > 1 ? card.filter((t) => /^(Ресепшн|Отдел продаж)$/.test(t)) : ['Телефон'];
+const mail = card.map(link).find((l) => l?.href.startsWith('mailto:'));
+const hoursLines = card.filter((t) => /\d:\d\d/.test(t) && !t.includes('href'));
+const hours = hoursLines.length ? hoursLines : c.contacts.hours.map(([d, t]) => `${d}: ${t}`);
+const address = plain(card[card.length - 1]);
+const route = `https://yandex.ru/maps/?rtext=~${c.contacts.coords.join(',')}&rtt=auto`;
+
+/* «Служба заботы»: подпись + почта, как в ссылках Тильды; одинаковые адреса – один раз */
+const careItems: { label: string; href: string; text: string }[] = [];
+const add = (label: string, l?: { href: string; text: string }, text?: string) => {
+  if (!l) return;
+  const shown = text ?? l.text;
+  if (!careItems.some((x) => x.text === shown)) careItems.push({ label, href: l.href, text: shown });
+};
+add(plain(care[1]), link(care[5]));
+add('Пожелания и отзывы', link(care[2]), link(care[2])?.href.replace('mailto:', ''));
+add('Предложения', link(care[3]), link(care[3])?.href.replace('mailto:', ''));
+add('Почта клуба', link(care[4]));
 ---
 <Site title={content.title} description={content.description ?? undefined} club={id} path={content.path} crumbs={[{ text: c.name, href: c.home }, { text: 'Контакты', href: '' }]}>
   <section class="bla-wrap bla-sec--sm">
     <h1 class="bla-h1" style="color:var(--green)">Контакты</h1>
-    <div class="bla-contacts">
-      <div class="bla-card bla-club">
-        <h3 set:html={card[0]} />
-        <p set:html={card[1]} />
-        <div class="bla-lines">{card.slice(2).map((t) => <span set:html={t} />)}</div>
-        <div class="bla-soc">
-          <a href={c.social.vk} target="_blank" rel="noopener"><img src={icons.vk} alt="VK" /></a>
-          <a href={c.social.max} target="_blank" rel="noopener"><img src={icons.max} alt="MAX" /></a>
-          <a href={c.social.tg} target="_blank" rel="noopener"><img src={icons.tg} alt="Telegram" /></a>
-          <a href={c.social.wa} target="_blank" rel="noopener"><img src={icons.wa} alt="WhatsApp" /></a>
+    <p class="bla-lead" style="margin-top:12px" set:html={card[1]} />
+    <div class="bla-ct">
+      {phones.map((p, i) => (
+        <a class="bla-card bla-ct__tile" href={p.href}><span class="bla-ct__k">{phoneLabels[i] ?? 'Телефон'}</span><span class="bla-ct__v">{p.text}</span><i>↗</i></a>
+      ))}
+      {mail && <a class="bla-card bla-ct__tile" href={mail.href}><span class="bla-ct__k">Почта</span><span class="bla-ct__v bla-ct__v--sm" set:html={mail.text.replace("@", "<wbr>@")} /><i>↗</i></a>}
+      <div class="bla-card bla-ct__tile">
+        <span class="bla-ct__k">Мессенджеры</span>
+        <div class="bla-ct__soc">
+          <a href={c.social.vk} target="_blank" rel="noopener"><img src={icons.vk} alt="" />VK</a>
+          <a href={c.social.max} target="_blank" rel="noopener"><img src={icons.max} alt="" />MAX</a>
+          <a href={c.social.tg} target="_blank" rel="noopener"><img src={icons.tg} alt="" />Telegram</a>
+          <a href={c.social.wa} target="_blank" rel="noopener"><img src={icons.wa} alt="" />WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="bla-ct__where">
+      <div class="bla-card bla-ct__addr">
+        <span class="bla-ct__k">Как нас найти</span>
+        <h3>{c.name}</h3>
+        <p class="bla-ct__a">{address}</p>
+        <p class="bla-ct__h">{hours.map((h) => <span>{h}</span>)}</p>
+        <div class="bla-ct__btns">
+          <a class="bla-btn bla-btn--white" href={route} target="_blank" rel="noopener">Построить маршрут</a>
+          <a class="bla-btn bla-btn--ghost" href={c.callback}>Заказать звонок</a>
         </div>
       </div>
       <ClubMap club={id} />
     </div>
   </section>
-  <section class="bla-wrap bla-sec--sm">
-    <div class="bla-card bla-tile--pad bla-care">
-      <h3 set:html={care[0]} />
-      <div class="bla-lines">{care.slice(1).map((t) => <span set:html={t} />)}</div>
+  <section class="bla-wrap bla-sec">
+    <h2 class="bla-h2" set:html={care[0]} />
+    <div class="bla-ct bla-ct--care">
+      {careItems.map((x) => (
+        <a class="bla-card bla-ct__tile" href={x.href}><span class="bla-ct__k">{x.label}</span><span class="bla-ct__mail">{x.text}</span><i>→</i></a>
+      ))}
     </div>
   </section>
 </Site>

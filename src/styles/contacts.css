@@ -1,0 +1,29 @@
+/* Контакты клуба: плитки-кнопки, адрес с картой, «Служба заботы» */
+.bla-ct{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:32px}
+.bla-ct__tile{padding:26px;min-height:180px;display:flex;flex-direction:column;gap:12px;position:relative;transition:border-color .25s}
+a.bla-ct__tile:hover{border-color:rgba(196,232,5,.6)}
+.bla-ct__tile i{font-style:normal;position:absolute;right:24px;bottom:20px;font-size:22px;color:var(--t62);transition:color .2s,transform .2s}
+a.bla-ct__tile:hover i{color:var(--green);transform:translate(2px,-2px)}
+.bla-ct__k{color:var(--t62);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.bla-ct__v{font-size:28px;line-height:1.2;white-space:nowrap}
+.bla-ct__v--sm{font-size:22px;white-space:normal;word-break:break-word}
+.bla-ct__soc{display:flex;flex-wrap:wrap;gap:8px}
+.bla-ct__soc a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:100px;padding:8px 14px 8px 10px;font-size:15px;transition:border-color .2s}
+.bla-ct__soc a:hover{border-color:rgba(255,255,255,.5)}
+.bla-ct__soc img{width:20px;height:20px;object-fit:contain}
+.bla-ct__where{display:grid;grid-template-columns:1fr 2fr;gap:18px;margin-top:18px}
+.bla-ct__addr{padding:30px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.bla-ct__addr h3{font-size:28px;font-weight:400;margin-top:6px}
+.bla-ct__a{font-size:19px;line-height:1.4}
+.bla-ct__h{display:flex;flex-direction:column;color:var(--t78);font-size:16px;line-height:1.6}
+.bla-ct__btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:18px}
+.bla-ct__where .bla-map{min-height:400px}
+.bla-ct--care{margin-top:24px}
+.bla-ct--care .bla-ct__tile{min-height:140px}
+.bla-ct__mail{font-size:18px;word-break:break-word}
+@media (max-width:900px){.bla-ct__where{grid-template-columns:1fr}.bla-ct__where .bla-map{min-height:320px}}
+@media (max-width:640px){.bla-ct{grid-template-columns:1fr;gap:12px}.bla-ct__tile{min-height:0;padding:22px 22px 26px}.bla-ct__v{font-size:24px}}
+.bla-ct__btns .bla-btn{padding:12px 20px;font-size:15px;line-height:22px}
+.bla-ct__soc{display:grid;grid-template-columns:1fr 1fr}
+.bla-ct__v--sm{font-size:18px;overflow-wrap:break-word}
+@media (max-width:640px){.bla-ct__soc{display:flex}}
