@@ -50,7 +50,6 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
                   {clubList.map((c) => (
                     <a href={`${base}${c.home}`} class={c.id === clubId ? 'is-active' : undefined}>{c.name}<small>{c.city}</small></a>
                   ))}
-                  <a href={`${base}/`}>Все клубы<small>Выбор клуба</small></a>
                 </div>
               </div>
               {club && <a href={club.headerPhone.href}>{club.short}: {club.headerPhone.text}</a>}
