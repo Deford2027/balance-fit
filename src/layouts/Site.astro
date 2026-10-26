@@ -42,7 +42,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
       <header class="bla-head">
         <div class="bla-wrap">
           <div class="bla-head__in">
-            <a class="bla-logo" href={`${base}${club ? club.home : '/'}`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
+            <a class="bla-logo" href={`${base}/`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
             <nav class="bla-nav">
               <div class="bla-pick" data-pick>
                 <button type="button" aria-haspopup="true">{club ? club.short : 'Выбор клуба'}</button>
@@ -110,7 +110,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
       <footer class="bla-wrap">
         {club ? (
           <div class="bla-foot">
-            <a class="bla-foot__logo" href={`${base}${club.home}`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
+            <a class="bla-foot__logo" href={`${base}/`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
             <nav class="bla-foot__col">
               {club.footerNav.map((l) => <a href={ext(l.href) ? l.href : `${base}${l.href}`} {...linkAttrs(l.href)}>{l.text}</a>)}
             </nav>
