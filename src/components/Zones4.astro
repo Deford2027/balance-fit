@@ -1,0 +1,69 @@
+---
+/** Фитнес-зоны для /imperial4 – три варианта на выбор, переключение ссылкой ?zones=a|b|c (по умолчанию A)
+    и кнопками в заголовке раздела. A «Вкладки» – кнопки зон и плашка: фото + текст; B «Лента» – карточки листаются вбок;
+    C «Плитки» – сетка фото с названиями, текст – при наведении (на телефоне – по нажатию).
+    Стили – src/styles/zones4.css, поведение – src/scripts/imperial4.ts. */
+import { zones } from '../data/imperial';
+import '../styles/zones4.css';
+
+const variants = [
+  ['a', 'Вкладки'],
+  ['b', 'Лента'],
+  ['c', 'Плитки'],
+];
+---
+<section class="y-sec" id="zones" data-zv="a">
+  <div class="y-head">
+    <h2 class="y-h2">Фитнес-зоны</h2>
+    <div class="zv-pick" role="group" aria-label="Вариант блока">
+      <span>Вариант:</span>
+      {variants.map(([k, t]) => <button type="button" data-zv-set={k} class:list={[{ 'is-on': k === 'a' }]}>{k.toUpperCase()} · {t}</button>)}
+    </div>
+  </div>
+
+  <div class="zv zv-a" data-zv-box="a" data-tabs4>
+    <div class="zv-a__tabs" role="tablist">
+      {zones.map((z, i) => <button type="button" class:list={['zv-a__tab', { 'is-on': i === 0 }]} data-tab4={String(i)}>{z.tab}</button>)}
+    </div>
+    {zones.map((z, i) => (
+      <div class:list={['zv-a__panel', { 'is-on': i === 0 }]} data-panel4={String(i)}>
+        <div class="zv-a__photo y-plate y-photo"><img src={z.img} alt={z.title} loading="lazy" /></div>
+        <div class="zv-a__text y-plate">
+          <h3 class="y-h3">{z.title}</h3>
+          <div class="bb-text"><Fragment set:html={z.html} /></div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="zv zv-b" data-zv-box="b" hidden>
+    <div class="zv-b__nav">
+      <button type="button" data-rail="-1" aria-label="Назад">←</button>
+      <button type="button" data-rail="1" aria-label="Вперёд">→</button>
+    </div>
+    <div class="zv-b__rail" data-rail-box>
+      {zones.map((z) => (
+        <article class="zv-b__card y-plate">
+          <div class="zv-b__photo"><img src={z.img} alt={z.title} loading="lazy" /></div>
+          <div class="zv-b__text">
+            <h3 class="y-h3">{z.title}</h3>
+            <div class="bb-text"><Fragment set:html={z.html} /></div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="zv zv-c" data-zv-box="c" hidden>
+    {zones.map((z) => (
+      <article class="zv-c__tile y-plate" tabindex="0">
+        <img src={z.img} alt={z.title} loading="lazy" />
+        <h3 class="zv-c__title">{z.title}</h3>
+        <div class="zv-c__more">
+          <h3 class="zv-c__h">{z.title}</h3>
+          <div class="bb-text"><Fragment set:html={z.html} /></div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

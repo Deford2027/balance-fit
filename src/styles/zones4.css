@@ -1,0 +1,84 @@
+/* Фитнес-зоны /imperial4 (src/components/Zones4.astro): три варианта, видимый – по data-zv у раздела. */
+
+.zv[hidden]{display:none!important}
+.zv-pick{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px;color:var(--mut)}
+.zv-pick span{margin-right:4px}
+.zv-pick button{font:inherit;font-size:14px;padding:8px 14px;border-radius:100px;border:1px solid var(--ln);background:transparent;color:#fff;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.zv-pick button:hover{border-color:#fff}
+.zv-pick button.is-on{background:#fff;color:#000;border-color:#fff}
+.zv .bb-text{font-size:16px;line-height:1.55;color:rgba(255,255,255,.86)}
+.zv .bb-text li+li{margin-top:6px}
+
+/* A «Вкладки»: кнопки зон, ниже фото и текст рядом */
+.zv-a__tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--gap)}
+.zv-a__tab{font:inherit;font-size:15px;padding:11px 20px;border-radius:100px;border:1px solid var(--ln);background:transparent;color:#fff;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.zv-a__tab:hover{border-color:#fff}
+.zv-a__tab.is-on{background:#fff;color:#000;border-color:#fff}
+.zv-a__panel{display:none;grid-template-columns:1.15fr 1fr;gap:var(--gap)}
+.zv-a__panel.is-on{display:grid;animation:zv-in .5s var(--ease)}
+.zv-a__photo{min-height:clamp(380px,36vw,560px)}
+.zv-a__text{padding:clamp(26px,3vw,48px);display:flex;flex-direction:column;gap:18px}
+@keyframes zv-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* B «Лента»: карточки фото + текст листаются вбок, стрелки под лентой справа */
+.zv-b{display:flex;flex-direction:column}
+.zv-b__nav{order:2;display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.zv-b__nav button{width:52px;height:52px;border-radius:50%;border:1px solid var(--ln);background:transparent;color:#fff;font-size:20px;cursor:pointer;transition:background .25s,color .25s}
+.zv-b__nav button:hover{background:#fff;color:#000}
+.zv-b__rail{display:flex;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;margin:0 calc(var(--gut) * -1);padding:0 var(--gut);scroll-padding:0 var(--gut);scrollbar-width:none}
+.zv-b__rail::-webkit-scrollbar{display:none}
+.zv-b__rail{align-items:flex-start}
+.zv-b__card{flex:0 0 clamp(300px,30vw,440px);scroll-snap-align:start;display:flex;flex-direction:column;padding:10px}
+.zv-b__photo{position:relative;overflow:hidden;border-radius:calc(var(--r) - 10px);height:clamp(220px,18vw,280px);flex:0 0 auto}
+.zv-b__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.zv-b__text{padding:22px 16px 16px;display:flex;flex-direction:column;gap:14px}
+.zv-b .bb-text{font-size:15px}
+
+/* C «Плитки»: сетка фото с названиями; при наведении – текст на графитовой подложке поверх фото */
+.zv-c{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap)}
+.zv-c__tile{aspect-ratio:3/4;cursor:pointer;outline:none}
+.zv-c__tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.zv-c__tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.8));pointer-events:none}
+.zv-c__title{position:absolute;left:20px;right:20px;bottom:18px;z-index:1;transition:opacity .3s;font-size:clamp(18px,1.5vw,24px);line-height:1.15;letter-spacing:-.01em}
+.zv-c__more{position:absolute;inset:0;z-index:2;background:rgba(23,19,27,.94);padding:22px;overflow:auto;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .45s var(--ease);scrollbar-width:thin}
+.zv-c__h{font-size:20px;line-height:1.15}
+.zv-c .bb-text{font-size:14px;line-height:1.5}
+.zv-c .bb-text li+li{margin-top:4px}
+
+@media (hover:hover){
+  .zv-b__card:hover .zv-b__photo img{transform:scale(1.06)}
+  .zv-c__tile:hover img{transform:scale(1.06)}
+  .zv-c__tile:is(:hover,:focus-visible) .zv-c__more{opacity:1;transform:none}
+  .zv-c__tile:is(:hover,:focus-visible) .zv-c__title{opacity:0}
+}
+
+@media (max-width:1100px){
+  .zv-c{grid-template-columns:repeat(3,1fr)}
+}
+
+@media (max-width:860px){
+  .zv-pick{font-size:13px}
+  .zv-pick button{padding:7px 12px;font-size:13px}
+  .zv .bb-text{font-size:14px}
+  /* A: кнопки – лентой со свайпом, фото над текстом */
+  .zv-a__tabs{flex-wrap:nowrap;overflow-x:auto;margin:0 calc(var(--gut) * -1) var(--gap);padding:0 var(--gut);scrollbar-width:none}
+  .zv-a__tabs::-webkit-scrollbar{display:none}
+  .zv-a__tab{flex:0 0 auto;font-size:14px;padding:10px 16px}
+  .zv-a__panel{grid-template-columns:1fr}
+  .zv-a__photo{min-height:240px}
+  .zv-a__text{padding:22px;gap:12px}
+  /* B: свайп, стрелки не нужны */
+  .zv-b__nav{display:none}
+  .zv-b__card{flex-basis:84%}
+  .zv-b__photo{height:200px}
+  /* C: две колонки; по нажатию плитка раскрывается на всю ширину: фото и текст под ним */
+  .zv-c{grid-template-columns:1fr 1fr;grid-auto-flow:dense}
+  /* при раскрытой плитке остаётся нечётное число – последняя закрытая встаёт во всю ширину, чтобы не было дыры */
+  .zv-c__tile.is-wide{grid-column:1/-1;aspect-ratio:2/1}
+  .zv-c__tile{aspect-ratio:1}
+  .zv-c__title{left:14px;right:14px;bottom:12px;font-size:16px}
+  .zv-c__tile.is-on{grid-column:1/-1;aspect-ratio:auto;display:flex;flex-direction:column;cursor:default}
+  .zv-c__tile.is-on img{position:relative;height:200px;flex:0 0 200px}
+  .zv-c__tile.is-on::after,.zv-c__tile.is-on .zv-c__title{display:none}
+  .zv-c__tile.is-on .zv-c__more{position:static;opacity:1;transform:none;background:none;overflow:visible;padding:20px}
+}

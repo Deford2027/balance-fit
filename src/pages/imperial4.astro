@@ -1,12 +1,13 @@
 ---
 /** Главная Balance Империал, четвёртый вариант: чёрный фон, скруглённые плашки Dark Grey и цвета бренда,
     первый экран – плашки вплотную (текст, фото, цена, часы), дальше разделы с воздухом между ними.
-    Стили – src/styles/brand4.css, досчёт цифр – src/scripts/imperial4.ts.
+    Фитнес-зоны – три варианта на выбор (components/Zones4.astro, ?zones=a|b|c). Стили – src/styles/brand4.css, скрипт – src/scripts/imperial4.ts.
     Тексты, фото, карта и форма – как на /imperial (src/data/imperial.ts). */
 import Site from '../layouts/Site.astro';
 import ClubMap from '../components/ClubMap.astro';
 import BrandFooter from '../components/BrandFooter.astro';
 import Drawer3 from '../components/Drawer3.astro';
+import Zones4 from '../components/Zones4.astro';
 import { adv, cards } from '../data/imperial';
 import { advIcon } from '../data/adv-icons';
 import { clubs } from '../data/clubs';
@@ -104,6 +105,8 @@ const secHead = (title: string, lead = '') =>
       ))}
     </div>
   </section>
+
+  <Zones4 />
 
   <section class="y-sec" id="cards">
     <Fragment set:html={secHead('Клубные карты', 'Выбирайте свою клубную карту')} />
