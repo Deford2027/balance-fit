@@ -2,7 +2,7 @@
    – шапка: прозрачная над видео, тёмная после прокрутки, прячется при прокрутке вниз;
    – появление: слова заголовков [data-split], модули [data-rv], «искры»; цифры [data-count] досчитываются;
    – прогресс прокрутки: --hp (первый экран), --py (параллакс фото [data-parallax]), слова [data-words] проявляются по одному,
-     --cov (стопка фитнес-зон на компьютере);
+     --cov (стопка фитнес-зон);
    – видео играют, только пока видны; при «уменьшить движение» стоят на первом кадре. */
 const root = document.getElementById('bla');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -104,7 +104,6 @@ if (root) {
   });
   /* Стопка зон: у карточки, на которую наезжает следующая, --cov растёт от 0 до 1 (уменьшение и затемнение) */
   const zoneEls = $$('[data-stack] .x-zone');
-  const stackMq = matchMedia('(min-width: 861px)');
   let lastY = scrollY;
 
   const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
@@ -128,12 +127,11 @@ if (root) {
       const n = Math.round(k * t.length);
       t.forEach((w, i) => w.classList.toggle('is-lit', i < n));
     });
-    const stack = stackMq.matches;
     zoneEls.forEach((z, i) => {
       const next = zoneEls[i + 1];
       const top = z.getBoundingClientRect().top;
       z.classList.toggle('is-on', top < innerHeight * 0.7);
-      if (!stack || !next) return z.style.removeProperty('--cov');
+      if (!next) return z.style.removeProperty('--cov');
       const nTop = next.getBoundingClientRect().top;
       z.style.setProperty('--cov', String(clamp((innerHeight - nTop) / Math.max(innerHeight - top, 1)).toFixed(3)));
     });

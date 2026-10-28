@@ -40,7 +40,7 @@
 .x-h2{font-size:clamp(38px,5.4vw,96px);line-height:.98;letter-spacing:-.03em;font-weight:400}
 .x-eyebrow{font-size:15px;line-height:1.4;letter-spacing:.02em;opacity:.86;margin-bottom:24px}
 .bb3 .bb-m{position:relative;overflow:hidden}
-.bb3 .bb-photo{padding:0}
+.bb3 .bb-photo,.bb3 .bb-map{padding:0}
 
 /* Первый экран: видео на весь экран, текст на затемнении */
 .x-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate}
@@ -124,7 +124,7 @@
 .x-card{display:flex;flex-direction:column;gap:12px;height:100%;min-height:clamp(400px,32vw,480px);padding:clamp(24px,2.4vw,36px);font-size:16px;line-height:1.5;
   transform:rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg));transition:transform .5s var(--ease),box-shadow .5s;transform-style:preserve-3d}
 .x-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--gx,30%) var(--gy,0%),rgba(255,255,255,.22),rgba(255,255,255,0) 55%);opacity:0;transition:opacity .4s;pointer-events:none}
-.x-card__logo{width:116px;height:auto;mix-blend-mode:screen;margin-bottom:clamp(48px,6vw,96px)}
+.x-card__logo{width:116px;height:auto;margin-bottom:clamp(48px,6vw,96px)}
 .x-card__title{font-size:clamp(26px,2.2vw,34px);line-height:1.1}
 .x-card__text{color:rgba(255,255,255,.9)}
 .x-card .bb-small{color:rgba(255,255,255,.75);margin-top:auto}
@@ -183,13 +183,17 @@
   .x-adv__ico{width:52px;height:52px}
   .x-adv__item p{font-size:15px}
   .x-head--row{flex-direction:column;align-items:flex-start}
-  .x-zone{grid-template-columns:1fr}
-  .x-zone__photo{min-height:240px}
-  .x-zone__text{padding:22px}
-  .x-zone__text .bb-text{font-size:15px}
+  /* стопка и на телефоне: карточки одной высоты (фото сверху, текст снизу) наезжают друг на друга */
+  .x-stack{gap:24px}
+  .x-zone{position:sticky;top:calc(72px + var(--i) * 6px);height:min(calc(100svh - 150px),600px);grid-template-columns:1fr;grid-template-rows:34% minmax(0,1fr)}
+  .x-zone__photo{min-height:0}
+  .x-zone__text{padding:20px;gap:8px;overflow:auto;overscroll-behavior:contain}
+  .x-zone__title{font-size:26px;margin:4px 0 2px}
+  .x-zone__text .bb-text{font-size:14px;line-height:1.45}
   .x-cards{grid-template-columns:1fr}
   .x-card{min-height:0}
   .x-card__logo{margin-bottom:32px}
   .x-split{grid-template-columns:1fr}
   .x-split__media,.x-split--map .bb-map .bla-map{min-height:380px}
+  .x-split--map .bb-map .bla-map{height:420px}
 }
