@@ -1,0 +1,156 @@
+/* Оформление по брендбуку Balance 2023 (balance_guideline_2023_HD.pdf) – страница /imperial2.
+   Чёрный фон, модули – скруглённые блоки основных цветов вплотную друг к другу, белая типографика.
+   Electric Green (#C3E900) – только «искра» на стыках модулей, её размер – два радиуса скругления.
+   Шрифт – Harmonia Sans Pro Cyr, если установлен; иначе Jost (уже подключён на сайте). */
+
+.bla.bb{--green:#fff;--spark:#C3E900;--r:32px;
+  --red:#FF3F49;--blue:#28348A;--fresh:#5D8B16;--pink:#E89F9C;--deep:#00244B;--dgreen:#286C1C;
+  font-family:'Harmonia Sans Pro Cyr','Harmonia Sans Pro','Harmonia Sans','Jost',Arial,sans-serif}
+.bb .bla-btn--green{background:#fff}
+.bb-first{padding-top:24px}
+.bb-sec{padding-top:112px}
+
+/* Типографика: заголовки Regular, иерархия как на с. 20 брендбука */
+.bb-h1{font-size:64px;line-height:1.04;letter-spacing:-.01em}
+.bb-h2{font-size:48px;line-height:1.08;letter-spacing:-.01em}
+.bb-h3{font-size:32px;line-height:1.12}
+.bb-lead{font-size:20px;line-height:1.45;margin-top:16px;opacity:.92}
+.bb-eyebrow{font-size:15px;line-height:1.4;opacity:.86}
+.bb-small{font-size:15px;line-height:1.45;opacity:.82}
+.bb-note{font-size:14px;line-height:1.45;opacity:.82;margin-top:auto;padding-top:28px}
+.bb-text{font-size:18px;line-height:1.55}
+.bb-text>*+*{margin-top:14px}
+.bb-text ul{list-style:none}
+.bb-text li{position:relative;padding-left:18px}
+.bb-text li+li{margin-top:8px}
+.bb-text li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:#fff}
+
+/* Кнопки: белая и контурная (зелёный – только для «искры») */
+.bb-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.bb-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:100px;padding:15px 30px;font-family:inherit;font-weight:500;font-size:16px;line-height:24px;background:#fff;color:#000!important;border:1px solid #fff;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.bb-btn:hover{transform:translateY(-1px)}
+.bb-btn--line{background:transparent;color:#fff!important;border-color:rgba(255,255,255,.7)}
+.bb-btn--line:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+/* Модульная сетка: блоки без зазоров, место блока – --d / --m. «Искра» – absolute в области сетки:
+   встаёт в левый верхний угол своей ячейки (пересечение линий) и не занимает ячейку. */
+.bb-grid{display:grid;gap:0;position:relative}
+.bb-grid>*{grid-area:var(--d)}
+.bb-m{border-radius:var(--r);padding:40px;min-width:0;display:flex;flex-direction:column;color:#fff}
+.bb-red{background:var(--red)}
+.bb-blue{background:var(--blue)}
+.bb-fresh{background:var(--fresh)}
+.bb-pink{background:var(--pink)}
+.bb-deep{background:var(--deep)}
+.bb-green{background:var(--dgreen)}
+.bb-photo{background:#151515 center/cover no-repeat;padding:0}
+.bb-spark{display:none;width:calc(var(--r) * 2);height:calc(var(--r) * 2);margin:calc(var(--r) * -1) 0 0 calc(var(--r) * -1);
+  position:absolute;top:0;left:0;fill:var(--spark);z-index:2;pointer-events:none}
+.bb-spark[data-d]{display:block}
+
+/* Первый экран */
+.bb-hero{grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:minmax(340px,auto) minmax(240px,auto)}
+.bb-hero__text{padding:48px}
+.bb-hero__text .bb-h1{margin-top:auto;padding-top:48px}
+.bb-price{justify-content:flex-end;gap:10px}
+.bb-price b{font-weight:400;font-size:44px;line-height:1}
+.bb-price span{font-size:16px;line-height:1.4;opacity:.9}
+.bb-hours{justify-content:flex-end;gap:16px;font-size:16px;line-height:1.35}
+.bb-hours b{font-weight:500;font-size:26px;line-height:1.2}
+.bb-addr{font-size:16px;opacity:.9}
+
+/* Свобода заниматься собой */
+.bb-free{grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr}
+.bb-free .bb-photo{min-height:560px}
+.bb-free .bb-fresh{min-height:240px;justify-content:flex-end}
+
+/* Преимущества: плитки со значками (с. 33 брендбука) */
+.bb-adv{grid-template-columns:repeat(4,1fr)}
+.bb-adv__item{min-height:260px;padding:32px;gap:20px}
+.bb-ico{width:44px;height:44px;display:block}
+.bb-ico svg{width:100%;height:100%}
+.bb-adv__item p{margin-top:auto;font-size:17px;line-height:1.45}
+
+/* Фитнес-зоны */
+.bb-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.bb-tab{font:inherit;font-size:16px;line-height:24px;padding:10px 20px;border-radius:100px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;cursor:pointer;transition:.2s}
+.bb-tab:hover{border-color:#fff}
+.bb-tab.is-active{background:#fff;border-color:#fff;color:#000}
+.bb-zone{grid-template-columns:1.1fr 1fr;grid-template-rows:auto 1fr;margin-top:32px}
+.bb-zone:not(.is-active){display:none}
+.bb-zone.is-active{display:grid}
+.bb-zone .bb-photo{min-height:600px}
+.bb-zone .bb-h3{margin-top:auto;padding-top:56px}
+
+/* Клубные карты */
+.bb-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px}
+.bb-cards{grid-template-columns:1fr 1fr}
+.bb-card{min-height:320px;gap:14px;font-size:18px;line-height:1.5}
+.bb-card .bb-h3{margin-bottom:6px}
+.bb-card .bb-small{margin-top:auto;padding-top:12px}
+.bla .bb-more{align-self:flex-start;text-decoration:underline;text-underline-offset:4px;font-size:17px}
+
+/* Гостевой визит */
+.bb-guest{grid-template-columns:1fr 1fr}
+.bb-guest>.bb-m{padding:48px}
+.bb-form{gap:12px}
+.bb-form input[type=text],.bb-form input[type=tel],.bb-form input[type=email]{width:100%;height:56px;border-radius:16px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-family:inherit;font-size:16px;line-height:24px;padding:0 18px;outline:none}
+.bb-form input::placeholder{color:rgba(255,255,255,.72)}
+.bb-form input:focus{border-color:#fff}
+.bb-consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:18px;opacity:.85;cursor:pointer}
+.bb-consent input{width:16px;height:16px;margin:1px 0 0;accent-color:#fff;flex:0 0 16px}
+.bla .bb-consent a{text-decoration:underline}
+.bb-form .bb-btn{align-self:flex-start;margin-top:8px}
+
+/* Контакты */
+.bb-contacts{grid-template-columns:1fr 1.4fr;margin-top:40px}
+.bb-contacts .bb-red{min-height:300px}
+.bb-links{display:flex;flex-direction:column;gap:6px;margin-top:auto;padding-top:32px;font-size:24px;line-height:1.3}
+.bb-links a:hover{text-decoration:underline}
+.bb-map{padding:0;overflow:hidden;min-height:520px}
+.bb-map .bla-map{height:100%;min-height:520px;border-radius:0}
+
+@media (max-width:1100px){
+  .bb-h1{font-size:52px}
+  .bb-adv{grid-template-columns:repeat(2,1fr)}
+  .bb-adv .bb-spark[data-d]{display:none}
+  .bb-adv .bb-spark[data-m]{display:block;grid-area:var(--m)}
+}
+
+@media (max-width:860px){
+  .bla.bb{--r:22px}
+  .bb-grid>*{grid-area:var(--m,auto)}
+  .bb-spark[data-d]{display:none}
+  .bb-spark[data-m]{display:block;grid-area:var(--m)}
+  .bb-sec{padding-top:72px}
+  .bb-m,.bb-hero__text,.bb-guest>.bb-m{padding:28px}
+  .bb-h1{font-size:40px}
+  .bb-h2{font-size:34px}
+  .bb-h3{font-size:26px}
+  .bb-lead{font-size:18px}
+  .bb-text{font-size:17px}
+  .bb-hero{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .bb-hero__text .bb-h1{padding-top:28px}
+  .bb-hero .bb-photo{min-height:300px}
+  .bb-price b{font-size:32px}
+  .bb-price span,.bb-hours{font-size:14px}
+  .bb-hours b{font-size:20px}
+  .bb-free,.bb-zone,.bb-cards,.bb-guest,.bb-contacts{grid-template-columns:1fr;grid-template-rows:auto}
+  .bb-free .bb-photo,.bb-zone .bb-photo{min-height:300px}
+  .bb-free .bb-fresh{min-height:0}
+  .bb-zone .bb-h3{padding-top:0}
+  .bb-tabs{flex-wrap:nowrap;overflow-x:auto;margin:20px -24px 0;padding:0 24px;scrollbar-width:none}
+  .bb-tab{flex:0 0 auto}
+  .bb-head{flex-direction:column;align-items:flex-start;margin-bottom:28px}
+  .bb-card{min-height:0}
+  .bb-adv__item{min-height:210px;padding:22px}
+  .bb-adv__item p{font-size:15px}
+  .bb-ico{width:36px;height:36px}
+  .bb-links{font-size:20px}
+  .bb-map,.bb-map .bla-map{min-height:360px}
+}
+
+@media (max-width:420px){
+  .bb-adv__item p{font-size:14px}
+  .bb-btn{width:100%}
+}

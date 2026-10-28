@@ -1,0 +1,151 @@
+---
+/** Главная Balance Империал по брендбуку (balance_guideline_2023): модульная сетка цветных блоков
+    без зазоров на чёрном фоне, «искра» Electric Green на стыках модулей. Тексты, фото и ссылки – как на /imperial.
+    Положение блока в сетке – --d (компьютер) и --m (телефон), «искра» – spark(компьютер, телефон). */
+import Site from '../layouts/Site.astro';
+import ClubMap from '../components/ClubMap.astro';
+import { adv, zones, cards } from '../data/imperial';
+import { advIcon } from '../data/adv-icons';
+import { clubs } from '../data/clubs';
+import '../styles/brand.css';
+
+const c = clubs.imperial;
+const spark = (d?: string, m?: string) =>
+  `<svg class="bb-spark" viewBox="0 0 2 2" aria-hidden="true"${d ? ' data-d' : ''}${m ? ' data-m' : ''} style="${d ? `--d:${d};` : ''}${m ? `--m:${m}` : ''}"><path d="M1 0A1 1 0 0 0 2 1A1 1 0 0 0 1 2A1 1 0 0 0 0 1A1 1 0 0 0 1 0Z"/></svg>`;
+
+/* Цвета модулей – основные цвета брендбука, без повторов у соседей */
+const advTone = ['red', 'blue', 'deep', 'fresh', 'green', 'red', 'blue', 'deep'];
+const zoneTone = [['red', 'deep'], ['blue', 'fresh'], ['green', 'blue'], ['deep', 'red'], ['blue', 'pink'], ['fresh', 'deep'], ['red', 'blue'], ['green', 'deep'], ['deep', 'red'], ['pink', 'blue']];
+const cardTone = ['red', 'blue', 'fresh', 'deep'];
+const S = '/_t/static/';
+---
+<Site
+  title="Фитнес-клуб Balance Империал на ул.Бородинской в Краснодаре"
+  description="Balance Империал оборудован передовым оборудованием для кардио- и силовых тренировок, а также проводит разнообразные групповые занятия под руководством опытных инструкторов. Присоединяйтесь к нам и начните свой путь к здоровью и фитнесу вместе с Balance!"
+  club="imperial"
+  path="imperial"
+  theme="bb"
+>
+  <section class="bla-wrap bb-first">
+    <div class="bb-grid bb-hero">
+      <div class="bb-m bb-red bb-hero__text" style="--d:1/1/3/2;--m:1/1/2/3">
+        <p class="bb-eyebrow">Краснодар · ул. Бородинская 137, корп 2</p>
+        <h1 class="bb-h1">Фитнес с бассейном<br />год за 39&nbsp;000&nbsp;₽</h1>
+        <div class="bb-btns">
+          <a class="bb-btn" href="#popup:myform-abr">Хочу в Balance</a>
+          <a class="bb-btn bb-btn--line" href="#cards">Клубные карты</a>
+        </div>
+        <p class="bb-note">*В рамках акции вы получаете: 9 месяцев фитнеса + 3 месяца заморозки</p>
+      </div>
+      <div class="bb-m bb-photo" style={`--d:1/2/2/4;--m:2/1/3/3;background-image:url('${S}tild3235-3166-4461-a636-303130303434/640480_Balance___39_.jpg')`}></div>
+      <div class="bb-m bb-deep bb-price" style="--d:2/2;--m:3/1">
+        <b>39&nbsp;000&nbsp;₽</b>
+        <span>год фитнеса с бассейном:<br />9 месяцев + 3 месяца заморозки</span>
+      </div>
+      <div class="bb-m bb-pink bb-hours" style="--d:2/3;--m:3/2">
+        <span>Пн–пт<br /><b>6:00–23:00</b></span>
+        <span>Сб–вс<br /><b>7:00–23:00</b></span>
+      </div>
+      <Fragment set:html={spark('2/2', '3/2') + spark('2/3')} />
+    </div>
+  </section>
+
+  <section class="bla-wrap bb-sec">
+    <div class="bb-grid bb-free">
+      <div class="bb-m bb-photo" style="--d:1/1/3/2;--m:1/1" data-bg="/_t/static/tild3730-3535-4137-a366-396631303033/image.png"></div>
+      <div class="bb-m bb-fresh" style="--d:1/2;--m:2/1">
+        <h2 class="bb-h2">Свобода заниматься собой</h2>
+        <p class="bb-lead">Премиальный семейный фитнес-клуб Balance</p>
+      </div>
+      <div class="bb-m bb-blue bb-text" style="--d:2/2;--m:3/1">
+        <p>Здесь вы найдёте современные фитнес‑зоны и продуманные программы для любого уровня подготовки.</p>
+        <p>Присоединяйтесь — найдите свой баланс и начните путь к лучшей версии себя уже сегодня!</p>
+      </div>
+      <Fragment set:html={spark('2/2')} />
+    </div>
+  </section>
+
+  <section class="bla-wrap bb-sec">
+    <div class="bb-grid bb-adv">
+      {adv.map((it, i) => (
+        <div class:list={['bb-m', 'bb-' + advTone[i], 'bb-adv__item']}>
+          <span class="bb-ico" set:html={advIcon(it.text)} />
+          <p set:html={it.text} />
+        </div>
+      ))}
+      <Fragment set:html={spark('2/2', '2/2') + spark('2/3', '3/2') + spark('2/4', '4/2')} />
+    </div>
+  </section>
+
+  <section class="bla-wrap bb-sec" id="zones" data-tabs>
+    <h2 class="bb-h2">Фитнес-зоны</h2>
+    <div class="bb-tabs" role="tablist">
+      {zones.map((z, i) => <button class:list={['bb-tab', { 'is-active': i === 0 }]} type="button" data-tab={String(i)}>{z.tab}</button>)}
+    </div>
+    {zones.map((z, i) => (
+      <div class:list={['bb-grid', 'bb-zone', { 'is-active': i === 0 }]} data-panel={String(i)}>
+        <div class="bb-m bb-photo" style="--d:1/1/3/2;--m:1/1" data-bg={z.img}></div>
+        <div class:list={['bb-m', 'bb-' + zoneTone[i][0]]} style="--d:1/2;--m:2/1"><h3 class="bb-h3">{z.title}</h3></div>
+        <div class:list={['bb-m', 'bb-' + zoneTone[i][1], 'bb-text']} style="--d:2/2;--m:3/1"><Fragment set:html={z.html} /></div>
+        <Fragment set:html={spark('2/2')} />
+      </div>
+    ))}
+  </section>
+
+  <section class="bla-wrap bb-sec" id="cards">
+    <div class="bb-head">
+      <div>
+        <h2 class="bb-h2">Клубные карты</h2>
+        <p class="bb-lead">Выбирайте свою клубную карту</p>
+      </div>
+      <a class="bb-btn" href="#popup:myform">Оформить карту</a>
+    </div>
+    <div class="bb-grid bb-cards">
+      {cards.map((k, i) => (
+        <div class:list={['bb-m', 'bb-' + cardTone[i], 'bb-card']}>
+          <h3 class="bb-h3">{k.title}</h3>
+          <p set:html={k.text} />
+          <p class="bb-small">{k.hours}</p>
+          <a class="bb-more" href={k.more}>Подробнее</a>
+        </div>
+      ))}
+      <Fragment set:html={spark('2/2')} />
+    </div>
+  </section>
+
+  <section class="bla-wrap bb-sec" id="guest">
+    <div class="bb-grid bb-guest">
+      <div class="bb-m bb-blue" style="--d:1/1;--m:1/1">
+        <h2 class="bb-h2">Запишитесь<br />на гостевой визит</h2>
+        <p class="bb-lead">И получите специальное предложение на клубную карту. Заполните форму – мы вам перезвоним.</p>
+      </div>
+      <form class="bb-m bb-deep bb-form" style="--d:1/2;--m:2/1" method="post" action="#" novalidate>
+        <input type="text" name="Name" placeholder="Ваше имя" autocomplete="name" />
+        <input type="tel" name="Phone" placeholder="Телефон" autocomplete="tel" />
+        <input type="email" name="Email" placeholder="E-mail" autocomplete="email" />
+        <label class="bb-consent"><input type="checkbox" name="consent" checked /><span>Я ознакомлен(-а) с <a href="/security" target="_blank">Политикой обработки персональных данных</a> и даю свое <a href="/privacy" target="_blank">согласие</a> на обработку персональных данных.</span></label>
+        <button class="bb-btn" type="submit">Оставить заявку</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="bla-wrap bb-sec" id="contacts">
+    <h2 class="bb-h2">Контакты</h2>
+    <div class="bb-grid bb-contacts">
+      <div class="bb-m bb-red" style="--d:1/1;--m:1/1">
+        <h3 class="bb-h3">{c.name}</h3>
+        <p class="bb-lead">Свяжитесь с нами удобным способом: звоните, пишите, приезжайте</p>
+        <div class="bb-links">
+          <a href={c.contacts.phone.href}>{c.contacts.phone.text}</a>
+          <a href={c.contacts.email.href}>{c.contacts.email.text}</a>
+        </div>
+      </div>
+      <div class="bb-m bb-deep bb-hours" style="--d:2/1;--m:2/1">
+        {c.contacts.hours.map(([d, t]) => <span>{d}<br /><b>{t}</b></span>)}
+        <span class="bb-addr">{c.contacts.address}</span>
+      </div>
+      <div class="bb-m bb-map" style="--d:1/2/3/3;--m:3/1"><ClubMap club="imperial" /></div>
+      <Fragment set:html={spark('2/2')} />
+    </div>
+  </section>
+</Site>
