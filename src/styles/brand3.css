@@ -103,7 +103,8 @@
 
 /* Фитнес-зоны: стопка одинаковых карточек (половина фото, половина текст) – каждая следующая наезжает снизу на предыдущую (на компьютере), цвета чередуются */
 .x-stack{margin:0 var(--gut);display:flex;flex-direction:column;gap:var(--gap)}
-.x-zone{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);transform-origin:50% 0;
+.x-zone{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);background:#000;border-radius:var(--r);/* фон закрывает просвет между фото и текстом, чтобы не было видно карточку снизу */
+  transform-origin:50% 0;
   transform:scale(calc(1 - var(--cov,0) * .07));filter:brightness(calc(1 - var(--cov,0) * .55))}
 .x-zone__photo{background:#111;min-height:320px}
 .x-zone__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.6s var(--ease)}
@@ -185,7 +186,9 @@
   .x-head--row{flex-direction:column;align-items:flex-start}
   /* стопка и на телефоне: карточки одной высоты (фото сверху, текст снизу) наезжают друг на друга */
   .x-stack{gap:24px}
-  .x-zone{position:sticky;top:calc(72px + var(--i) * 6px);height:min(calc(100svh - 150px),600px);grid-template-columns:1fr;grid-template-rows:34% minmax(0,1fr)}
+  .x-zone{position:sticky;top:calc(72px + var(--i) * 6px);height:min(calc(100svh - 150px),600px);grid-template-columns:1fr;grid-template-rows:minmax(140px,1fr) auto}
+  .x-zone:last-child{height:auto}
+  .x-zone:last-child .x-zone__photo{height:220px}
   .x-zone__photo{min-height:0}
   .x-zone__text{padding:20px;gap:8px;overflow:auto;overscroll-behavior:contain}
   .x-zone__title{font-size:26px;margin:4px 0 2px}
