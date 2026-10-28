@@ -101,12 +101,10 @@
   .x-adv__item:hover .x-adv__ico{transform:scale(1.08) rotate(-8deg)}
 }
 
-/* Фитнес-зоны: стопка карточек – каждая следующая наезжает снизу на предыдущую (на компьютере), разные раскладки и цвета */
+/* Фитнес-зоны: стопка одинаковых карточек (половина фото, половина текст) – каждая следующая наезжает снизу на предыдущую (на компьютере), цвета чередуются */
 .x-stack{margin:0 var(--gut);display:flex;flex-direction:column;gap:var(--gap)}
-.x-zone{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--gap);transform-origin:50% 0;
+.x-zone{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);transform-origin:50% 0;
   transform:scale(calc(1 - var(--cov,0) * .07));filter:brightness(calc(1 - var(--cov,0) * .55))}
-.x-zone--flip{grid-template-columns:1.1fr 1fr}
-.x-zone--flip .x-zone__photo{order:2}
 .x-zone__photo{background:#111;min-height:320px}
 .x-zone__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.6s var(--ease)}
 .x-zone.is-on .x-zone__photo img{transform:scale(1)}
@@ -185,8 +183,7 @@
   .x-adv__ico{width:52px;height:52px}
   .x-adv__item p{font-size:15px}
   .x-head--row{flex-direction:column;align-items:flex-start}
-  .x-zone,.x-zone--flip{grid-template-columns:1fr}
-  .x-zone--flip .x-zone__photo{order:0}
+  .x-zone{grid-template-columns:1fr}
   .x-zone__photo{min-height:240px}
   .x-zone__text{padding:22px}
   .x-zone__text .bb-text{font-size:15px}

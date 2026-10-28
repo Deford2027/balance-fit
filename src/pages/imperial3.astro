@@ -132,7 +132,7 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
     </div>
     <div class="x-stack" data-stack>
       {zones.map((z, i) => (
-        <article class:list={['x-zone', { 'x-zone--flip': i % 2 }]} style={`--i:${i}`}>
+        <article class="x-zone" style={`--i:${i}`}>
           <div class="x-zone__photo x-plate"><img src={z.img} alt={z.title} loading="lazy" /></div>
           <div class:list={['x-zone__text', 'x-plate', 'bb-' + zoneTone[i]]}>
             <span class="x-zone__num">{String(i + 1).padStart(2, '0')} / {String(zones.length).padStart(2, '0')}</span>
