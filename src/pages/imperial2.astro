@@ -1,19 +1,16 @@
 ---
 /** Главная Balance Империал по брендбуку (balance_guideline_2023): модульная сетка цветных блоков
     без зазоров на чёрном фоне, «искра» Electric Green на стыках модулей. Тексты, фото и ссылки – как на /imperial.
-    Положение блока в сетке – --d (компьютер) и --m (телефон), «искра» – spark(компьютер, телефон), форма – фирменный символ (SVG от владельца, 28.10). */
+    Положение блока в сетке – --d (компьютер) и --m (телефон), «искра» – spark() из src/lib/spark.ts. */
 import Site from '../layouts/Site.astro';
 import ClubMap from '../components/ClubMap.astro';
 import { adv, zones, cards } from '../data/imperial';
 import { advIcon } from '../data/adv-icons';
 import { clubs } from '../data/clubs';
+import { spark } from '../lib/spark';
 import '../styles/brand.css';
 
 const c = clubs.imperial;
-/* rot – поворот «искры»: открытая (прямая) четверть по умолчанию снизу слева, 90 – сверху слева, 180 – сверху справа.
-   Её ставим к прямому краю блока; на крестовом стыке у блока в открытой четверти угол прямой (brand.css). */
-const spark = (d?: string, m?: string, rot = 0) =>
-  `<svg class="bb-spark" viewBox="0 0 1000 1012" preserveAspectRatio="none" aria-hidden="true"${d ? ' data-d' : ''}${m ? ' data-m' : ''} style="${d ? `--d:${d};` : ''}${m ? `--m:${m};` : ''}${rot ? `transform:rotate(${rot}deg)` : ''}"><path d="M503.352 1012C503.352 737.041 725.028 506.002 998.666 505.284H1000V498.543H998.666C725.028 497.829 503.352 274.96 503.352 0H496.545C496.545 275.369 274.254 498.543 0 498.543V505.284H496.545V1012H503.352Z"/></svg>`;
 
 /* Цвета модулей – основные цвета брендбука, без повторов у соседей */
 const advTone = ['red', 'blue', 'deep', 'fresh', 'green', 'red', 'blue', 'deep'];

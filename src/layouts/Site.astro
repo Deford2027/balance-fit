@@ -24,6 +24,8 @@ const club = clubId ? clubs[clubId] : undefined;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const body = await Astro.slots.render('default');
+/* Свой подвал страницы (слот footer) – вместо общего; пути в нём тоже корневые */
+const foot = Astro.slots.has('footer') ? await Astro.slots.render('footer') : '';
 const ext = (href: string) => /^https?:/.test(href);
 const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noopener' } : {});
 ---
@@ -80,7 +82,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
         <Fragment set:html={rebase(fixLinks(body, clubId ?? 'imperial'), base)} />
       </main>
 
-      <footer class="bla-wrap">
+      {foot ? <Fragment set:html={rebase(fixLinks(foot, clubId ?? 'imperial'), base)} /> : <footer class="bla-wrap">
         {club ? (
           <div class="bla-foot">
             <a class="bla-foot__logo" href={`${base}/`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
@@ -112,7 +114,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
             </nav>
           </div>
         )}
-      </footer>
+      </footer>}
 
       <Popups html={body} path={path} club={clubId} extra={['#popup:infoblock', ...(club ? [club.callback] : [])]} />
     </div>
