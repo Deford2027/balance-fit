@@ -1,13 +1,11 @@
 ---
-/** Подвал по брендбуку (страницы с темой bb). Варианты на выбор владельца – /imperial2-footers:
-    a – модули: четыре цветных блока вплотную с «искрой» на стыке;
-    b – тёмный модуль: один блок Dark Grey, колонки с пунктирными линейками и «искрой», как в брендбуке;
-    c – контакты модулями: полоса из трёх цветных блоков, под ней ссылки на чёрном. */
+/** Подвал по брендбуку (страницы с темой bb): один блок Dark Grey, колонки с пунктирными линейками
+    и «искрой», как в брендбуке. Выбран владельцем 28.10 из трёх вариантов (модули, тёмный модуль, контакты модулями). */
 import { clubs, icons, type ClubId } from '../data/clubs';
-import { spark, sparkPath } from '../lib/spark';
+import { sparkPath } from '../lib/spark';
 import '../styles/brand-footer.css';
 
-const { club: id, variant = 'a' } = Astro.props as { club: ClubId; variant?: 'a' | 'b' | 'c' };
+const { club: id } = Astro.props as { club: ClubId };
 const c = clubs[id];
 const ext = (href: string) => /^https?:/.test(href);
 const tgt = (href: string) => (ext(href) ? { target: '_blank', rel: 'noopener' } : {});
@@ -19,88 +17,32 @@ const soc = [
 ];
 const rule = `<span class="bf-rule"><svg viewBox="0 0 1000 1012" aria-hidden="true">${sparkPath}</svg></span>`;
 ---
-{variant === 'a' && (
-  <footer class="bla-wrap bf bf-a">
-    <div class="bb-grid bf-a__grid">
-      <div class="bb-m bb-deep bf-a__brand" style="--d:1/1;--m:1/1">
-        <a href="/"><img class="bf-logo" src={icons.logo} alt="Balance" /></a>
-        <p class="bf-slogan">Свобода заниматься собой</p>
+<footer class="bla-wrap bf bf-b">
+  <div class="bf-b__box">
+    <div class="bf-b__top">
+      <a href="/"><img class="bf-logo" src={icons.logo} alt="Balance" /></a>
+      <p class="bf-slogan">Свобода заниматься собой</p>
+    </div>
+    <div class="bf-b__cols">
+      <div>
+        <p class="bf-label">Контакты</p>
+        <Fragment set:html={rule} />
+        <a class="bf-phone" href={c.contacts.phone.href}>{c.contacts.phone.text}</a>
+        <a class="bf-mail" href={c.contacts.email.href}>{c.contacts.email.text}</a>
+        <p class="bf-small">{c.contacts.address}</p>
+        <p class="bf-small">{c.contacts.hours.map(([d, t]) => `${d} ${t}`).join(' · ')}</p>
         <div class="bf-soc">{soc.map((s) => <a href={s.href} target="_blank" rel="noopener"><img src={s.img} alt={s.alt} /></a>)}</div>
       </div>
-      <nav class="bb-m bb-blue bf-a__nav" style="--d:1/2;--m:3/1">
+      <nav>
         <p class="bf-label">Клуб</p>
-        <div class="bf-links bf-links--2">{c.footerNav.map((l) => <a href={l.href} {...tgt(l.href)}>{l.text}</a>)}</div>
+        <Fragment set:html={rule} />
+        <div class="bf-links">{c.footerNav.map((l) => <a href={l.href} {...tgt(l.href)}>{l.text}</a>)}</div>
       </nav>
-      <div class="bb-m bb-red bf-a__contacts" style="--d:2/1;--m:2/1">
-        <p class="bf-label">{c.name}</p>
-        <a class="bf-phone" href={c.contacts.phone.href}>{c.contacts.phone.text}</a>
-        <p class="bf-small">{c.contacts.address}<br />{c.contacts.hours.map(([d, t]) => `${d} ${t}`).join(' · ')}</p>
-        <a class="bb-btn bf-btn" href={c.callback}>Заказать звонок</a>
-      </div>
-      <nav class="bb-m bb-green bf-a__docs" style="--d:2/2;--m:4/1">
+      <nav>
         <p class="bf-label">Документы</p>
+        <Fragment set:html={rule} />
         <div class="bf-links bf-links--sm">{c.footerDocs.map((l) => <a href={l.href} {...tgt(l.href)}>{l.text}</a>)}</div>
       </nav>
-      <Fragment set:html={spark('2/2')} />
     </div>
-  </footer>
-)}
-
-{variant === 'b' && (
-  <footer class="bla-wrap bf bf-b">
-    <div class="bf-b__box">
-      <div class="bf-b__top">
-        <a href="/"><img class="bf-logo" src={icons.logo} alt="Balance" /></a>
-        <p class="bf-slogan">Свобода заниматься собой</p>
-      </div>
-      <div class="bf-b__cols">
-        <div>
-          <p class="bf-label">Контакты</p>
-          <Fragment set:html={rule} />
-          <a class="bf-phone" href={c.contacts.phone.href}>{c.contacts.phone.text}</a>
-          <a class="bf-mail" href={c.contacts.email.href}>{c.contacts.email.text}</a>
-          <p class="bf-small">{c.contacts.address}</p>
-          <p class="bf-small">{c.contacts.hours.map(([d, t]) => `${d} ${t}`).join(' · ')}</p>
-          <div class="bf-soc">{soc.map((s) => <a href={s.href} target="_blank" rel="noopener"><img src={s.img} alt={s.alt} /></a>)}</div>
-        </div>
-        <nav>
-          <p class="bf-label">Клуб</p>
-          <Fragment set:html={rule} />
-          <div class="bf-links">{c.footerNav.map((l) => <a href={l.href} {...tgt(l.href)}>{l.text}</a>)}</div>
-        </nav>
-        <nav>
-          <p class="bf-label">Документы</p>
-          <Fragment set:html={rule} />
-          <div class="bf-links bf-links--sm">{c.footerDocs.map((l) => <a href={l.href} {...tgt(l.href)}>{l.text}</a>)}</div>
-        </nav>
-      </div>
-    </div>
-  </footer>
-)}
-
-{variant === 'c' && (
-  <footer class="bla-wrap bf bf-c">
-    <div class="bb-grid bf-c__strip">
-      <div class="bb-m bb-red" style="--d:1/1;--m:1/1">
-        <p class="bf-label">Позвоните нам</p>
-        <a class="bf-phone bf-phone--xl" href={c.contacts.phone.href}>{c.contacts.phone.text}</a>
-        <a class="bb-btn bb-btn--line bf-btn" href={c.callback}>Заказать звонок</a>
-      </div>
-      <div class="bb-m bb-blue" style="--d:1/2;--m:2/1">
-        <p class="bf-label">Приезжайте</p>
-        <p class="bf-big">{c.contacts.address}</p>
-        <p class="bf-small">{c.contacts.hours.map(([d, t]) => `${d} ${t}`).join(' · ')}</p>
-      </div>
-      <div class="bb-m bb-fresh" style="--d:1/3;--m:3/1">
-        <p class="bf-label">Пишите</p>
-        <a class="bf-big" href={c.contacts.email.href}>{c.contacts.email.text}</a>
-        <div class="bf-soc">{soc.map((s) => <a href={s.href} target="_blank" rel="noopener"><img src={s.img} alt={s.alt} /></a>)}</div>
-      </div>
-    </div>
-    <div class="bf-c__bottom">
-      <a href="/"><img class="bf-logo" src={icons.logo} alt="Balance" /></a>
-      <nav class="bf-links bf-links--2">{c.footerNav.map((l) => <a href={l.href} {...tgt(l.href)}>{l.text}</a>)}</nav>
-      <nav class="bf-links bf-links--sm">{c.footerDocs.map((l) => <a href={l.href} {...tgt(l.href)}>{l.text}</a>)}</nav>
-    </div>
-  </footer>
-)}
+  </div>
+</footer>

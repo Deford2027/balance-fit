@@ -4,6 +4,7 @@
     Положение блока в сетке – --d (компьютер) и --m (телефон), «искра» – spark() из src/lib/spark.ts. */
 import Site from '../layouts/Site.astro';
 import ClubMap from '../components/ClubMap.astro';
+import BrandFooter from '../components/BrandFooter.astro';
 import { adv, zones, cards } from '../data/imperial';
 import { advIcon } from '../data/adv-icons';
 import { clubs } from '../data/clubs';
@@ -147,4 +148,5 @@ const S = '/_t/static/';
       <Fragment set:html={spark('2/2', undefined, 180)} />
     </div>
   </section>
+  <BrandFooter slot="footer" club="imperial" />
 </Site>
