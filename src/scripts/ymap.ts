@@ -9,7 +9,7 @@ const maps = new Map<HTMLElement, any>();
 function init(box: HTMLElement) {
   const pts: Pt[] = JSON.parse(box.dataset.ymap!);
   const zoom = +(box.dataset.zoom ?? 12);
-  const map = new w.ymaps.Map(box.querySelector('.bla-ymap__map'), { center: pts[0].coords, zoom }, { searchControlProvider: 'yandex#search' });
+  const map = new w.ymaps.Map(box.querySelector('.bla-ymap__map'), { center: pts[0].coords, zoom }, { searchControlProvider: 'yandex#search', autoFitToViewport: 'always' });
   pts.forEach((p) =>
     map.geoObjects.add(
       new w.ymaps.Placemark(p.coords, { hintContent: p.hint }, { iconLayout: 'default#image', iconImageHref: box.dataset.marker, iconImageSize: [30, 40], iconImageOffset: [-15, -40] })
