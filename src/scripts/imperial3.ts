@@ -1,7 +1,8 @@
 /* /imperial3: анимация при прокрутке (стили – src/styles/brand3.css).
    – шапка: прозрачная над видео, тёмная после прокрутки, прячется при прокрутке вниз;
    – появление: слова заголовков [data-split], модули [data-rv], «искры»; цифры [data-count] досчитываются;
-   – прогресс прокрутки: --hp (первый экран), --p (раскрытие видео), --zx/--zp (лента зон на компьютере);
+   – прогресс прокрутки: --hp (первый экран), --py (параллакс фото [data-parallax]), слова [data-words] проявляются по одному,
+     --zx/--zp (лента зон на компьютере);
    – видео играют, только пока видны; при «уменьшить движение» стоят на первом кадре. */
 const root = document.getElementById('bla');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -94,7 +95,11 @@ if (root) {
 
   /* Прокрутка */
   const hero = document.querySelector<HTMLElement>('[data-hero]');
-  const reveal = document.querySelector<HTMLElement>('[data-reveal]');
+  const parallax = $$<HTMLImageElement>('[data-parallax]');
+  const words = $$('[data-words]').map((el) => {
+    el.innerHTML = (el.textContent ?? '').split(/(\s+)/).map((w) => (/^\s+$/.test(w) ? w : `<span class="t">${w}</span>`)).join('');
+    return { el, t: $$('.t', el) };
+  });
   const zonesSec = document.querySelector<HTMLElement>('[data-zones]');
   const track = document.querySelector<HTMLElement>('[data-zones-track]');
   const zoneN = document.querySelector<HTMLElement>('[data-zone-n]');
@@ -129,10 +134,18 @@ if (root) {
     lastY = y;
     if (reduce) return;
     if (hero) hero.style.setProperty('--hp', String(clamp(y / hero.offsetHeight)));
-    if (reveal) {
-      const r = reveal.getBoundingClientRect();
-      reveal.style.setProperty('--p', String(clamp(-r.top / (r.height - innerHeight))));
-    }
+    parallax.forEach((img) => {
+      const r = img.parentElement!.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const k = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; // -1…1 – положение блока в окне
+      img.style.setProperty('--py', String(Math.round(k * r.height * -0.12)));
+    });
+    words.forEach(({ el, t }) => {
+      const r = el.getBoundingClientRect();
+      const k = clamp((innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.35));
+      const n = Math.round(k * t.length);
+      t.forEach((w, i) => w.classList.toggle('is-lit', i < n));
+    });
     if (zonesSec && track) {
       if (zMax) {
         const r = zonesSec.getBoundingClientRect();
