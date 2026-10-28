@@ -70,6 +70,8 @@
 .bb-ico{width:44px;height:44px;display:block}
 .bb-ico svg{width:100%;height:100%}
 .bb-adv__item p{margin-top:auto;font-size:17px;line-height:1.45}
+/* прямой угол под открытую четверть «искры» */
+.bb-adv__item:is(:nth-child(5),:nth-child(6),:nth-child(7)),.bb-card:nth-child(3){border-top-right-radius:0}
 
 /* Фитнес-зоны */
 .bb-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
@@ -113,6 +115,8 @@
 @media (max-width:1100px){
   .bb-h1{font-size:52px}
   .bb-adv{grid-template-columns:repeat(2,1fr)}
+  .bb-adv__item:is(:nth-child(5),:nth-child(6),:nth-child(7)){border-top-right-radius:var(--r)}
+  .bb-adv__item:is(:nth-child(3),:nth-child(5),:nth-child(7)){border-top-right-radius:0}
   .bb-adv .bb-spark[data-d]{display:none}
   .bb-adv .bb-spark[data-m]{display:block;grid-area:var(--m)}
 }
@@ -143,6 +147,7 @@
   .bb-tab{flex:0 0 auto}
   .bb-head{flex-direction:column;align-items:flex-start;margin-bottom:28px}
   .bb-card{min-height:0}
+  .bb-card:nth-child(3){border-top-right-radius:var(--r)}
   .bb-adv__item{min-height:210px;padding:22px}
   .bb-adv__item p{font-size:15px}
   .bb-ico{width:36px;height:36px}

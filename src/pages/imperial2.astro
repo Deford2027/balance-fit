@@ -1,7 +1,7 @@
 ---
 /** Главная Balance Империал по брендбуку (balance_guideline_2023): модульная сетка цветных блоков
     без зазоров на чёрном фоне, «искра» Electric Green на стыках модулей. Тексты, фото и ссылки – как на /imperial.
-    Положение блока в сетке – --d (компьютер) и --m (телефон), «искра» – spark(компьютер, телефон). */
+    Положение блока в сетке – --d (компьютер) и --m (телефон), «искра» – spark(компьютер, телефон), форма – фирменный символ (SVG от владельца, 28.10). */
 import Site from '../layouts/Site.astro';
 import ClubMap from '../components/ClubMap.astro';
 import { adv, zones, cards } from '../data/imperial';
@@ -10,8 +10,10 @@ import { clubs } from '../data/clubs';
 import '../styles/brand.css';
 
 const c = clubs.imperial;
-const spark = (d?: string, m?: string) =>
-  `<svg class="bb-spark" viewBox="0 0 2 2" aria-hidden="true"${d ? ' data-d' : ''}${m ? ' data-m' : ''} style="${d ? `--d:${d};` : ''}${m ? `--m:${m}` : ''}"><path d="M1 0A1 1 0 0 0 2 1A1 1 0 0 0 1 2A1 1 0 0 0 0 1A1 1 0 0 0 1 0Z"/></svg>`;
+/* rot – поворот «искры»: открытая (прямая) четверть по умолчанию снизу слева, 90 – сверху слева, 180 – сверху справа.
+   Её ставим к прямому краю блока; на крестовом стыке у блока в открытой четверти угол прямой (brand.css). */
+const spark = (d?: string, m?: string, rot = 0) =>
+  `<svg class="bb-spark" viewBox="0 0 1000 1012" preserveAspectRatio="none" aria-hidden="true"${d ? ' data-d' : ''}${m ? ' data-m' : ''} style="${d ? `--d:${d};` : ''}${m ? `--m:${m};` : ''}${rot ? `transform:rotate(${rot}deg)` : ''}"><path d="M503.352 1012C503.352 737.041 725.028 506.002 998.666 505.284H1000V498.543H998.666C725.028 497.829 503.352 274.96 503.352 0H496.545C496.545 275.369 274.254 498.543 0 498.543V505.284H496.545V1012H503.352Z"/></svg>`;
 
 /* Цвета модулей – основные цвета брендбука, без повторов у соседей */
 const advTone = ['red', 'blue', 'deep', 'fresh', 'green', 'red', 'blue', 'deep'];
@@ -46,7 +48,7 @@ const S = '/_t/static/';
         <span>Пн–пт<br /><b>6:00–23:00</b></span>
         <span>Сб–вс<br /><b>7:00–23:00</b></span>
       </div>
-      <Fragment set:html={spark('2/2', '3/2') + spark('2/3')} />
+      <Fragment set:html={spark('2/2') + spark(undefined, '3/2', 90) + spark('2/3', undefined, 90)} />
     </div>
   </section>
 
@@ -145,7 +147,7 @@ const S = '/_t/static/';
         <span class="bb-addr">{c.contacts.address}</span>
       </div>
       <div class="bb-m bb-map" style="--d:1/2/3/3;--m:3/1"><ClubMap club="imperial" /></div>
-      <Fragment set:html={spark('2/2')} />
+      <Fragment set:html={spark('2/2', undefined, 180)} />
     </div>
   </section>
 </Site>
