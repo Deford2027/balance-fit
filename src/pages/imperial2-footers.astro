@@ -1,0 +1,25 @@
+---
+/** Варианты подвала для /imperial2 – на выбор владельца (28.10). После выбора подвал ставится на /imperial2, страница удаляется. */
+import Site from '../layouts/Site.astro';
+import BrandFooter from '../components/BrandFooter.astro';
+import '../styles/brand.css';
+---
+<Site title="Варианты подвала – Balance Империал" club="imperial" path="imperial" theme="bb">
+  <section class="bla-wrap bb-first">
+    <h1 class="bb-h2">Варианты подвала</h1>
+    <p class="bb-lead">Три варианта по брендбуку для страницы <a href="/imperial2" style="text-decoration:underline">/imperial2</a>. Ссылки и кнопки рабочие.</p>
+  </section>
+  <Fragment slot="footer">
+    <p class="bla-wrap bf-variant">Вариант A – модули</p>
+    <BrandFooter club="imperial" variant="a" />
+    <p class="bla-wrap bf-variant">Вариант B – тёмный модуль</p>
+    <BrandFooter club="imperial" variant="b" />
+    <p class="bla-wrap bf-variant">Вариант C – контакты модулями</p>
+    <BrandFooter club="imperial" variant="c" />
+  </Fragment>
+</Site>
+
+<style is:global>
+  .bf-variant{width:100%;margin-top:120px;font-size:15px;color:rgba(255,255,255,.6);letter-spacing:.04em;text-transform:uppercase}
+  .bf-variant+.bf{margin-top:20px}
+</style>

@@ -1,0 +1,61 @@
+/* Подвал по брендбуку – components/BrandFooter.astro (варианты a, b, c). Модули и «искра» – из brand.css. */
+
+.bf{margin-top:112px;padding-bottom:40px;width:100%}
+.bf-logo{width:190px;height:auto;mix-blend-mode:screen} /* у PNG логотипа чёрная подложка */
+.bf-slogan{font-size:28px;line-height:1.15;margin-top:auto;padding-top:40px}
+.bf-label{font-size:14px;line-height:1.3;opacity:.72}
+.bf-links{display:flex;flex-direction:column;gap:10px;font-size:17px;line-height:1.35}
+.bf-links--2{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
+.bf-links--sm{font-size:15px;gap:9px}
+.bf-links a:hover,.bf-mail:hover,a.bf-big:hover{text-decoration:underline;text-underline-offset:4px}
+.bf-phone{font-size:30px;line-height:1.15;white-space:nowrap}
+.bf-phone--xl{font-size:38px}
+.bf-big{font-size:22px;line-height:1.3}
+.bf-mail{font-size:18px}
+.bf-small{font-size:15px;line-height:1.5;opacity:.86}
+.bf-btn{align-self:flex-start;margin-top:auto}
+.bf-soc{display:flex;gap:10px;margin-top:24px}
+.bf-soc a{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.45);display:inline-flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+.bf-soc a:hover{border-color:#fff;background:rgba(255,255,255,.12)}
+.bf-soc img{width:22px;height:22px;object-fit:contain}
+
+/* a – модули */
+.bf-a__grid{grid-template-columns:1fr 1.25fr}
+.bf-a__grid>.bb-m{gap:16px;min-height:260px}
+.bf-a__nav .bf-links{margin-top:auto}
+.bf-a__contacts{border-top-right-radius:0}
+.bf-a__docs .bf-links{margin-top:8px}
+
+/* b – тёмный модуль с пунктиром */
+.bf-b__box{background:#17131B;border-radius:var(--r);padding:48px}
+.bf-b__top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.bf-b__top .bf-slogan{padding-top:0;margin:0}
+.bf-b__cols{display:grid;grid-template-columns:1.1fr 1fr 1.3fr;gap:40px;margin-top:56px}
+.bf-b__cols>*{display:flex;flex-direction:column;gap:12px;min-width:0}
+.bf-rule{display:flex;align-items:center;gap:10px;margin:2px 0 10px}
+.bf-rule svg{width:14px;height:14px;fill:#fff;flex:0 0 14px}
+.bf-rule::after{content:"";flex:1;border-top:1px dotted rgba(255,255,255,.55)}
+.bf-b .bf-soc{margin-top:12px}
+
+/* c – полоса контактов */
+.bf-c__strip{grid-template-columns:1fr 1fr 1fr}
+.bf-c__strip>.bb-m{gap:14px;min-height:250px}
+.bf-c__strip .bf-soc{margin-top:auto}
+.bf-c__strip .bf-small{margin-top:auto}
+.bf-c__bottom{display:grid;grid-template-columns:1fr 1.2fr 1.2fr;gap:40px;padding:56px 8px 0;align-items:start}
+
+@media (max-width:860px){
+  .bf{margin-top:72px;padding-bottom:24px}
+  .bf-logo{width:150px}
+  .bf-slogan{font-size:22px;padding-top:28px}
+  .bf-phone{font-size:26px}
+  .bf-phone--xl{font-size:30px}
+  .bf-a__grid,.bf-c__strip{grid-template-columns:1fr}
+  .bf-a__grid>.bb-m,.bf-c__strip>.bb-m{min-height:0}
+  .bf-a__contacts{border-top-right-radius:var(--r)}
+  .bf-btn{margin-top:12px}
+  .bf-b__box{padding:28px}
+  .bf-b__top{flex-direction:column;align-items:flex-start}
+  .bf-b__cols{grid-template-columns:1fr;gap:36px;margin-top:36px}
+  .bf-c__bottom{grid-template-columns:1fr;gap:32px;padding:40px 4px 0}
+}
