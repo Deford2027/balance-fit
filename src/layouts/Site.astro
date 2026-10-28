@@ -26,6 +26,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const body = await Astro.slots.render('default');
 /* Свой подвал страницы (слот footer) – вместо общего; пути в нём тоже корневые */
 const foot = Astro.slots.has('footer') ? await Astro.slots.render('footer') : '';
+/* Свои кнопки страницы в шапке (слот head-act) – перед ЛК и программой лояльности */
+const headAct = Astro.slots.has('head-act') ? await Astro.slots.render('head-act') : '';
 const ext = (href: string) => /^https?:/.test(href);
 const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noopener' } : {});
 ---
@@ -62,6 +64,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
               {club && <a href={club.callback}>Заказать звонок</a>}
             </nav>
             <div class="bla-head__act">
+              {headAct && <Fragment set:html={rebase(fixLinks(headAct, clubId ?? 'imperial'), base)} />}
               {club?.lk && <a class="bla-lk" href={`${base}${club.lk.href}`} title="Личный кабинет">{club.lk.text}</a>}
               <a class="bla-btn bla-btn--green" href="#popup:infoblock">Программа лояльности</a>
               <button class="bla-burger" type="button" aria-label="Меню" data-burger><span></span><span></span><span></span></button>
