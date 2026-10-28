@@ -9,7 +9,7 @@ import BrandFooter from '../components/BrandFooter.astro';
 import Drawer3 from '../components/Drawer3.astro';
 import { adv, zones, cards } from '../data/imperial';
 import { advIcon } from '../data/adv-icons';
-import { clubs, icons } from '../data/clubs';
+import { clubs } from '../data/clubs';
 import { sparkPath } from '../lib/spark';
 import '../styles/brand.css';
 import '../styles/brand3.css';
@@ -17,6 +17,7 @@ import '../styles/menu3.css';
 
 const c = clubs.imperial;
 const S = '/_t/static/';
+const logo = '/brand/balance-logo.svg'; // белый логотип без подложки, искра – лайм
 /* Фон первого экрана – бесплатные ролики Pexels (лицензия Pexels разрешает коммерческое использование), пока ссылкой
    на их сайт. Лучше скачать в public/video/imperial3/, а ещё лучше – заменить съёмкой клуба. */
 const heroVideo = {
@@ -42,6 +43,7 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
   club="imperial"
   path="imperial"
   theme="bb bb3"
+  logo={logo}
 >
   <section class="x-hero" data-hero>
     <div class="x-hero__media">
@@ -157,7 +159,7 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
       {cards.map((k, i) => (
         <div class="x-cardwrap" data-rv>
           <article class:list={['x-card', 'x-plate', 'bb-' + cardTone[i]]} data-tilt>
-            <img class="x-card__logo" src={icons.logo} alt="" />
+            <img class="x-card__logo" src={logo} alt="" />
             <h3 class="x-card__title">{k.title}</h3>
             <p class="x-card__text" set:html={k.text} />
             <p class="bb-small">{k.hours}</p>
@@ -203,7 +205,7 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
     <div class="bb-m bb-map x-split__media" data-rv="up"><ClubMap club="imperial" /></div>
   </section>
   <Drawer3 slot="drawer" club="imperial" />
-  <BrandFooter slot="footer" club="imperial" />
+  <BrandFooter slot="footer" club="imperial" logo={logo} />
 </Site>
 
 <script>

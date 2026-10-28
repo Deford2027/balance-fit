@@ -17,9 +17,10 @@ type Props = {
   path: string; // путь страницы без слэша – для попапов со своим текстом
   crumbs?: Link[];
   theme?: string; // класс оформления на .bla (bb – по брендбуку, /imperial2)
+  logo?: string; // свой логотип в шапке и подвале (/imperial3 – SVG без подложки)
 };
 
-const { title, description, club: clubId, path, crumbs, theme } = Astro.props;
+const { title, description, club: clubId, path, crumbs, theme, logo = icons.logo } = Astro.props;
 const club = clubId ? clubs[clubId] : undefined;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -52,7 +53,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
       <header class="bla-head">
         <div class="bla-wrap">
           <div class="bla-head__in">
-            <a class="bla-logo" href={`${base}/`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
+            <a class="bla-logo" href={`${base}/`}><img src={`${base}${logo}`} alt="Balance" /></a>
             <nav class="bla-nav">
               <div class="bla-pick" data-pick>
                 <button type="button" aria-haspopup="true">{club ? club.short : 'Выбор клуба'}</button>
@@ -90,7 +91,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
       {foot ? <Fragment set:html={rebase(fixLinks(foot, clubId ?? 'imperial'), base)} /> : <footer class="bla-wrap">
         {club ? (
           <div class="bla-foot">
-            <a class="bla-foot__logo" href={`${base}/`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
+            <a class="bla-foot__logo" href={`${base}/`}><img src={`${base}${logo}`} alt="Balance" /></a>
             <nav class="bla-foot__col">
               {club.footerNav.map((l) => <a href={ext(l.href) ? l.href : `${base}${l.href}`} {...linkAttrs(l.href)}>{l.text}</a>)}
             </nav>
@@ -106,7 +107,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
           </div>
         ) : (
           <div class="bla-foot">
-            <a class="bla-foot__logo" href={`${base}/`}><img src={`${base}${icons.logo}`} alt="Balance" /></a>
+            <a class="bla-foot__logo" href={`${base}/`}><img src={`${base}${logo}`} alt="Balance" /></a>
             <nav class="bla-foot__col">
               {clubList.map((c) => <a href={`${base}${c.home}`}>{c.name}</a>)}
             </nav>

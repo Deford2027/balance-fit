@@ -5,7 +5,7 @@ import { clubs, icons, type ClubId } from '../data/clubs';
 import { sparkPath } from '../lib/spark';
 import '../styles/brand-footer.css';
 
-const { club: id } = Astro.props as { club: ClubId };
+const { club: id, logo = icons.logo } = Astro.props as { club: ClubId; logo?: string };
 const c = clubs[id];
 const ext = (href: string) => /^https?:/.test(href);
 const tgt = (href: string) => (ext(href) ? { target: '_blank', rel: 'noopener' } : {});
@@ -20,7 +20,7 @@ const rule = `<span class="bf-rule"><svg viewBox="0 0 1000 1012" aria-hidden="tr
 <footer class="bla-wrap bf bf-b">
   <div class="bf-b__box">
     <div class="bf-b__top">
-      <a href="/"><img class="bf-logo" src={icons.logo} alt="Balance" /></a>
+      <a href="/"><img class="bf-logo" src={logo} alt="Balance" /></a>
       <p class="bf-slogan">Свобода заниматься собой</p>
     </div>
     <div class="bf-b__cols">
