@@ -114,6 +114,8 @@
 .x-zone__title{font-size:clamp(30px,3.2vw,52px);line-height:1.04;letter-spacing:-.02em;margin:clamp(16px,3vh,40px) 0 6px}
 .x-zone__text .bb-text{font-size:15px;line-height:1.5;color:rgba(255,255,255,.86)}
 .x-zone__text .bb-text li+li{margin-top:4px}
+/* текст карточки, на которую наезжает следующая, гаснет – в просветах его не видно */
+.x-zone__text>*{opacity:clamp(0,calc(1 - var(--cov,0) * 4),1)}
 @media (min-width:861px){
   .x-stack{gap:clamp(40px,6vh,72px)}
   .x-zone{position:sticky;top:calc(96px + var(--i) * 10px);min-height:min(calc(100vh - 140px),660px)}
