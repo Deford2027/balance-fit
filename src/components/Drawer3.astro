@@ -1,7 +1,6 @@
 ---
-/** Раскрытое меню (бургер) для /imperial3 – одна разметка, три оформления на выбор (?menu=a|b|c, src/styles/menu3.css):
-    A «Крупный список» – на весь экран, крупные ссылки, при наведении фото; B «Модули» – плитки цветов бренда;
-    C «Боковая панель» – графитовая плашка справа поверх затемнённой страницы. Пути корневые – подпапку дописывает Site. */
+/** Раскрытое меню (бургер) для /imperial3 – «Крупный список» (src/styles/menu3.css): крупные ссылки, плашка контактов,
+    фото клуба, при наведении – фото раздела. Пути корневые – подпапку дописывает Site. */
 import { clubs, icons, type ClubId } from '../data/clubs';
 import { adv, zones } from '../data/imperial';
 import { sparkPath } from '../lib/spark';
@@ -11,13 +10,12 @@ const ext = (h: string) => /^https?:/.test(h);
 const attrs = (h: string) => (ext(h) ? { target: '_blank', rel: 'noopener' } : {});
 const pages = [...c.menu, ...(c.subscription ? [c.subscription] : [])];
 const photos = [...zones.map((z) => z.img), ...adv.map((a) => a.img)];
-const tones = ['red', 'blue', 'deep', 'fresh', 'gr', 'green', 'blue', 'red', 'deep', 'fresh', 'blue', 'gr', 'red', 'deep'];
 ---
 <div class="bla-drawer d3">
   <div class="d3__in">
     <nav class="d3__list" aria-label="Страницы клуба">
       {pages.map((l, i) => (
-        <a class:list={['d3__link', 'bb-' + tones[i % tones.length]]} href={l.href} {...attrs(l.href)} style={`--k:${i}`}>
+        <a class="d3__link" href={l.href} {...attrs(l.href)} style={`--k:${i}`}>
           <span class="d3__n">{String(i + 1).padStart(2, '0')}</span>
           <span class="d3__t">{l.text}</span>
           <i class="d3__arr" aria-hidden="true">→</i>

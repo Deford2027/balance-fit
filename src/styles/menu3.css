@@ -1,29 +1,34 @@
-/* Раскрытое меню /imperial3 (src/components/Drawer3.astro) – три варианта на выбор владельцу: ?menu=a|b|c
-   (класс m-a/m-b/m-c на #bla ставит src/scripts/imperial3.ts, по умолчанию A). Меню – слой на весь экран под шапкой. */
+/* Раскрытое меню /imperial3 (src/components/Drawer3.astro) – вариант «Крупный список», выбран владельцем 28.10:
+   слой на весь экран под шапкой; слева крупные ссылки в две колонки и под ними плашка контактов, справа фото клуба
+   на всю высоту – при наведении на пункт его сменяет фото раздела. */
 
 :root:has(.bb3.menu-open){overflow:hidden}
 .bb3 .d3{display:block;position:fixed;inset:0;z-index:-1;max-height:none;overflow:auto;padding:0;border:0;background:#000;
   visibility:hidden;opacity:0;transition:opacity .45s var(--ease),visibility 0s .45s}
 .bb3.menu-open .d3{visibility:visible;opacity:1;transition:opacity .45s var(--ease)}
-.d3__in{min-height:100%;padding:112px var(--gut) 40px;display:grid;grid-template-columns:1fr 380px;gap:clamp(24px,4vw,72px);align-items:start}
+.d3__in{--pw:clamp(320px,30vw,540px);position:relative;height:100%;min-height:600px;padding:112px var(--gut) var(--gut);display:grid;grid-template-columns:1fr var(--pw);grid-template-rows:1fr auto;
+  grid-template-areas:"list photo" "card photo";gap:var(--gap) clamp(24px,4vw,72px)}
 .d3__link{position:relative;display:grid;align-items:center;color:#fff}
-.m-a .d3__link,.m-c .d3__link{background:none}
+.d3__link{background:none}
 .d3__n{font-size:14px;opacity:.55;letter-spacing:.06em}
 .d3__arr{font-style:normal;transition:transform .35s var(--ease),opacity .35s}
 .bb3 .d3__img{display:none}
-.d3__side{display:flex;flex-direction:column;gap:var(--gap)}
-.d3__photo{position:relative;overflow:hidden;border-radius:var(--r);aspect-ratio:4/3;background:#111}
+.d3__side{display:contents}
+.d3__list{grid-area:list}
+.d3__photo{grid-area:photo;position:relative;overflow:hidden;border-radius:var(--r);background:#111}
 .d3__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.d3__card{position:relative;overflow:hidden;background:var(--gr);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:10px}
-.d3__spark{position:absolute;right:22px;top:22px;width:22px;height:22px;fill:var(--spark)}
+.d3__card{grid-area:card;position:relative;overflow:hidden;background:var(--gr);border-radius:var(--r);padding:24px 28px;
+  display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"k muted btns" "phone muted btns" "phone extra soc";gap:6px 32px;align-items:center}
+.d3__k{grid-area:k}.d3__phone{grid-area:phone;align-self:start}.d3__muted{grid-area:muted}.d3__btns{grid-area:btns;justify-content:flex-end}.d3__extra{grid-area:extra}.d3__soc{grid-area:soc;justify-content:flex-end}
+.d3__spark{position:absolute;left:-11px;top:-11px;width:22px;height:22px;fill:var(--spark);display:none}
 .d3__k{font-size:14px;opacity:.6}
 .d3__phone{font-size:30px;letter-spacing:-.01em}
 .d3__muted{font-size:14px;line-height:1.5;color:rgba(255,255,255,.65)}
-.d3__btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.d3__btns{display:flex;flex-wrap:wrap;gap:8px}
 .d3__btns .bb-btn{padding:12px 20px;font-size:15px}
-.d3__extra{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;margin-top:6px}
+.d3__extra{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px}
 .d3__extra a{text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,.35)}
-.d3__soc{margin-top:8px}
+.d3__soc{display:flex;gap:10px}
 /* появление по очереди */
 @media (prefers-reduced-motion:no-preference){
   .bb3 .d3__link,.bb3 .d3__side>*{opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .7s var(--ease)}
@@ -31,62 +36,28 @@
   .bb3.menu-open .d3__side>:last-child{transition-delay:.35s}
 }
 
-/* A – «Крупный список»: крупные ссылки в две колонки, при наведении фото поверх фото клуба справа */
-.bb3.m-a .d3{background:radial-gradient(120% 80% at 100% 0%,#1b1720 0%,#000 60%)}
-.m-a .d3__list{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(24px,3vw,56px)}
-.m-a .d3__link{grid-template-columns:44px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln);font-size:clamp(22px,2.2vw,36px);line-height:1.15;letter-spacing:-.015em;position:static}
-.m-a .d3__t{transition:transform .4s var(--ease)}
-.m-a .d3__arr{opacity:0;transform:translateX(-12px)}
-.bb3.m-a .d3__img{display:block;position:absolute;right:var(--gut);top:112px;width:380px;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);opacity:0;transform:scale(1.04);transition:opacity .45s var(--ease),transform .7s var(--ease);pointer-events:none;z-index:2}
+.bb3 .d3{background:radial-gradient(120% 80% at 100% 0%,#1b1720 0%,#000 60%)}
+.d3__list{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;column-gap:clamp(24px,3vw,56px)}
+.d3__link{grid-template-columns:48px 1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--ln);font-size:clamp(24px,2.5vw,44px);line-height:1.1;letter-spacing:-.015em;position:static}
+.d3__t{transition:transform .4s var(--ease)}
+.d3__arr{opacity:0;transform:translateX(-12px)}
+.bb3 .d3__img{display:block;position:absolute;right:var(--gut);top:112px;width:var(--pw);height:calc(100% - 112px - var(--gut));object-fit:cover;border-radius:var(--r);opacity:0;transform:scale(1.04);transition:opacity .45s var(--ease),transform .7s var(--ease);pointer-events:none;z-index:2}
 @media (hover:hover){
-  .m-a .d3__link:hover .d3__t{transform:translateX(10px)}
-  .m-a .d3__link:hover .d3__arr{opacity:1;transform:none}
-  .m-a .d3__link:hover .d3__img{opacity:1;transform:none}
-}
-
-/* B – «Модули»: страницы – цветные плашки брендбука, первая крупная; при наведении в плашке проявляется фото */
-.m-b .d3__list{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(118px,auto);gap:var(--gap)}
-.m-b .d3__link{border-radius:var(--r);overflow:hidden;isolation:isolate;padding:18px 20px;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;align-items:start;row-gap:16px;font-size:clamp(18px,1.45vw,22px);line-height:1.2;transition:transform .45s var(--ease)}
-.m-b .d3__link:first-child{grid-column:span 2;grid-row:span 2;font-size:clamp(30px,3vw,48px)}
-.m-b .d3__n{grid-column:1;grid-row:1}
-.m-b .d3__arr{grid-column:2;grid-row:1}
-.m-b .d3__t{grid-column:1/3;grid-row:2;align-self:end}
-.bb3.m-b .d3__img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0;transition:opacity .5s var(--ease),transform 1s var(--ease);transform:scale(1.1)}
-.m-b .d3__link::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.7));opacity:0;transition:opacity .5s}
-@media (hover:hover){
-  .m-b .d3__link:hover{transform:translateY(-4px)}
-  .m-b .d3__link:hover .d3__img{opacity:1;transform:none}
-  .m-b .d3__link:hover::after{opacity:1}
-  .m-b .d3__link:hover .d3__arr{transform:translateX(4px)}
-}
-
-/* C – «Боковая панель»: страница затемняется и размывается, справа выезжает графитовая плашка */
-.bb3.m-c .d3{background:rgba(0,0,0,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.m-c .d3__in{display:flex;flex-direction:column;align-items:stretch;gap:28px;width:min(540px,calc(100% - 20px));min-height:calc(100% - 20px);margin:10px 10px 10px auto;padding:100px 36px 32px;background:var(--gr);border-radius:var(--r);
-  transform:translateX(105%);transition:transform .6s var(--ease)}
-.bb3.m-c.menu-open .m-c .d3__in,.bb3.m-c.menu-open .d3__in{transform:none}
-.m-c .d3__list{display:flex;flex-direction:column}
-.m-c .d3__link{grid-template-columns:36px 1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid var(--ln);font-size:21px;line-height:1.25;transition:color .25s}
-.m-c .d3__arr{opacity:.4}
-.m-c .d3__photo{display:none}
-.m-c .d3__card{background:rgba(255,255,255,.05);padding:24px}
-@media (hover:hover){
-  .m-c .d3__link:hover .d3__arr{opacity:1;transform:translateX(4px)}
-  .m-c .d3__link:hover .d3__n{opacity:1;color:var(--spark)}
+  .d3__link:hover .d3__t{transform:translateX(10px)}
+  .d3__link:hover .d3__arr{opacity:1;transform:none}
+  .d3__link:hover .d3__img{opacity:1;transform:none}
 }
 
 @media (max-width:1100px){
-  .d3__in{grid-template-columns:1fr}
-  .m-a .bb3 .d3__img{display:none}
-  .m-b .d3__list{grid-template-columns:repeat(3,1fr)}
-  .d3__photo{display:none}
+  .d3__in{height:auto;min-height:100%;grid-template-columns:1fr;grid-template-rows:auto;grid-template-areas:"list" "card"}
+  .bb3 .d3__img,.d3__photo{display:none}
+  .d3__list{grid-auto-rows:auto}
+  .d3__card{grid-template-columns:1fr;grid-template-areas:"k" "phone" "muted" "btns" "extra" "soc"}
+  .d3__btns,.d3__soc{justify-content:flex-start}
 }
 @media (max-width:860px){
   .d3__in{padding-top:88px}
-  .m-a .d3__list{grid-template-columns:1fr}
-  .m-a .d3__link{font-size:24px;grid-template-columns:36px 1fr auto}
-  .m-b .d3__list{grid-template-columns:1fr 1fr;grid-auto-rows:minmax(96px,auto)}
-  .m-b .d3__link:first-child{font-size:28px}
-  .m-c .d3__in{padding:84px 22px 24px}
+  .d3__list{grid-template-columns:1fr}
+  .d3__link{font-size:24px;grid-template-columns:36px 1fr auto;padding:12px 0}
   .d3__phone{font-size:26px}
 }

@@ -10,9 +10,6 @@ const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = documen
 
 if (root) {
   root.classList.add('js');
-  /* Вариант раскрытого меню на выбор владельцу: ?menu=a | b | c (src/styles/menu3.css), без параметра – A */
-  const menu = new URLSearchParams(location.search).get('menu');
-  root.classList.add('m-' + (menu && /^[abc]$/.test(menu) ? menu : 'a'));
 
   /* Заголовки – по словам, с очерёдностью */
   $$('[data-split]').forEach((h) => {
