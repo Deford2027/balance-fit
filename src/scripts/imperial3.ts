@@ -2,7 +2,7 @@
    – шапка: прозрачная над видео, тёмная после прокрутки, прячется при прокрутке вниз;
    – появление: слова заголовков [data-split], модули [data-rv], «искры»; цифры [data-count] досчитываются;
    – прогресс прокрутки: --hp (первый экран), --py (параллакс фото [data-parallax]), слова [data-words] проявляются по одному,
-     --zx/--zp (лента зон на компьютере);
+     --cov (стопка фитнес-зон на компьютере);
    – видео играют, только пока видны; при «уменьшить движение» стоят на первом кадре. */
 const root = document.getElementById('bla');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -89,6 +89,8 @@ if (root) {
         const r = el.getBoundingClientRect();
         el.style.setProperty('--tx', `${((e.clientX - r.left) / r.width - 0.5) * 10}deg`);
         el.style.setProperty('--ty', `${-((e.clientY - r.top) / r.height - 0.5) * 10}deg`);
+        el.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
+        el.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
       });
       el.addEventListener('pointerleave', () => (el.style.removeProperty('--tx'), el.style.removeProperty('--ty')));
     });
@@ -100,32 +102,12 @@ if (root) {
     el.innerHTML = (el.textContent ?? '').split(/(\s+)/).map((w) => (/^\s+$/.test(w) ? w : `<span class="t">${w}</span>`)).join('');
     return { el, t: $$('.t', el) };
   });
-  const zonesSec = document.querySelector<HTMLElement>('[data-zones]');
-  const track = document.querySelector<HTMLElement>('[data-zones-track]');
-  const zoneN = document.querySelector<HTMLElement>('[data-zone-n]');
-  const zoneEls = track ? $$('.x-zone', track) : [];
-  const pinMq = matchMedia('(min-width: 861px)');
-  const zSpeed = 0.55; // доля вертикального пути на пиксель ленты – чтобы 10 зон не растягивали страницу
-  let zMax = 0;
+  /* Стопка зон: у карточки, на которую наезжает следующая, --cov растёт от 0 до 1 (уменьшение и затемнение) */
+  const zoneEls = $$('[data-stack] .x-zone');
+  const stackMq = matchMedia('(min-width: 861px)');
   let lastY = scrollY;
 
   const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
-  const setZone = (i: number) => {
-    zoneEls.forEach((z, k) => z.classList.toggle('is-on', k === i));
-    if (zoneN) zoneN.textContent = String(i + 1).padStart(2, '0');
-  };
-
-  /* Лента зон: на компьютере секция получает высоту под горизонтальный путь ленты */
-  const layoutZones = () => {
-    if (!zonesSec || !track) return;
-    const pin = pinMq.matches && !reduce;
-    root.classList.toggle('is-pin', pin);
-    if (!pin) return (zonesSec.style.height = ''), void (zMax = 0);
-    const last = zoneEls[zoneEls.length - 1];
-    const gut = parseFloat(getComputedStyle(track).paddingLeft) || 0;
-    zMax = last ? Math.max(last.offsetLeft + last.offsetWidth + gut - innerWidth, 0) : 0;
-    zonesSec.style.height = `${innerHeight + zMax * zSpeed}px`;
-  };
 
   const onScroll = () => {
     const y = scrollY;
@@ -146,35 +128,21 @@ if (root) {
       const n = Math.round(k * t.length);
       t.forEach((w, i) => w.classList.toggle('is-lit', i < n));
     });
-    if (zonesSec && track) {
-      if (zMax) {
-        const r = zonesSec.getBoundingClientRect();
-        const k = clamp(-r.top / (zMax * zSpeed));
-        zonesSec.style.setProperty('--zx', String(k * zMax));
-        zonesSec.style.setProperty('--zp', String(k));
-        setZone(Math.min(Math.round(k * (zoneEls.length - 1)), zoneEls.length - 1));
-      } else {
-        const k = track.scrollLeft / Math.max(track.scrollWidth - track.clientWidth, 1);
-        zonesSec.style.setProperty('--zp', String(k));
-      }
-    }
+    const stack = stackMq.matches;
+    zoneEls.forEach((z, i) => {
+      const next = zoneEls[i + 1];
+      const top = z.getBoundingClientRect().top;
+      z.classList.toggle('is-on', top < innerHeight * 0.7);
+      if (!stack || !next) return z.style.removeProperty('--cov');
+      const nTop = next.getBoundingClientRect().top;
+      z.style.setProperty('--cov', String(clamp((innerHeight - nTop) / Math.max(innerHeight - top, 1)).toFixed(3)));
+    });
   };
 
   let raf = 0;
   const tick = () => (raf ||= requestAnimationFrame(() => ((raf = 0), onScroll())));
   addEventListener('scroll', tick, { passive: true });
-  addEventListener('resize', () => (layoutZones(), tick()));
-  addEventListener('load', () => (layoutZones(), tick()));
-  track?.addEventListener(
-    'scroll',
-    () => {
-      tick();
-      const w = zoneEls[0]?.offsetWidth || 1;
-      setZone(Math.min(Math.round(track.scrollLeft / w), zoneEls.length - 1));
-    },
-    { passive: true }
-  );
-  setZone(0);
-  layoutZones();
+  addEventListener('resize', tick);
+  addEventListener('load', tick);
   onScroll();
 }

@@ -1,8 +1,8 @@
 ---
-/** Главная Balance Империал – премиальная версия по брендбуку: чёрный и графит, белая типографика, поля 60 px,
-    цвета бренда – точечно (клубные карты, преимущества при наведении, фитнес-зоны), «искра» – в линейках секций.
-    Фоновое видео, параллакс и анимация при прокрутке – src/scripts/imperial3.ts, стили – src/styles/brand3.css
-    поверх brand.css. Тексты, фото, карта и форма – как на /imperial (src/data/imperial.ts). */
+/** Главная Balance Империал – премиальная версия по брендбуку: чёрный фон, скруглённые плашки (графит Dark Grey
+    и цвета бренда), белая типографика, поля 60 px, «искра» – в линейках секций. Фоновое видео, параллакс,
+    стопка фитнес-зон и анимация при прокрутке – src/scripts/imperial3.ts, стили – src/styles/brand3.css поверх brand.css.
+    Тексты, фото, карта и форма – как на /imperial (src/data/imperial.ts). */
 import Site from '../layouts/Site.astro';
 import ClubMap from '../components/ClubMap.astro';
 import BrandFooter from '../components/BrandFooter.astro';
@@ -14,7 +14,6 @@ import '../styles/brand.css';
 import '../styles/brand3.css';
 
 const c = clubs.imperial;
-const V = '/video/imperial3/';
 const S = '/_t/static/';
 /* Фон первого экрана – бесплатные ролики Pexels (лицензия Pexels разрешает коммерческое использование), пока ссылкой
    на их сайт. Лучше скачать в public/video/imperial3/, а ещё лучше – заменить съёмкой клуба. */
@@ -22,7 +21,8 @@ const heroVideo = {
   desktop: 'https://videos.pexels.com/video-files/33515057/14253888_1920_1080_25fps.mp4', // JULLIAN PRODUCTION, 1920×1080
   mobile: 'https://videos.pexels.com/video-files/30254415/12970117_1080_1920_50fps.mp4', // Azhaan Bashmil, 1080×1920
 };
-const advTone = ['red', 'blue', 'fresh', 'pink', 'green', 'red', 'deep', 'blue'];
+const advTone = ['blue', 'red', 'fresh', 'pink', 'dgreen', 'red', 'blue', 'deep'];
+const zoneTone = ['deep', 'gr', 'blue', 'gr', 'green', 'deep', 'gr', 'blue', 'gr', 'deep'];
 const cardTone = ['red', 'blue', 'fresh', 'deep'];
 const stats = [
   { n: 25, unit: ' м', text: 'взрослый бассейн на 4 дорожки' },
@@ -43,7 +43,7 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
 >
   <section class="x-hero" data-hero>
     <div class="x-hero__media">
-      <video class="x-video" poster={V + 'hero.jpg'} autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <video class="x-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source src={heroVideo.mobile} type="video/mp4" media="(max-width: 860px) and (orientation: portrait)" />
         <source src={heroVideo.desktop} type="video/mp4" />
       </video>
@@ -83,13 +83,23 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
       <h2 class="x-h2" data-split>Свобода заниматься собой</h2>
       <p class="bb-lead" data-rv>Премиальный семейный фитнес-клуб Balance</p>
       <p class="x-free__big" data-words>Здесь вы найдёте современные фитнес‑зоны и продуманные программы для любого уровня подготовки. Присоединяйтесь — найдите свой баланс и начните путь к лучшей версии себя уже сегодня!</p>
+      <div class="x-facts">
+        <div class="x-fact bb-red" data-rv>
+          <b>39&nbsp;000&nbsp;₽</b>
+          <span>год фитнеса с бассейном: 9 месяцев + 3 месяца заморозки</span>
+        </div>
+        <div class="x-fact bb-deep" data-rv>
+          {c.contacts.hours.map(([d, t]) => <span>{d} <b class="x-fact__t">{t}</b></span>)}
+          <span>{c.contacts.address}</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="x-sec">
     <div class="x-stats">
       {stats.map((s) => (
-        <div class="x-stat" data-rv>
+        <div class="x-stat x-plate" data-rv>
           <b><span>{s.pre}</span><span data-count={String(s.n)}>{s.n}</span><span>{s.unit}</span></b>
           <p>{s.text}</p>
         </div>
@@ -102,40 +112,33 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
       <Fragment set:html={rule(2)} />
       <h2 class="x-h2" data-split>Преимущества</h2>
     </div>
-    <ol class="x-adv">
+    <div class="x-adv">
       {adv.map((it, i) => (
-        <li class="x-adv__item" style={`--tone:var(--${advTone[i]})`} data-rv>
-          <span class="x-adv__n">{String(i + 1).padStart(2, '0')}</span>
-          <span class="bb-ico" set:html={advIcon(it.text)} />
-          <p set:html={it.text} />
+        <div class="x-adv__item x-plate" style={`--tone:var(--${advTone[i]})`} data-rv>
           <img class="x-adv__img" src={it.img} alt="" loading="lazy" />
-        </li>
+          <span class="x-adv__ico"><span class="bb-ico" set:html={advIcon(it.text)} /></span>
+          <p set:html={it.text} />
+        </div>
       ))}
-    </ol>
+    </div>
   </section>
 
-  <section class="x-sec x-zones" id="zones" data-zones>
-    <div class="x-zones__stick">
-      <div class="x-head">
-        <Fragment set:html={rule(3)} />
-        <div class="x-zones__head">
-          <h2 class="x-h2" data-split>Фитнес-зоны</h2>
-          <div class="x-zones__bar" aria-hidden="true"><i></i></div>
-          <p class="x-zones__count" aria-hidden="true"><b data-zone-n>01</b> / {String(zones.length).padStart(2, '0')}</p>
-        </div>
-      </div>
-      <div class="x-zones__track" data-zones-track>
-        {zones.map((z, i) => (
-          <article class="x-zone">
-            <div class="x-zone__photo"><img src={z.img} alt={z.title} loading="lazy" /></div>
-            <div class="x-zone__text">
-              <span class="x-zone__num">{String(i + 1).padStart(2, '0')}</span>
-              <h3 class="bb-h3">{z.title}</h3>
-              <div class="bb-text"><Fragment set:html={z.html} /></div>
-            </div>
-          </article>
-        ))}
-      </div>
+  <section class="x-sec x-zones" id="zones">
+    <div class="x-head">
+      <Fragment set:html={rule(3)} />
+      <h2 class="x-h2" data-split>Фитнес-зоны</h2>
+    </div>
+    <div class="x-stack" data-stack>
+      {zones.map((z, i) => (
+        <article class:list={['x-zone', { 'x-zone--flip': i % 2 }]} style={`--i:${i}`}>
+          <div class="x-zone__photo x-plate"><img src={z.img} alt={z.title} loading="lazy" /></div>
+          <div class:list={['x-zone__text', 'x-plate', 'bb-' + zoneTone[i]]}>
+            <span class="x-zone__num">{String(i + 1).padStart(2, '0')} / {String(zones.length).padStart(2, '0')}</span>
+            <h3 class="x-zone__title">{z.title}</h3>
+            <div class="bb-text"><Fragment set:html={z.html} /></div>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -150,25 +153,24 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
     </div>
     <div class="x-cards">
       {cards.map((k, i) => (
-        <article class="x-card" data-rv>
-          <div class:list={['x-card__plate', 'bb-' + cardTone[i]]} data-tilt>
+        <div class="x-cardwrap" data-rv>
+          <article class:list={['x-card', 'x-plate', 'bb-' + cardTone[i]]} data-tilt>
             <img class="x-card__logo" src={icons.logo} alt="" />
-            <svg class="x-card__spark" viewBox="0 0 1000 1012" aria-hidden="true" set:html={sparkPath} />
-            <span class="x-card__name">{k.title}</span>
-          </div>
-          <p class="x-card__text" set:html={k.text} />
-          <p class="bb-small">{k.hours}</p>
-          <a class="bb-more" href={k.more}>Подробнее</a>
-        </article>
+            <h3 class="x-card__title">{k.title}</h3>
+            <p class="x-card__text" set:html={k.text} />
+            <p class="bb-small">{k.hours}</p>
+            <a class="bb-more" href={k.more}>Подробнее</a>
+          </article>
+        </div>
       ))}
     </div>
   </section>
 
   <section class="x-sec x-split" id="guest">
     <div class="bb-m bb-photo x-split__media" data-rv="up">
-      <img src={S + 'tild6538-3832-4135-b161-336563656363/image.png'} alt="Аэройога в Balance Империал" loading="lazy" data-parallax />
+      <img src={S + 'tild3565-3461-4130-a630-653033333237/Balance-__1_1.jpg'} alt="Бассейн Balance Империал" loading="lazy" data-parallax />
     </div>
-    <div class="x-panel" data-rv>
+    <div class="x-panel x-plate" data-rv>
       <Fragment set:html={rule(5)} />
       <h2 class="x-h2">Запишитесь на&nbsp;гостевой визит</h2>
       <p class="bb-lead">И получите специальное предложение на клубную карту. Заполните форму – мы вам перезвоним.</p>
@@ -183,7 +185,7 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
   </section>
 
   <section class="x-sec x-split x-split--map" id="contacts">
-    <div class="x-panel" data-rv>
+    <div class="x-panel x-plate" data-rv>
       <Fragment set:html={rule(6)} />
       <h2 class="x-h2">Контакты</h2>
       <p class="bb-lead">{c.name}. Свяжитесь с нами удобным способом: звоните, пишите, приезжайте</p>
