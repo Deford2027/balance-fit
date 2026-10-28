@@ -1,9 +1,9 @@
 /* Появление блоков при прокрутке: дети секций (у сеток – каждая карточка с небольшой задержкой).
    Первый экран появляется сразу после загрузки. После анимации классы снимаются,
-   чтобы не мешать своим переходам блоков (слайдеры, ховеры). */
+   чтобы не мешать своим переходам блоков (слайдеры, ховеры). На /imperial3 (тема bb3) – своя анимация, src/scripts/imperial3.ts. */
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root = document.getElementById('bla');
-if (root && !reduce && 'IntersectionObserver' in window) {
+if (root && !root.classList.contains('bb3') && !reduce && 'IntersectionObserver' in window) {
   const grid = /^bla-(adv|cards|grid|clubs|contacts|row|cta|free|phero|hero|brands)$/;
   const items: HTMLElement[] = [];
   const add = (el: Element, i: number) => {

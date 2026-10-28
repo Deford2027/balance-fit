@@ -2,7 +2,7 @@
 export function rebase(html: string, base: string) {
   if (!base) return html;
   /* Пути с подпапкой уже есть (скрипты компонентов от Astro) – их не трогаем */
-  const own = new RegExp(`(\\s(?:href|src|data-bg|data-src|action)=)(["'])\\/(?!\\/|${base.slice(1)}\\/)`, 'g');
+  const own = new RegExp(`(\\s(?:href|src|poster|data-bg|data-src|action)=)(["'])\\/(?!\\/|${base.slice(1)}\\/)`, 'g');
   return html
     .replace(own, `$1$2${base}/`)
     .replace(/url\((['"]?)\/_t\//g, `url($1${base}/_t/`)
