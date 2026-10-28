@@ -1,53 +1,39 @@
 /* /imperial4 (стили – src/styles/brand4.css, zones4.css):
-   – фитнес-зоны: вариант блока по ?zones=a|b|c и кнопкам [data-zv-set]; A – вкладки, B – стрелки ленты,
-     C – на телефоне плитка раскрывается по нажатию;
+   – фитнес-зоны [data-zones4]: слайдер – стрелки, миниатюры, свайп, клавиши ←/→;
    – цифры [data-count] досчитываются, когда видны (при «уменьшить движение» – сразу итог). */
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => Array.from(el.querySelectorAll<T>(s));
 
-const zsec = document.querySelector<HTMLElement>('[data-zv]');
+const zsec = document.querySelector<HTMLElement>('[data-zones4]');
 if (zsec) {
-  const show = (v: string) => {
-    if (!['a', 'b', 'c'].includes(v)) v = 'a';
-    zsec.dataset.zv = v;
-    $$('[data-zv-box]', zsec).forEach((b) => (b.hidden = b.dataset.zvBox !== v));
-    $$('[data-zv-set]', zsec).forEach((b) => b.classList.toggle('is-on', b.dataset.zvSet === v));
+  const slides = $$('[data-slide4]', zsec);
+  const thumbs = $$('[data-thumb4]', zsec);
+  let cur = 0;
+  const go = (i: number) => {
+    cur = (i + slides.length) % slides.length;
+    slides.forEach((s, k) => {
+      s.classList.toggle('is-on', k === cur);
+      s.setAttribute('aria-hidden', String(k !== cur));
+    });
+    thumbs.forEach((t, k) => t.classList.toggle('is-on', k === cur));
+    thumbs[cur]?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
   };
-  show(new URLSearchParams(location.search).get('zones') ?? 'a');
-  $$('[data-zv-set]', zsec).forEach((b) =>
-    b.addEventListener('click', () => {
-      show(b.dataset.zvSet!);
-      const u = new URL(location.href);
-      u.searchParams.set('zones', b.dataset.zvSet!);
-      history.replaceState(null, '', u);
-    })
-  );
-  $$('[data-tab4]', zsec).forEach((t) =>
-    t.addEventListener('click', () => {
-      $$('[data-tab4]', zsec).forEach((x) => x.classList.toggle('is-on', x === t));
-      $$('[data-panel4]', zsec).forEach((p) => p.classList.toggle('is-on', p.dataset.panel4 === t.dataset.tab4));
-    })
-  );
-  const rail = zsec.querySelector<HTMLElement>('[data-rail-box]');
-  $$('[data-rail]', zsec).forEach((b) =>
-    b.addEventListener('click', () => {
-      const card = rail?.firstElementChild as HTMLElement | null;
-      if (rail && card) rail.scrollBy({ left: +b.dataset.rail! * (card.offsetWidth + 12), behavior: reduce ? 'auto' : 'smooth' });
-    })
-  );
-  const phone = matchMedia('(max-width: 860px)');
-  $$('.zv-c__tile', zsec).forEach((t) =>
-    t.addEventListener('click', () => {
-      if (!phone.matches) return;
-      const on = !t.classList.contains('is-on');
-      const tiles = $$('.zv-c__tile', zsec);
-      tiles.forEach((x) => x.classList.remove('is-on', 'is-wide'));
-      t.classList.toggle('is-on', on);
-      if (on) tiles.filter((x) => x !== t).pop()?.classList.add('is-wide');
-      if (on) setTimeout(() => t.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' }), 50);
-    })
-  );
+  $$('[data-slide-go]', zsec).forEach((b) => b.addEventListener('click', () => go(cur + +b.dataset.slideGo!)));
+  thumbs.forEach((t, k) => t.addEventListener('click', () => go(k)));
+  const stage = zsec.querySelector<HTMLElement>('.zv-d__stage');
+  let x0 = 0;
+  stage?.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+  stage?.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1));
+  });
+  stage?.setAttribute('tabindex', '0');
+  stage?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') go(cur + 1);
+    if (e.key === 'ArrowLeft') go(cur - 1);
+  });
 }
+
 const counts = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
 if (!reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver(
