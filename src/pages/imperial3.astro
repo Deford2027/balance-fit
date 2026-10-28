@@ -1,0 +1,219 @@
+---
+/** Главная Balance Империал – «вау»-версия по брендбуку: сетка модулей на всю ширину экрана, фоновое видео,
+    видеовставки и анимация при прокрутке (src/scripts/imperial3.ts, src/styles/brand3.css поверх brand.css /imperial2).
+    Тексты, фото, карта и форма – как на /imperial (src/data/imperial.ts). Видео – public/video/imperial3/
+    (пока собраны из фото клуба скриптом scripts/make-videos.sh; заменить съёмкой клуба с теми же именами). */
+import Site from '../layouts/Site.astro';
+import ClubMap from '../components/ClubMap.astro';
+import BrandFooter from '../components/BrandFooter.astro';
+import { adv, zones, cards } from '../data/imperial';
+import { advIcon } from '../data/adv-icons';
+import { clubs } from '../data/clubs';
+import { spark } from '../lib/spark';
+import '../styles/brand.css';
+import '../styles/brand3.css';
+
+const c = clubs.imperial;
+const V = '/video/imperial3/';
+const advTone = ['red', 'blue', 'deep', 'fresh', 'green', 'red', 'blue', 'deep'];
+const zoneTone = ['red', 'blue', 'deep', 'fresh', 'blue', 'red', 'green', 'deep', 'red', 'blue'];
+const cardTone = ['red', 'blue', 'fresh', 'deep'];
+const stats = [
+  { n: 25, unit: ' м', text: 'взрослый бассейн на 4 дорожки', tone: 'blue' },
+  { n: 32, pre: '+', unit: ' °C', text: 'вода в детском бассейне – можно с трёх месяцев', tone: 'red' },
+  { n: 50, unit: '+', text: 'программ групповых тренировок', tone: 'deep' },
+  { n: 99, unit: '%', text: 'точность анализа состава тела InBody', tone: 'fresh' },
+];
+const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Более 50 программ', 'InBody', 'Детский клуб', 'Balance спа', 'Balance кафе'];
+---
+<Site
+  title="Фитнес-клуб Balance Империал на ул.Бородинской в Краснодаре"
+  description="Balance Империал оборудован передовым оборудованием для кардио- и силовых тренировок, а также проводит разнообразные групповые занятия под руководством опытных инструкторов. Присоединяйтесь к нам и начните свой путь к здоровью и фитнесу вместе с Balance!"
+  club="imperial"
+  path="imperial"
+  theme="bb bb3"
+>
+  <section class="x-hero" data-hero>
+    <div class="x-hero__media">
+      <video class="x-video" src={V + 'hero.mp4'} poster={V + 'hero.jpg'} autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    </div>
+    <div class="x-hero__in">
+      <p class="x-eyebrow" data-rv>Краснодар · ул. Бородинская 137, корп 2</p>
+      <h1 class="x-h1" data-split>Фитнес с&nbsp;бассейном <em>год за 39&nbsp;000&nbsp;₽</em></h1>
+      <div class="bb-btns" data-rv>
+        <a class="bb-btn" href="#popup:myform-abr">Хочу в Balance</a>
+        <a class="bb-btn bb-btn--line" href="#cards">Клубные карты</a>
+      </div>
+    </div>
+    <div class="bb-grid x-hero__strip">
+      <div class="bb-m bb-red x-price" style="--d:1/1;--m:1/1/2/3" data-rv="up">
+        <b>39&nbsp;000&nbsp;₽</b>
+        <span>*В рамках акции вы получаете: 9 месяцев фитнеса + 3 месяца заморозки</span>
+      </div>
+      <div class="bb-m bb-blue bb-hours" style="--d:1/2;--m:2/1" data-rv="up">
+        <span>Пн–пт<br /><b>6:00–23:00</b></span>
+        <span>Сб–вс<br /><b>7:00–23:00</b></span>
+      </div>
+      <a class="bb-m bb-deep x-scroll" href="#free" style="--d:1/3;--m:2/2" data-rv="up">
+        <span>Листайте</span>
+        <i aria-hidden="true"></i>
+      </a>
+      <Fragment set:html={spark('1/2') + spark(undefined, '2/2')} />
+    </div>
+  </section>
+
+  <div class="x-run" aria-hidden="true">
+    <div class="x-run__track">
+      {[0, 1].map(() => (
+        <div class="x-run__set">
+          {run.map((t, i) => (
+            <>
+              <span class:list={[{ 'x-run__o': i % 2 }]}>{t}</span>
+              <svg class="x-run__spark" viewBox="0 0 1000 1012"><path d="M503.352 1012C503.352 737.041 725.028 506.002 998.666 505.284H1000V498.543H998.666C725.028 497.829 503.352 274.96 503.352 0H496.545C496.545 275.369 274.254 498.543 0 498.543V505.284H496.545V1012H503.352Z" /></svg>
+            </>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <section class="x-reveal" id="free" data-reveal>
+    <div class="x-reveal__stick">
+      <div class="x-reveal__frame">
+        <video class="x-video" src={V + 'pool.mp4'} poster={V + 'pool.jpg'} muted loop playsinline preload="none" aria-hidden="true" data-lazy-video></video>
+        <div class="x-reveal__title">
+          <h2 class="x-h2">Свобода заниматься собой</h2>
+          <p class="bb-lead">Премиальный семейный фитнес-клуб Balance</p>
+        </div>
+      </div>
+      <div class="bb-grid x-reveal__mods">
+        <div class="bb-m bb-fresh bb-text" style="--d:1/1;--m:1/1">
+          <p>Здесь вы найдёте современные фитнес‑зоны и продуманные программы для любого уровня подготовки.</p>
+        </div>
+        <div class="bb-m bb-blue bb-text" style="--d:1/2;--m:2/1">
+          <p>Присоединяйтесь — найдите свой баланс и начните путь к лучшей версии себя уже сегодня!</p>
+        </div>
+        <Fragment set:html={spark('1/2')} />
+      </div>
+    </div>
+  </section>
+
+  <section class="x-sec">
+    <div class="bb-grid x-stats">
+      {stats.map((s) => (
+        <div class:list={['bb-m', 'bb-' + s.tone, 'x-stat']} data-rv="up">
+          <b><span>{s.pre}</span><span data-count={String(s.n)}>{s.n}</span><span>{s.unit}</span></b>
+          <p>{s.text}</p>
+        </div>
+      ))}
+      <Fragment set:html={spark('1/3', '2/2')} />
+    </div>
+  </section>
+
+  <section class="x-sec">
+    <div class="x-head">
+      <h2 class="x-h2" data-split>Преимущества</h2>
+    </div>
+    <div class="bb-grid x-adv">
+      {adv.map((it, i) => (
+        <div class:list={['bb-m', 'bb-' + advTone[i], 'x-adv__item']} data-rv="up">
+          <img class="x-adv__img" src={it.img} alt="" loading="lazy" />
+          <span class="bb-ico" set:html={advIcon(it.text)} />
+          <p set:html={it.text} />
+        </div>
+      ))}
+      <Fragment set:html={spark('2/3', '3/2')} />
+    </div>
+  </section>
+
+  <section class="x-sec x-zones" id="zones" data-zones>
+    <div class="x-zones__stick">
+      <div class="x-head x-zones__head">
+        <h2 class="x-h2" data-split>Фитнес-зоны</h2>
+        <div class="x-zones__bar" aria-hidden="true"><i></i></div>
+        <p class="x-zones__count" aria-hidden="true"><b data-zone-n>01</b> / {String(zones.length).padStart(2, '0')}</p>
+      </div>
+      <div class="x-zones__track" data-zones-track>
+        {zones.map((z, i) => (
+          <article class="x-zone">
+            <div class="bb-m bb-photo x-zone__photo"><img src={z.img} alt={z.title} loading="lazy" /></div>
+            <div class:list={['bb-m', 'bb-' + zoneTone[i], 'x-zone__text']}>
+              <span class="x-zone__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="bb-h3">{z.title}</h3>
+              <div class="bb-text"><Fragment set:html={z.html} /></div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="x-sec" id="cards">
+    <div class="x-head x-head--row">
+      <div>
+        <h2 class="x-h2" data-split>Клубные карты</h2>
+        <p class="bb-lead" data-rv>Выбирайте свою клубную карту</p>
+      </div>
+      <a class="bb-btn" href="#popup:myform" data-rv>Оформить карту</a>
+    </div>
+    <div class="bb-grid x-cards">
+      {cards.map((k, i) => (
+        <div class:list={['bb-m', 'bb-' + cardTone[i], 'x-card']} data-rv="up" data-tilt>
+          <span class="x-card__num">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="bb-h3">{k.title}</h3>
+          <p set:html={k.text} />
+          <p class="bb-small">{k.hours}</p>
+          <a class="bb-more" href={k.more}>Подробнее</a>
+        </div>
+      ))}
+      <Fragment set:html={spark('1/4')} />
+    </div>
+  </section>
+
+  <section class="x-sec" id="guest">
+    <div class="bb-grid x-guest">
+      <div class="bb-m bb-photo x-guest__media" style="--d:1/1/3/2;--m:1/1" data-rv="up">
+        <video class="x-video" src={V + 'guest.mp4'} poster={V + 'guest.jpg'} muted loop playsinline preload="none" aria-hidden="true" data-lazy-video></video>
+      </div>
+      <div class="bb-m bb-blue" style="--d:1/2;--m:2/1" data-rv="up">
+        <h2 class="x-h2">Запишитесь на&nbsp;гостевой визит</h2>
+        <p class="bb-lead">И получите специальное предложение на клубную карту. Заполните форму – мы вам перезвоним.</p>
+      </div>
+      <form class="bb-m bb-deep bb-form" style="--d:2/2;--m:3/1" method="post" action="#" novalidate data-rv="up">
+        <input type="text" name="Name" placeholder="Ваше имя" autocomplete="name" />
+        <input type="tel" name="Phone" placeholder="Телефон" autocomplete="tel" />
+        <input type="email" name="Email" placeholder="E-mail" autocomplete="email" />
+        <label class="bb-consent"><input type="checkbox" name="consent" checked /><span>Я ознакомлен(-а) с <a href="/security" target="_blank">Политикой обработки персональных данных</a> и даю свое <a href="/privacy" target="_blank">согласие</a> на обработку персональных данных.</span></label>
+        <button class="bb-btn" type="submit">Оставить заявку</button>
+      </form>
+      <Fragment set:html={spark('2/2')} />
+    </div>
+  </section>
+
+  <section class="x-sec" id="contacts">
+    <div class="x-head">
+      <h2 class="x-h2" data-split>Контакты</h2>
+    </div>
+    <div class="bb-grid x-contacts">
+      <div class="bb-m bb-red" style="--d:1/1;--m:1/1" data-rv="up">
+        <h3 class="bb-h3">{c.name}</h3>
+        <p class="bb-lead">Свяжитесь с нами удобным способом: звоните, пишите, приезжайте</p>
+        <div class="bb-links">
+          <a href={c.contacts.phone.href}>{c.contacts.phone.text}</a>
+          <a href={c.contacts.email.href}>{c.contacts.email.text}</a>
+        </div>
+      </div>
+      <div class="bb-m bb-deep bb-hours" style="--d:2/1;--m:2/1" data-rv="up">
+        {c.contacts.hours.map(([d, t]) => <span>{d}<br /><b>{t}</b></span>)}
+        <span class="bb-addr">{c.contacts.address}</span>
+      </div>
+      <div class="bb-m bb-map" style="--d:1/2/3/3;--m:3/1" data-rv="up"><ClubMap club="imperial" /></div>
+      <Fragment set:html={spark('2/2', undefined, 180)} />
+    </div>
+  </section>
+  <BrandFooter slot="footer" club="imperial" />
+</Site>
+
+<script>
+  import '../scripts/imperial3';
+</script>
