@@ -1,14 +1,13 @@
 ---
-/** Главная Balance Империал – светлая версия «как страницы брендбука»: белый фон, светло-серые плашки,
-    у каждого раздела – серая плашка с номером, пунктиром и «искрой» (как слева на страницах брендбука), чёрная
-    типографика, цвета бренда – в отдельных плашках. Логотип – монохромный чёрный (брендбук, с. 6: на светлых фонах).
-    Стили – src/styles/brand4.css, фитнес-зоны и досчёт цифр – src/scripts/imperial4.ts.
+/** Главная Balance Империал, четвёртый вариант: чёрный фон, скруглённые плашки Dark Grey и цвета бренда,
+    первый экран – плашки вплотную (текст, фото, цена, часы), дальше разделы с воздухом между ними.
+    Стили – src/styles/brand4.css, досчёт цифр – src/scripts/imperial4.ts.
     Тексты, фото, карта и форма – как на /imperial (src/data/imperial.ts). */
 import Site from '../layouts/Site.astro';
 import ClubMap from '../components/ClubMap.astro';
 import BrandFooter from '../components/BrandFooter.astro';
 import Drawer3 from '../components/Drawer3.astro';
-import { adv, zones, cards } from '../data/imperial';
+import { adv, cards } from '../data/imperial';
 import { advIcon } from '../data/adv-icons';
 import { clubs } from '../data/clubs';
 import { sparkPath } from '../lib/spark';
@@ -18,8 +17,8 @@ import '../styles/brand4.css';
 
 const c = clubs.imperial;
 const S = '/_t/static/';
-const logo = '/brand/balance-logo-dark.svg';
-const logoWhite = '/brand/balance-logo.svg';
+const logo = '/brand/balance-logo.svg'; // белый, искра – лайм
+const logoDark = '/brand/balance-logo-dark.svg'; // монохромный чёрный – на светлой плашке Light Mint
 const advTone = ['blue', 'red', 'fresh', 'navy', 'pink', 'wred', 'deep', 'dgreen'];
 const cardTone = ['red', 'blue', 'mint', 'ink'];
 const stats = [
@@ -29,10 +28,9 @@ const stats = [
   { n: 99, unit: '%', text: 'точность анализа состава тела InBody' },
 ];
 const spark = `<svg class="y-spark" viewBox="0 0 1000 1012" aria-hidden="true">${sparkPath}</svg>`;
-/* Плашка раздела слева, как на страницах брендбука: номер, пунктир с «искрой», заголовок */
-const side = (n: number, title: string, lead = '') =>
-  `<div class="y-side"><div class="y-side__in"><span class="y-side__n">${String(n).padStart(2, '0')}</span><span class="y-rule">${spark}<i></i></span><h2 class="y-h2">${title}</h2>${lead ? `<p class="y-lead">${lead}</p>` : ''}</div></div>`;
-const pad = (i: number) => String(i + 1).padStart(2, '0');
+/* Заголовок раздела: слева заголовок, справа подзаголовок */
+const secHead = (title: string, lead = '') =>
+  `<div class="y-head"><h2 class="y-h2">${title}</h2>` + (lead ? `<p class="y-lead">${lead}</p>` : '') + '</div>';
 ---
 <Site
   title="Фитнес-клуб Balance Империал на ул.Бородинской в Краснодаре"
@@ -60,7 +58,7 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
     </div>
     <div class="y-hero__photo y-plate y-photo">
       <img src={S + 'tild3730-3535-4137-a366-396631303033/image.png'} alt="Balance Империал" />
-      <a class="y-chip" href="#zones"><Fragment set:html={spark} />10 фитнес-зон <i>→</i></a>
+      <a class="y-chip" href="#guest"><Fragment set:html={spark} />Гостевой визит <i>→</i></a>
     </div>
     <div class="y-hero__price y-plate y-red">
       <b>39&nbsp;000&nbsp;₽</b>
@@ -73,18 +71,20 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
   </section>
 
   <section class="y-sec" id="free">
-    <Fragment set:html={side(1, 'Свобода заниматься собой', 'Премиальный семейный фитнес-клуб Balance')} />
     <div class="y-free">
+      <div class="y-free__text">
+        <p class="y-kicker"><Fragment set:html={spark} />Премиальный семейный фитнес-клуб Balance</p>
+        <h2 class="y-h2 y-h2--xl">Свобода заниматься собой</h2>
+        <p class="y-free__big">Здесь вы найдёте современные фитнес‑зоны и продуманные программы для любого уровня подготовки.</p>
+        <p class="y-free__small">Присоединяйтесь — найдите свой баланс и начните путь к лучшей версии себя уже сегодня!</p>
+      </div>
       <div class="y-free__photo y-plate y-photo">
         <img src={S + 'tild3061-3339-4236-b264-396234643866/image.png'} alt="Бассейн Balance Империал" loading="lazy" />
       </div>
-      <div class="y-free__text y-plate y-navy">
-        <Fragment set:html={spark} />
-        <p>Здесь вы найдёте современные фитнес‑зоны и продуманные программы для любого уровня подготовки.</p>
-        <p>Присоединяйтесь — найдите свой баланс и начните путь к лучшей версии себя уже сегодня!</p>
-      </div>
+    </div>
+    <div class="y-stats y-plate">
       {stats.map((s) => (
-        <div class="y-stat y-plate">
+        <div class="y-stat">
           <b><span>{s.pre}</span><span data-count={String(s.n)}>{s.n}</span><span class="y-stat__u">{s.unit}</span></b>
           <p>{s.text}</p>
         </div>
@@ -93,7 +93,7 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
   </section>
 
   <section class="y-sec">
-    <Fragment set:html={side(2, 'Преимущества', 'Всё для тренировок, отдыха и семьи – в одном клубе')} />
+    <Fragment set:html={secHead('Преимущества', 'Всё для тренировок, отдыха и семьи – в одном клубе')} />
     <div class="y-adv">
       {adv.map((it, i) => (
         <div class="y-adv__item y-plate" style={`--tone:var(--${advTone[i]})`}>
@@ -105,42 +105,13 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
     </div>
   </section>
 
-  <section class="y-sec y-sec--wide" id="zones">
-    <div class="y-headrow y-plate">
-      <span class="y-side__n">03</span>
-      <span class="y-rule"><Fragment set:html={spark} /><i></i></span>
-      <h2 class="y-h2">Фитнес-зоны</h2>
-      <p class="y-lead">Наведите или нажмите, чтобы раскрыть зону</p>
-    </div>
-    <div class="y-zones" data-zones>
-      {zones.map((z, i) => (
-        <article class:list={['y-zone', { 'is-open': i === 0 }]}>
-          <img class="y-zone__img" src={z.img} alt={z.title} loading="lazy" />
-          <button class="y-zone__head" type="button" aria-expanded={i === 0 ? 'true' : 'false'}>
-            <span class="y-zone__n">{pad(i)}</span>
-            <span class="y-zone__t">{z.tab}</span>
-            <i class="y-zone__plus" aria-hidden="true"></i>
-          </button>
-          <div class="y-zone__body">
-            <div class="y-zone__card">
-              <span class="y-zone__k">{pad(i)} / {String(zones.length).padStart(2, '0')}</span>
-              <h3 class="y-h3">{z.title}</h3>
-              <div class="bb-text"><Fragment set:html={z.html} /></div>
-            </div>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
   <section class="y-sec" id="cards">
-    <Fragment set:html={side(4, 'Клубные карты', 'Выбирайте свою клубную карту')} />
+    <Fragment set:html={secHead('Клубные карты', 'Выбирайте свою клубную карту')} />
     <div class="y-cards">
       {cards.map((k, i) => (
         <article class:list={['y-card', 'y-plate', 'y-' + cardTone[i]]}>
           <div class="y-card__top">
-            <img class="y-card__logo" src={cardTone[i] === 'mint' ? logo : logoWhite} alt="" />
-            <span class="y-card__n">{pad(i)}</span>
+            <img class="y-card__logo" src={cardTone[i] === 'mint' ? logoDark : logo} alt="" />
           </div>
           <h3 class="y-h3">{k.title}</h3>
           <p class="y-card__text" set:html={k.text} />
@@ -165,18 +136,18 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
           <input type="tel" name="Phone" placeholder="Телефон" autocomplete="tel" />
           <input type="email" name="Email" placeholder="E-mail" autocomplete="email" />
           <label class="bb-consent"><input type="checkbox" name="consent" checked /><span>Я ознакомлен(-а) с <a href="/security" target="_blank">Политикой обработки персональных данных</a> и даю свое <a href="/privacy" target="_blank">согласие</a> на обработку персональных данных.</span></label>
-          <button class="bb-btn y-btn-lime" type="submit">Оставить заявку</button>
+          <button class="bb-btn" type="submit">Оставить заявку</button>
         </form>
       </div>
       <div class="y-guest__photo y-photo">
         <img src={S + 'tild3934-6165-4265-b562-366136336363/Balance_fitness.jpg'} alt="Бассейн Balance Империал" loading="lazy" />
-        <img class="y-guest__logo" src={logoWhite} alt="" />
+        <img class="y-guest__logo" src={logo} alt="" />
       </div>
     </div>
   </section>
 
   <section class="y-sec" id="contacts">
-    <Fragment set:html={side(5, 'Контакты', c.name + '. Звоните, пишите, приезжайте')} />
+    <Fragment set:html={secHead('Контакты', c.name + '. Звоните, пишите, приезжайте')} />
     <div class="y-contacts">
       <div class="y-contacts__info y-plate">
         <a class="y-contacts__phone" href={c.contacts.phone.href}>{c.contacts.phone.text}</a>
@@ -193,7 +164,7 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
     </div>
   </section>
   <Drawer3 slot="drawer" club="imperial" />
-  <BrandFooter slot="footer" club="imperial" logo={logoWhite} />
+  <BrandFooter slot="footer" club="imperial" logo={logo} />
 </Site>
 
 <script>
