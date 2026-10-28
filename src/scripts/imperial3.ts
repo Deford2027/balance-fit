@@ -104,6 +104,21 @@ if (root) {
   });
   /* Стопка зон: у карточки, на которую наезжает следующая, --cov растёт от 0 до 1 (уменьшение и затемнение) */
   const zoneEls = $$('[data-stack] .x-zone');
+  /* На телефоне карточки зон одной высоты – по самой высокой (кроме последней), но не выше окна */
+  const stackEl = document.querySelector<HTMLElement>('[data-stack]');
+  let fitW = 0;
+  const fitZones = (force = false) => {
+    if (!stackEl || (!force && innerWidth === fitW)) return;
+    fitW = innerWidth;
+    stackEl.style.removeProperty('--zh');
+    if (innerWidth > 860) return;
+    const h = Math.max(...zoneEls.slice(0, -1).map((z) => z.offsetHeight));
+    stackEl.style.setProperty('--zh', `${Math.min(h, innerHeight - 72 - zoneEls.length * 6 - 12)}px`);
+  };
+  fitZones(true);
+  document.fonts?.ready.then(() => fitZones(true));
+  addEventListener('load', () => fitZones(true));
+  addEventListener('resize', () => fitZones());
   let lastY = scrollY;
 
   const clamp = (v: number) => Math.min(Math.max(v, 0), 1);

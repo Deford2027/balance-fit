@@ -114,8 +114,6 @@
 .x-zone__title{font-size:clamp(30px,3.2vw,52px);line-height:1.04;letter-spacing:-.02em;margin:clamp(16px,3vh,40px) 0 6px}
 .x-zone__text .bb-text{font-size:15px;line-height:1.5;color:rgba(255,255,255,.86)}
 .x-zone__text .bb-text li+li{margin-top:4px}
-/* текст карточки, на которую наезжает следующая, гаснет – в просветах его не видно */
-.x-zone__text>*{opacity:clamp(0,calc(1 - var(--cov,0) * 4),1)}
 @media (min-width:861px){
   .x-stack{gap:clamp(40px,6vh,72px)}
   .x-zone{position:sticky;top:calc(96px + var(--i) * 10px);min-height:min(calc(100vh - 140px),660px)}
@@ -188,9 +186,11 @@
   .x-head--row{flex-direction:column;align-items:flex-start}
   /* стопка и на телефоне: карточки одной высоты (фото сверху, текст снизу) наезжают друг на друга */
   .x-stack{gap:24px}
-  .x-zone{position:sticky;top:calc(72px + var(--i) * 6px);grid-template-columns:1fr;grid-template-rows:200px auto}
+  /* высота всех карточек, кроме последней, – по самой высокой (--zh считает imperial3.ts): следующая закрывает предыдущую целиком */
+  .x-zone{position:sticky;top:calc(72px + var(--i) * 6px);height:var(--zh,auto);grid-template-columns:1fr;grid-template-rows:200px minmax(0,1fr)}
+  .x-zone:last-child{height:auto}
   .x-zone__photo{min-height:0}
-  .x-zone__text{padding:20px;gap:8px}
+  .x-zone__text{padding:20px;gap:8px;overflow:auto}
   .x-zone__title{font-size:26px;margin:4px 0 2px}
   .x-zone__text .bb-text{font-size:14px;line-height:1.45}
   .x-cards{grid-template-columns:1fr}
