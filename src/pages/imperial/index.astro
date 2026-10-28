@@ -6,6 +6,7 @@ import Zones from '../../components/Zones.astro';
 import CardsGrid from '../../components/CardsGrid.astro';
 import Guest from '../../components/Guest.astro';
 import Contacts from '../../components/Contacts.astro';
+import BrandFooter from '../../components/BrandFooter.astro';
 import { adv, zones, cards } from '../../data/imperial';
 ---
 <Site
@@ -13,6 +14,7 @@ import { adv, zones, cards } from '../../data/imperial';
   description="Balance Империал оборудован передовым оборудованием для кардио- и силовых тренировок, а также проводит разнообразные групповые занятия под руководством опытных инструкторов. Присоединяйтесь к нам и начните свой путь к здоровью и фитнесу вместе с Balance!"
   club="imperial"
   path="imperial"
+  theme="wh"
 >
   <section class="bla-wrap">
     <div class="bla-hero">
@@ -50,4 +52,5 @@ import { adv, zones, cards } from '../../data/imperial';
   <CardsGrid cards={cards} order={{ text: 'Оформить карту', href: '#popup:myform' }} />
   <Guest />
   <Contacts club="imperial" />
+  <BrandFooter slot="footer" club="imperial" logo="/brand/balance-logo.svg" flat />
 </Site>

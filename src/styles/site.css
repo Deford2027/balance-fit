@@ -16,6 +16,8 @@ html{scroll-padding-top:96px}
 .bla-sec{padding-top:96px}
 .bla-sec--sm{padding-top:56px}
 .bla-h2{color:var(--green);font-size:40px;line-height:1.2}
+/* /imperial: заголовки белые (просил владелец 28.10) – тема wh на .bla */
+.bla.wh :is(.bla-h2,.bla-free__text h2,.bla-modal h2,.bla-phero__text .bla-h1){color:#fff}
 .bla-h3{font-size:28px;line-height:1.25}
 .bla-sub{color:var(--t86);font-size:19px;line-height:1.5;margin-top:12px}
 .bla-card{background:var(--card);border:1px solid var(--line);border-radius:24px}
