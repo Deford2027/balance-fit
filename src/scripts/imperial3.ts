@@ -37,8 +37,8 @@ if (root) {
     wrap(h);
   });
 
-  /* Модули в сетке появляются по очереди */
-  $$('.bb-grid').forEach((g) => $$('[data-rv]', g).forEach((el, i) => el.style.setProperty('--rv', `${Math.min(i, 6) * 90}ms`)));
+  /* Элементы рядов появляются по очереди */
+  $$('.x-stats, .x-adv, .x-cards, .x-split').forEach((g) => $$('[data-rv]', g).forEach((el, i) => el.style.setProperty('--rv', `${Math.min(i, 6) * 90}ms`)));
 
   const count = (el: HTMLElement) => {
     const to = Number(el.dataset.count);
