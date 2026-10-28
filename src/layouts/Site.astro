@@ -28,6 +28,8 @@ const body = await Astro.slots.render('default');
 const foot = Astro.slots.has('footer') ? await Astro.slots.render('footer') : '';
 /* Свои кнопки страницы в шапке (слот head-act) – перед ЛК и программой лояльности */
 const headAct = Astro.slots.has('head-act') ? await Astro.slots.render('head-act') : '';
+/* Своё раскрытое меню страницы (слот drawer) – вместо общего Drawer */
+const drawer = Astro.slots.has('drawer') ? await Astro.slots.render('drawer') : '';
 const ext = (href: string) => /^https?:/.test(href);
 const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noopener' } : {});
 ---
@@ -70,7 +72,7 @@ const linkAttrs = (href: string) => (ext(href) ? { target: '_blank', rel: 'noope
               <button class="bla-burger" type="button" aria-label="Меню" data-burger><span></span><span></span><span></span></button>
             </div>
           </div>
-          <Drawer club={clubId} />
+          {drawer ? <Fragment set:html={rebase(fixLinks(drawer, clubId ?? 'imperial'), base)} /> : <Drawer club={clubId} />}
         </div>
       </header>
 

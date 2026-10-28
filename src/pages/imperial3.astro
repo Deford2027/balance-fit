@@ -6,6 +6,7 @@
 import Site from '../layouts/Site.astro';
 import ClubMap from '../components/ClubMap.astro';
 import BrandFooter from '../components/BrandFooter.astro';
+import Drawer3 from '../components/Drawer3.astro';
 import { adv, zones, cards } from '../data/imperial';
 import { advIcon } from '../data/adv-icons';
 import { clubs, icons } from '../data/clubs';
@@ -201,7 +202,7 @@ const run = ['Бассейн 25 м', 'Life Fitness', 'Hammer Strength', 'Бол�
     </div>
     <div class="bb-m bb-map x-split__media" data-rv="up"><ClubMap club="imperial" /></div>
   </section>
-  <a slot="head-act" class="x-hcta" href="#popup:myform-abr">Хочу в Balance</a>
+  <Drawer3 slot="drawer" club="imperial" />
   <BrandFooter slot="footer" club="imperial" />
 </Site>
 

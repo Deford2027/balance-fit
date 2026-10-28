@@ -1,0 +1,52 @@
+---
+/** Раскрытое меню (бургер) для /imperial3 – одна разметка, три оформления на выбор (?menu=a|b|c, src/styles/menu3.css):
+    A «Крупный список» – на весь экран, крупные ссылки, при наведении фото; B «Модули» – плитки цветов бренда;
+    C «Боковая панель» – графитовая плашка справа поверх затемнённой страницы. Пути корневые – подпапку дописывает Site. */
+import { clubs, icons, type ClubId } from '../data/clubs';
+import { adv, zones } from '../data/imperial';
+import { sparkPath } from '../lib/spark';
+
+const c = clubs[(Astro.props as { club: ClubId }).club];
+const ext = (h: string) => /^https?:/.test(h);
+const attrs = (h: string) => (ext(h) ? { target: '_blank', rel: 'noopener' } : {});
+const pages = [...c.menu, ...(c.subscription ? [c.subscription] : [])];
+const photos = [...zones.map((z) => z.img), ...adv.map((a) => a.img)];
+const tones = ['red', 'blue', 'deep', 'fresh', 'gr', 'green', 'blue', 'red', 'deep', 'fresh', 'blue', 'gr', 'red', 'deep'];
+---
+<div class="bla-drawer d3">
+  <div class="d3__in">
+    <nav class="d3__list" aria-label="Страницы клуба">
+      {pages.map((l, i) => (
+        <a class:list={['d3__link', 'bb-' + tones[i % tones.length]]} href={l.href} {...attrs(l.href)} style={`--k:${i}`}>
+          <span class="d3__n">{String(i + 1).padStart(2, '0')}</span>
+          <span class="d3__t">{l.text}</span>
+          <i class="d3__arr" aria-hidden="true">→</i>
+          <img class="d3__img" src={photos[i % photos.length]} alt="" loading="lazy" />
+        </a>
+      ))}
+    </nav>
+    <aside class="d3__side">
+      <div class="d3__photo"><img src={c.photo} alt={c.name} loading="lazy" /></div>
+      <div class="d3__card">
+        <svg class="d3__spark" viewBox="0 0 1000 1012" aria-hidden="true" set:html={sparkPath} />
+        <span class="d3__k">{c.name}</span>
+        <a class="d3__phone" href={c.headerPhone.href}>{c.headerPhone.text}</a>
+        <span class="d3__muted">{c.contacts.address}<br />{c.contacts.hours.map(([d, t]) => `${d} ${t}`).join(' · ')}</span>
+        <div class="d3__btns">
+          <a class="bb-btn" href="#popup:myform-abr">Хочу в Balance</a>
+          <a class="bb-btn bb-btn--line" href={c.callback}>Заказать звонок</a>
+        </div>
+        <div class="d3__extra">
+          <a href="/">Выбор клуба</a>
+          <a href="#popup:infoblock">Программа лояльности</a>
+        </div>
+        <div class="bla-soc d3__soc">
+          <a href={c.social.vk} target="_blank" rel="noopener"><img src={icons.vk} alt="VK" /></a>
+          <a href={c.social.max} target="_blank" rel="noopener"><img src={icons.max} alt="MAX" /></a>
+          <a href={c.social.tg} target="_blank" rel="noopener"><img src={icons.tg} alt="Telegram" /></a>
+          <a href={c.social.wa} target="_blank" rel="noopener"><img src={icons.wa} alt="WhatsApp" /></a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
