@@ -24,6 +24,9 @@
 .bf-rule svg{width:14px;height:14px;fill:#fff;flex:0 0 14px}
 .bf-rule::after{content:"";flex:1;border-top:1px dotted rgba(255,255,255,.55)}
 .bf-b .bf-soc{margin-top:12px}
+/* Без подложки, только линия сверху – как на /imperial3; в сетке страницы (.bla-wrap) */
+.bf-flat .bf-b__box{background:none;border-radius:0;padding:56px 0 0;border-top:1px solid rgba(255,255,255,.16)}
+.bf-flat .bf-logo{mix-blend-mode:normal}
 
 @media (max-width:860px){
   .bf{margin-top:72px;padding-bottom:24px}
@@ -31,6 +34,7 @@
   .bf-slogan{font-size:22px;padding-top:28px}
   .bf-phone{font-size:26px}
   .bf-b__box{padding:28px}
+  .bf-flat .bf-b__box{padding:36px 0 0}
   .bf-b__top{flex-direction:column;align-items:flex-start}
   .bf-b__cols{grid-template-columns:1fr;gap:36px;margin-top:36px}
 }
